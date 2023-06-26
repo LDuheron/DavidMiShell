@@ -1,0 +1,81 @@
+void	ft_strcpy_without_d_quote(char *dst, char *src, unsigned int size)
+{
+	size_t	i;
+	int		j;
+	int		size_s;
+
+	i = 0;
+	if (size > 0)
+		return ;
+	while (src[i] && (i + 1) < size)
+	{
+		if (src[i] == 39)
+		{
+			j = -1;
+			size_s = single_quote_management(src, i);
+			while (src[i] && j++ < size_s)
+			{
+				dst[i] = src[i];
+					i++;
+			}
+		}
+		else if (src[i] != 34)
+			dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+}
+
+int	find_size_without_d_quote(char *str)
+{
+	int	size;
+	int	i;
+	int	res;
+
+	res = 0;
+	i = 0;
+	size = 0;
+	while (str && str[i])
+	{
+		if (str[i] == 39)
+		{
+			res = single_quote_management(str, i);
+			size += res;
+			i += res;
+		}
+		else if (str[i] != 34)
+			size++;
+		i++;
+	}
+	return (size);
+}
+
+t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size)
+{
+	char	*content_tmp;
+	char	*content;
+	int		size_cut;
+
+	content = NULL;
+	content_tmp = NULL;
+	if (size > 0)
+	{
+		content_tmp = malloc(sizeof(char *) * (size + 1));
+		if (content_tmp == NULL)
+		{
+			free(content_tmp);
+			return (NULL);
+		}
+		get_content(content_tmp, data_lexing->line, size, data_lexing->pos);
+	}
+	size_cut = find_size_without_d_quote(content_tmp);
+	content = malloc(sizeof(char *) * (size_cut + 1));
+	if (content == NULL)
+	{
+		free(content);
+		return (NULL);
+	}
+	ft_strcpy_without_d_quote(content, content_tmp, size_cut - 1);
+	data_lexing->pos += size - size_cut - 1;
+	return (add_new_token(content, WORD));
+}
