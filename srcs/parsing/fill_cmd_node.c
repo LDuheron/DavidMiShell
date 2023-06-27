@@ -6,13 +6,11 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:24:21 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 18:18:10 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:02:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// FILL_ARG :
 
 int	fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i)
 {

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 19:11:46 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:05:18 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new)
 }
 
 // EAT_TOKEN : This function free the token after we worked on it
-// and set the pointer to the next token
+// and set the pointer to the next token.
 
 void	eat_token(t_tokens **tokens)
 {
@@ -59,10 +59,12 @@ int	nb_dollar(char *str)
 	return (cpt);
 }
 
-// IS_SUBSTITUTABLE : This function returns -2 if the string doesn't contain
-// any dollar, -1, if there is a dollar that doesn't need to be substitute as
-// it is in quotes.Else, it returns the len of characters to substitute behind
-// the dollar sign.
+// IS_SUBSTITUTABLE: This function returns :
+// -2 if the string doesn't contain any dollar sign ($).
+// -1 if there is a dollar sign that doesn't need to be 
+// substituted as it is within quotes.
+// Otherwise, it returns the length of the characters to
+// be substituted following the dollar sign.
 
 int	is_substitutable(char *str, int i_dollar)
 {

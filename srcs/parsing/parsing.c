@@ -6,11 +6,15 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 15:11:58 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:00:04 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// PARSE_COMMAND: This function allocates memory for a command node,
+// dispatches the tokens to the appropriate arrays (arguments or 
+// redirection), and adds the new node to the list.
 
 int	parse_command(t_cmd_lst **cmd_lst, t_tokens **token)
 {
@@ -47,6 +51,9 @@ int	parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token)
 	ft_lstadd_back_cmd_lst_node(cmd_lst, tmp);
 	return (SUCCESS);
 }
+
+// PARSING: This function stores the token in the appropriate node. Tokens
+// are stored in the same command node until a pipe token is encountered.
 
 int	parsing(t_cmd_lst **cmd_lst, t_tokens **token)
 {
