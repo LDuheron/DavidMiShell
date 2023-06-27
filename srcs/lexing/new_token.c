@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 12:42:40 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:47:12 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char	*adjust_content(t_data_lexing *data_lexing, char *content, int size)
 {
 	int		nb_subst;
 
+	if (!content)
+		return (NULL);
 	content = single_dollar_trimming(content);
 	nb_subst = nb_dollar(content);
 	data_lexing->d_tab_tmp = malloc(sizeof (int) * (nb_subst + 1));
