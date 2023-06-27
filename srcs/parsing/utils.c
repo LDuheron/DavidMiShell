@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 13:05:18 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:06:35 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	nb_dollar(char *str)
 // substituted as it is within quotes.
 // Otherwise, it returns the length of the characters to
 // be substituted following the dollar sign.
+// It also manages the special case $?.
 
 int	is_substitutable(char *str, int i_dollar)
 {
