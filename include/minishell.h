@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 19:19:43 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:18:15 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ int			check_syntax(t_tokens **tokens);
 int			get_content(char *dst, char *src, unsigned int size,
 				unsigned int start);
 void		init_data_lexing_structure(t_data_lexing *data_lexing, char *argv);
+int			is_not_interpreted_dollar(char *str, int pos_dollar);
 int			is_redirection(t_data_lexing *data_lexing);
 
 //////////////////////////////////////////////////////////////////
