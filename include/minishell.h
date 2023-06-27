@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 19:19:43 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:52:44 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 // In or out quote.
 
@@ -48,15 +49,15 @@ enum e_type_exec
 
 enum e_type_token
 {
-	N_DEF,
-	WORD,
-	PIPE,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
-	SIMPLE_IN,
-	SIMPLE_OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT
+	N_DEF,			// 0
+	WORD,			// 1
+	PIPE,			// 2
+	SINGLE_QUOTE,	// 3
+	DOUBLE_QUOTE,	// 4
+	SIMPLE_IN,		// 5
+	SIMPLE_OUT,		// 6
+	DOUBLE_IN,		// 7
+	DOUBLE_OUT		// 8
 } ;
 
 //////////////////////////////////////////////////////////////////
@@ -279,5 +280,8 @@ int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
 char		*adjust_content(t_data_lexing *data_lexing,
 				char *content, int size);
 char		*single_dollar_trimming(char *buffer);
+
+/* signal_handler.c */
+void	sigint_handler(int sig);
 
 #endif

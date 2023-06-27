@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 17:57:34 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:58:35 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	prompt(char **env)
 			if (cmd_lst)
 				print_cmd_lst(&cmd_lst);
 		}
+		else
+			break ;
 		if (buffer && *buffer)
 			add_history(buffer);
 	}
@@ -85,7 +87,12 @@ int	main(int argc, char **argv, char **env)
 	if (argc != 1)
 		return (0);
 	(void)argv;
+	signal(SIGINT, &sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+
 	prompt(env);
+	
+	printf("exit\n");
 	return (0);
 }
 
