@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 12:17:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:47:29 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	is_redirection(t_data_lexing *data_lexing)
 	int		type;
 
 	string = malloc(sizeof(char) * 3);
+	if (!string)
+		return (ERROR_MALLOC);
 	string[0] = (*data_lexing).line[(*data_lexing).pos];
 	if ((*data_lexing).line[(*data_lexing).pos + 1])
 		string[1] = (*data_lexing).line[(*data_lexing).pos + 1];
@@ -99,4 +101,19 @@ int	is_not_interpreted_dollar(char *str, int pos_dollar)
 	if (flag == IN)
 		return (1);
 	return (OUT);
+}
+
+void	ft_lstadd_back_tokens(t_tokens **lst, t_tokens *new)
+{
+	t_tokens	*tmp;
+
+	tmp = *lst;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:02:45 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/23 16:16:38 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:41:28 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	free (s1);
 	return (join);
 }
+
+
+// join pas protege

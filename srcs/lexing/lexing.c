@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 11:49:27 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:47:08 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	lexing(t_tokens **token, char *buffer)
 		if (tmp_token == 0)
 			return (free_data_lexing(&data_lexing));
 		len = tmp_token->len;
-		ft_lstadd_back(token, tmp_token);
+		ft_lstadd_back_tokens(token, tmp_token);
 		data_lexing.pos += len;
 	}
 	free(data_lexing.line);
