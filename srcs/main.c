@@ -6,12 +6,12 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/28 12:28:42 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:32:34 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// || flag != SUCCESS
+
 void	prompt(char **env)
 {
 	t_tokens	*token;
@@ -43,21 +43,19 @@ void	prompt(char **env)
 			break ;
 		if (buffer && *buffer)
 			add_history(buffer);
-		free_cmd_lst(&cmd_lst);
 	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	t_tokens	*token;
-	t_cmd_lst	*cmd_lst;
-
-	cmd_lst = NULL;
-	token = NULL;
-	(void)env;
 	if (argc != 1)
 		return (0);
 	(void)argv;
+	signal(SIGINT, &sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+
 	prompt(env);
+	// add free function
+	printf("exit\n");
 	return (0);
 }
