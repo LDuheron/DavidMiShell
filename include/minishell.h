@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 15:59:40 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:24:53 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 // In or out quote.
 
@@ -48,15 +49,15 @@ enum e_type_exec
 
 enum e_type_token
 {
-	N_DEF,
-	WORD,
-	PIPE,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
-	SIMPLE_IN,
-	SIMPLE_OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT
+	N_DEF,			// 0
+	WORD,			// 1
+	PIPE,			// 2
+	SINGLE_QUOTE,	// 3
+	DOUBLE_QUOTE,	// 4
+	SIMPLE_IN,		// 5
+	SIMPLE_OUT,		// 6
+	DOUBLE_IN,		// 7
+	DOUBLE_OUT		// 8
 } ;
 
 //////////////////////////////////////////////////////////////////
@@ -274,5 +275,17 @@ int			is_space(char c);
 char		*ft_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strlen(char *str);
+
+// List_utils.c
+void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
+t_tokens	*ft_lstnew(char *content);
+
+int			prepare_substitution(char *content, t_data_lexing **data_lexing);
+t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type);
+int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
+int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
+char		*adjust_content(t_data_lexing *data_lexing,
+				char *content, int size);
+char		*single_dollar_trimming(char *buffer);
 
 #endif
