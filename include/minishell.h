@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 19:08:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:28:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 // In or out quote.
 
@@ -48,15 +49,15 @@ enum e_type_exec
 
 enum e_type_token
 {
-	N_DEF,
-	WORD,
-	PIPE,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
-	SIMPLE_IN,
-	SIMPLE_OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT
+	N_DEF,			// 0
+	WORD,			// 1
+	PIPE,			// 2
+	SINGLE_QUOTE,	// 3
+	DOUBLE_QUOTE,	// 4
+	SIMPLE_IN,		// 5
+	SIMPLE_OUT,		// 6
+	DOUBLE_IN,		// 7
+	DOUBLE_OUT		// 8
 } ;
 
 //////////////////////////////////////////////////////////////////
@@ -101,17 +102,12 @@ struct s_tokens {
 typedef struct s_cmd_node					t_cmd_node;
 typedef struct s_cmd_lst					t_cmd_lst;
 
-
-// -2 $
-// -1 '$'
-// n = lenght of the substitution
-
 struct s_cmd_node {
 	char	**argument;
 	int		**arg_subst;
 	char	**redir;
-	int		*redir_type; // SIMPLE IN || SIMPLE OUT || DOUBLE IN || DOUBLE OUT
-	int		**redir_sub; // CODE FOR SUBSTITUTION $
+	int		*redir_type;
+	int		**redir_sub;
 };
 
 struct s_cmd_lst {
@@ -161,12 +157,8 @@ void		print_cmd_lst(t_cmd_lst **cmd_lst);
 t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size);
 t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size);
 void		quotes_trimming(char *buffer);
-char		*single_dollar_trimming(char *buffer);
 
 // New_token.c
-t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type);
-char		*adjust_content(t_data_lexing *data_lexing, char *content, int size);
-int			prepare_substitution(char *content, t_data_lexing **data_lexing);
 t_tokens	*new_token_pipe(void);
 t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size);
 
@@ -199,11 +191,8 @@ int			check_syntax(t_tokens **tokens);
 // Utils.c
 int			get_content(char *dst, char *src, unsigned int size,
 				unsigned int start);
-void		ft_lstadd_back_tokens(t_tokens **lst, t_tokens *new);
 void		init_data_lexing_structure(t_data_lexing *data_lexing, char *argv);
-int			is_not_interpreted_dollar(char *str, int pos_dollar);
 int			is_redirection(t_data_lexing *data_lexing);
-
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -224,8 +213,9 @@ int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
 int			init_cmd_node(t_tokens **token, t_cmd_lst *cmd_lst);
 
 // Get_arg.c
-int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
-int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
+// int			fill_arg(t_cmd_node *cmd_node, char *content, int i);
+// int			fill_redirection(t_cmd_node *cmd_node, char *content,
+				// int type, int i);
 int			fill_cmd_node(t_tokens **token, t_cmd_node *cmd);
 void		set_last_c_null(t_cmd_node *cmd_node, int i_arg, int i_redir);
 
@@ -235,10 +225,10 @@ int			parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token);
 int			parsing(t_cmd_lst **cmd_lst, t_tokens **token);
 
 // Utils.c
+void		ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new);
 void		eat_token(t_tokens **tokens);
 int			nb_dollar(char *str);
 int			is_substitutable(char *str, int i_dollar);
-void		ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -279,7 +269,19 @@ char		*ft_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strlen(char *str);
 
-void		free_cmd_node(t_cmd_node *cmd_node);
-void	free_cmd_lst(t_cmd_lst **cmd_lst);
+// List_utils.c
+void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
+t_tokens	*ft_lstnew(char *content);
+
+int			prepare_substitution(char *content, t_data_lexing **data_lexing);
+t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type);
+int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
+int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
+char		*adjust_content(t_data_lexing *data_lexing,
+				char *content, int size);
+char		*single_dollar_trimming(char *buffer);
+
+/* signal_handler.c */
+void	sigint_handler(int sig);
 
 #endif
