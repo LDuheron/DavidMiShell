@@ -6,13 +6,13 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 15:47:29 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:18:11 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// GET_CONTENT :  This function copies "size" characters from the source "src"
+// GET_CONTENT : This function copies "size" characters from the source "src"
 // to the destination "dst", starting from the position indicated by "start".
 
 int	get_content(char *dst, char *src, unsigned int size, unsigned int start)

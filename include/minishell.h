@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 15:59:40 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:08:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,17 @@ struct s_tokens {
 typedef struct s_cmd_node					t_cmd_node;
 typedef struct s_cmd_lst					t_cmd_lst;
 
+
+// -2 $
+// -1 '$'
+// n = lenght of the substitution
+
 struct s_cmd_node {
 	char	**argument;
 	int		**arg_subst;
 	char	**redir;
-	int		*redir_type;
-	int		**redir_sub;
+	int		*redir_type; // SIMPLE IN || SIMPLE OUT || DOUBLE IN || DOUBLE OUT
+	int		**redir_sub; // CODE FOR SUBSTITUTION $
 };
 
 struct s_cmd_lst {
@@ -219,7 +224,6 @@ int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
 int			init_cmd_node(t_tokens **token, t_cmd_lst *cmd_lst);
 
 // Get_arg.c
-
 int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
 int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
 int			fill_cmd_node(t_tokens **token, t_cmd_node *cmd);
@@ -274,5 +278,8 @@ int			is_space(char c);
 char		*ft_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strlen(char *str);
+
+void		free_cmd_node(t_cmd_node *cmd_node);
+void	free_cmd_lst(t_cmd_lst **cmd_lst);
 
 #endif

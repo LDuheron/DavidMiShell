@@ -6,14 +6,14 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 11:51:54 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:20:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// LEXING_*.c : These functions each find the appropriate size of the
-// content and return the corresponding tokens.
+// LEXING_*.c : These functions each find the appropriate
+// size of the content and return the corresponding tokens.
 
 t_tokens	*lexing_double_quote(t_data_lexing *data_lexing)
 {
