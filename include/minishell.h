@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 19:52:44 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/06/29 17:26:44 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERROR_SYNTAX -2
 # define ERROR 0
 # define SUCCESS 1
+# define BUFFER 2048
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -129,6 +130,15 @@ typedef struct s_expand
 	int			i;
 	int			j;
 }		t_expand;
+
+typedef struct s_data
+{
+	// pointer to original envp 
+	char		**env;
+	// allocated memory, holds copy of envp, need to be freed
+	char		**m_envp;
+	t_cmd_lst	*nodes;
+}	t_data;
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -283,5 +293,18 @@ char		*single_dollar_trimming(char *buffer);
 
 /* signal_handler.c */
 void	sigint_handler(int sig);
+
+//////////////////////////////////////////////////////////////////
+//																//
+//                 	  	IN FREE UTILS DIR   	                //
+//																//
+//////////////////////////////////////////////////////////////////
+
+/* ft_free.c */
+void	free_tab(char **str);
+
+/* initialization.c */
+void	init_data(t_data *data, char **env);
+
 
 #endif

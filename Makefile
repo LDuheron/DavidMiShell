@@ -17,6 +17,8 @@ SRCS        := 											\
 	utils/cmd_lst_utils/is_something_2.c				\
 	utils/cmd_lst_utils/libft_utils.c					\
 	utils/cmd_lst_utils/list_utils.c					\
+	utils/free/ft_free.c								\
+	utils/initialization/initialization.c						\
 	lexing/syntax.c										\
 	lexing/lexing_type.c     							\
 	lexing/lexing.c    									\
@@ -29,7 +31,7 @@ SRCS        := 											\
 	parsing/init_cmd_node.c								\
 	parsing/parsing.c									\
 	parsing/utils.c										\
-	signals/signal_handler.c										\
+	signals/signal_handler.c							\
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

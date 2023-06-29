@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 19:58:35 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:58:02 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,19 @@ void	prompt(char **env)
 
 int	main(int argc, char **argv, char **env)
 {
+	t_data	data;
+	(void)argv;
+	
 	if (argc != 1)
 		return (0);
-	(void)argv;
+	init_data(&data, env);
+
 	signal(SIGINT, &sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 
 	prompt(env);
 	
+	free_tab(data.m_envp);
 	printf("exit\n");
 	return (0);
 }
