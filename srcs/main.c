@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/28 12:32:34 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:12:03 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	signal(SIGINT, &sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-
 	prompt(env);
 	// add free function
 	printf("exit\n");

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 18:40:47 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:34:47 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	*adjust_content(t_data_lexing *data_lexing, char *content, int size)
 	if (!content)
 		return (NULL);
 	content = single_dollar_trimming(content);
+	printf("2. CONTENT apres single dollar trimming : %s\n", content);
 	nb_subst = nb_dollar(content);
 	data_lexing->d_tab_tmp = malloc(sizeof (int) * (nb_subst + 1));
 	if (!data_lexing->d_tab_tmp)
@@ -99,7 +100,9 @@ char	*adjust_content(t_data_lexing *data_lexing, char *content, int size)
 		return (NULL);
 	}
 	prepare_substitution(content, &data_lexing);
+	printf("2.B CONTENT apres prepare substitution : %s\n", content);
 	quotes_trimming(content);
+	printf("3. CONTENT apres quote trimming : %s\n", content);
 	data_lexing->pos += (size - ft_strlen(content));
 	return (content);
 }

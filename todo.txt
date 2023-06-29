@@ -1,0 +1,6 @@
+# DavidFinshell: test <<h"e"redoc $USER
+
+
+"'"
+
+free node

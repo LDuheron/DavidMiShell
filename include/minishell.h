@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/28 12:41:21 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:15:17 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,10 +274,12 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strlen(char *str);
 
 // List_utils.c
-void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
+void		ft_lstadd_back_tokens(t_tokens **lst, t_tokens *new);
 t_tokens	*ft_lstnew(char *content);
 
 /* signal_handler.c */
 void		sigint_handler(int sig);
+int	is_not_interpreted_dollar(char *str, int pos_dollar);
+
 
 #endif

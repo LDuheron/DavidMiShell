@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 18:24:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:38:53 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,9 @@ char	*single_dollar_trimming(char *buffer)
 	{
 		if (buffer[i] == '$' && buffer[i + 1])
 		{
-			if (is_double_quote(buffer[i + 1]))
+			if (is_double_quote(buffer[i + 1])
+				|| is_single_quote(buffer[i + 1]))
 			{
-				j = i;
-				while (buffer[j])
-				{
-					buffer[j] = buffer[j + 1];
-					j++;
-				}
-				buffer[j] = 0;
-				while (buffer[i] && is_double_quote(buffer[i]) == 0)
-					i++;
-				j = i;
-				while (buffer[j])
-				{
-					buffer[j] = buffer[j + 1];
-					j++;
-				}
-				buffer[j] = 0;
-			}
-			else if (is_single_quote(buffer[i + 1]))
-			{
-				j = i;
-				while (buffer[j])
-				{
-					buffer[j] = buffer[j + 1];
-					j++;
-				}
-				buffer[j] = 0;
-				while (buffer[i] && is_single_quote(buffer[i]) == 0)
-					i++;
 				j = i;
 				while (buffer[j])
 				{
@@ -135,8 +108,10 @@ t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size)
 			return (NULL);
 		}
 		get_content(content, data_lexing->line, size, data_lexing->pos);
+		printf("1. OG CONTENT : %s\n", content);
 	}
 	content = adjust_content(data_lexing, content, size);
+	printf("4. CONTENT APRES AJUSTEMENT: %s\n", content);
 	return (add_new_token(data_lexing, content, WORD));
 }
 
