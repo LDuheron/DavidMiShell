@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/28 15:15:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:08:52 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@ t_tokens	*ft_lstnew(char *content);
 
 /* signal_handler.c */
 void		sigint_handler(int sig);
-int	is_not_interpreted_dollar(char *str, int pos_dollar);
+int			is_not_interpreted_dollar(char *str, int pos_dollar);
 
 
 #endif

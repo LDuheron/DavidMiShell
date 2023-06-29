@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:01:16 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 19:15:26 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:09:52 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,17 @@
 // 	}
 // }
 
-// // void	free_ecmd_lst(t_cmd_lst **cmd_lst)
-// {
-// 	t_cmd_lst	*tmp;
-// 	int			i;
 
-// 	tmp = *cmd_lst;
-// 	i = 0;
-// 	while (tmp)
-// 	{
-// 		if (tmp->type == CMD_NODE)
-// 			free_cmd_node(tmp->cmd_node);
-// 		if (!tmp->next)
-// 			break ;
-// 		i++;
-// 		tmp = tmp->next;
-// 	}
+
+// void	eat_token(t_tokens **tokens)
+// {
+// 	t_tokens	*tmp;
+
+// 	tmp = NULL;
+// 	tmp = *tokens;
+// 	if (!tmp)
+// 		return ;
+// 	if (tokens)
+// 		*tokens = (*tokens)->next;
+// 	free(tmp);
 // }

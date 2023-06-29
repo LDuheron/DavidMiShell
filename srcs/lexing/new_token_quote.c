@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/29 11:38:53 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:19:03 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ char	*single_dollar_trimming(char *buffer)
 				}
 				buffer[j] = 0;
 			}
-			else
-				i++;
 		}
 		else
 			i++;
@@ -108,10 +106,8 @@ t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size)
 			return (NULL);
 		}
 		get_content(content, data_lexing->line, size, data_lexing->pos);
-		printf("1. OG CONTENT : %s\n", content);
 	}
 	content = adjust_content(data_lexing, content, size);
-	printf("4. CONTENT APRES AJUSTEMENT: %s\n", content);
 	return (add_new_token(data_lexing, content, WORD));
 }
 

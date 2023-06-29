@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 18:18:11 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:48:08 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	is_redirection(t_data_lexing *data_lexing)
 	string = malloc(sizeof(char) * 3);
 	if (!string)
 		return (ERROR_MALLOC);
-	string[0] = (*data_lexing).line[(*data_lexing).pos];
+	if ((*data_lexing).line[(*data_lexing).pos ])
+		string[0] = (*data_lexing).line[(*data_lexing).pos];
+	else
+		string[0] = '\0';
 	if ((*data_lexing).line[(*data_lexing).pos + 1])
 		string[1] = (*data_lexing).line[(*data_lexing).pos + 1];
 	else

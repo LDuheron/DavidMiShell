@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 13:06:35 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:44:45 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	nb_dollar(char *str)
 
 	cpt = 0;
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		cpt += is_dollar(str[i]);
 		i++;
