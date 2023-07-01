@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:58:52 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 14:24:50 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:11:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	is_quote(char c)
 	return (c == 34 || c == 39);
 }
 
-// DOUBLE_QUOTE_MANAGEMENT : Starting from an opening double quote, 
-// searches for the closing single quote and return 
-// the size of the buffer to parse.
+// DOUBLE_QUOTE_MANAGEMENT: Starting in the line from an opening
+// double quote, this function searches for the corresponding
+// closing double quote and returns the size of the buffer to parse.
 
 int	double_quote_management(char *line, int start)
 {
@@ -50,9 +50,9 @@ int	double_quote_management(char *line, int start)
 	return (size + 1);
 }
 
-// SINGLE_QUOTE_MANAGEMENT : Starting from an opening single quote, 
-// searches for the closing single quote and return 
-// the size of the buffer to parse.
+// SINGLE_QUOTE_MANAGEMENT: Starting in the line from an opening
+// single quote, this function searches for the corresponding
+// closing single quote and returns the size of the buffer to parse.
 
 int	single_quote_management(char *line, int start)
 {

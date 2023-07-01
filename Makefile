@@ -16,7 +16,6 @@ SRCS        := 											\
 	utils/cmd_lst_utils/is_something.c					\
 	utils/cmd_lst_utils/is_something_2.c				\
 	utils/cmd_lst_utils/libft_utils.c					\
-	utils/cmd_lst_utils/list_utils.c					\
 	utils/free/ft_free.c								\
 	utils/initialization/initialization.c						\
 	lexing/syntax.c										\

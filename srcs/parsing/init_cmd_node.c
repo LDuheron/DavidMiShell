@@ -12,6 +12,9 @@
 
 #include "minishell.h"
 
+// SET_CMD_NODE_TO_NULL : This function initializes all the elements
+// of a command node to NULL.
+
 void	set_cmd_node_to_null(t_cmd_node *cmd_node)
 {
 	cmd_node->argument = NULL;

@@ -6,46 +6,27 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/29 16:58:02 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:27:45 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char *read_line(char *buffer)
-// {
-// 	if (!line)
-// 		break ;
-// 	buffer = readline("DavidFinshell: ");
-// 	if (buffer && *buffer)
-// 			add_history(buffer);
-// 	return ()
-// }
-
-// void	prompt(char **env)
+// MAIN WITHOUT READLINE
+// int	main_2(int argc, char **argv, char **env)
 // {
 // 	t_tokens	*token;
 // 	t_cmd_lst	*cmd_lst;
-// 	char		*buffer;
-// 	int			err;
 
 // 	(void)env;
 // 	token = NULL;
 // 	cmd_lst = NULL;
-// 	err = 0;
-// 	while (!err)
-// 	{
-// 		if (!buffer)
-// 			break ;
-// 		lexing(&token, buffer);
-// 		// ft_print_lst_token(token);
-// 		check_syntax(&token);
-// 		parsing(&cmd_lst, &token);
-// 		print_cmd_lst(&cmd_lst);
-// 		if (buffer && *buffer)
-// 			add_history(buffer);
-// 		free(buffer);
-// 	}
+// 	if (argc != 2)
+// 		return (0);
+// 	if (lexing(&token, argv[1]) == SUCCESS)
+// 		if (check_syntax(&token) == SUCCESS)
+// 			parsing(&cmd_lst, &token);
+// 	return (0);
 // }
 
 void	prompt(char **env)
@@ -74,6 +55,8 @@ void	prompt(char **env)
 					parsing(&cmd_lst, &token);
 			if (cmd_lst)
 				print_cmd_lst(&cmd_lst);
+			list_destroy(cmd_lst);
+			cmd_lst = NULL;
 		}
 		else
 			break ;
@@ -93,34 +76,8 @@ int	main(int argc, char **argv, char **env)
 
 	signal(SIGINT, &sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-
 	prompt(env);
-	
 	free_tab(data.m_envp);
 	printf("exit\n");
 	return (0);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	t_tokens	*token;
-// 	t_cmd_lst	*cmd_lst;
-// 	int			flag;
-
-// 	if (argc != 2)
-// 		return (0);
-// 	token = NULL;
-// 	cmd_lst = NULL;
-// 	lexing(&token, argv[1]);
-// 	// ft_print_lst_token(token);
-// 	check_syntax(&token);
-// 	flag = parsing(&cmd_lst, &token);
-// 	printf("flag : %i\n", flag);
-// 	// print_cmd_lst(&cmd_lst);
-// 	return (0);
-// }
-
-// free_cmd_lst(&cmd_lst);
-// free(cmd_lst);
-// dollar entre simple quote = pas de subst sauf si
-//  simple quote dans double quote.

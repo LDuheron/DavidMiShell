@@ -6,14 +6,14 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 17:44:29 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:21:14 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// GET_CONTENT : This function copies "size" characters from src
-// to dst from the position "start".
+// GET_CONTENT : This function copies "size" characters from the source "src"
+// to the destination "dst", starting from the position indicated by "start".
 
 int	get_content(char *dst, char *src, unsigned int size, unsigned int start)
 {
@@ -44,32 +44,74 @@ void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 	data_lexing->pos = 0;
 }
 
-// IS_REDIRECTION : This functions returns 0 if the given string 
-// contains a redirection, else, it returns the corresponding 
-// enum_type_token code.
+// IS_REDIRECTION: This function returns the corresponding enum_type_token
+// code if the given string is a redirection, which can be <, <<, >>, or >>.
+// If the string is not a redirection, it returns 0.
 
 int	is_redirection(t_data_lexing *data_lexing)
 {
-	char	*string;
-	int		type;
+	int	type;
 
-	string = malloc(sizeof(char) * 3);
-	string[0] = (*data_lexing).line[(*data_lexing).pos];
-	if ((*data_lexing).line[(*data_lexing).pos + 1])
-		string[1] = (*data_lexing).line[(*data_lexing).pos + 1];
-	else
-		string[1] = '\0';
-	string[2] = '\0';
-	if (ft_strncmp(string, "<<", 2) == 0)
-		type = DOUBLE_IN;
-	else if (ft_strncmp(string, ">>", 2) == 0)
-		type = DOUBLE_OUT;
-	else if (ft_strncmp(string, "<", 1) == 0)
-		type = SIMPLE_IN;
-	else if (ft_strncmp(string, ">", 1) == 0)
-		type = SIMPLE_OUT;
-	else
-		type = N_DEF;
-	free (string);
+	type = N_DEF;
+	if (data_lexing->line && data_lexing->line[data_lexing->pos])
+	{
+		if (data_lexing->line[data_lexing->pos] == '<')
+		{
+			type = SIMPLE_IN;
+			if (data_lexing->line[data_lexing->pos + 1] == '<')
+				type = DOUBLE_IN;
+		}
+		else if (data_lexing->line[data_lexing->pos] == '>')
+		{
+			type = SIMPLE_OUT;
+			if (data_lexing->line[data_lexing->pos + 1]
+				&& data_lexing->line[data_lexing->pos + 1] == '>')
+				type = DOUBLE_OUT;
+		}
+		else
+			type = N_DEF;
+	}
 	return (type);
+}
+
+// IS_NOT_INTERPRETED_DOLLAR: This function searches if the given dollar
+// sign ($) is between single quotes, indicating that it is not to be
+// interpreted.
+
+int	is_not_interpreted_dollar(char *str, int pos_dollar)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = OUT;
+	while (str[i] && i < pos_dollar)
+	{
+		if (is_single_quote(str[i]))
+		{
+			if (flag == IN)
+				flag = OUT;
+			else
+				flag = IN;
+		}
+		i++;
+	}
+	if (flag == IN)
+		return (1);
+	return (OUT);
+}
+
+void	ft_lstadd_back_tokens(t_tokens **lst, t_tokens *new)
+{
+	t_tokens	*tmp;
+
+	tmp = *lst;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
 }

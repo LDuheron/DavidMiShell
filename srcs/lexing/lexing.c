@@ -6,14 +6,14 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/23 20:46:44 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:15:50 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// WHICH NEW TOKEN : This function creates a token depending on the type
-// of the input.
+// WHICH NEW TOKEN : This function redirects the given input to the appropriate
+// lexing function to create a token. It returns 0 in case of an error.
 
 t_tokens	*which_new_token(t_data_lexing *data_lexing)
 {
@@ -42,14 +42,17 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 	return (0);
 }
 
-// FIND TYPE : Returns the type of the input.
+// FIND TYPE : This function identifies and returns the type of the given input.
+// In case of an error, it returns N_DEF.
 
 int	find_type(t_data_lexing **data_lexing)
 {
 	int	type;
 
 	type = N_DEF;
-	if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
+	if (is_dollar((*data_lexing)->line[(*data_lexing)->pos]) == 1)
+		type = WORD;
+	else if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
 		type = PIPE;
 	else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
 		type = SINGLE_QUOTE;
@@ -62,8 +65,9 @@ int	find_type(t_data_lexing **data_lexing)
 	return (type);
 }
 
-// LEXING FUNCTION : This function parses the line in tokens
-// and store them in a linked list.
+// LEXING FUNCTION : This function takes a string as input and efficiently
+// breaks it down into tokens. These tokens are then stored in a specialized
+// linked list for further processing.
 
 int	lexing(t_tokens **token, char *buffer)
 {
@@ -83,9 +87,9 @@ int	lexing(t_tokens **token, char *buffer)
 			data_lexing.pos++;
 		tmp_token = which_new_token(&data_lexing);
 		if (tmp_token == 0)
-			return (free_data_lexing(&data_lexing));
+			return (error_malloc(&data_lexing));
 		len = tmp_token->len;
-		ft_lstadd_back(token, tmp_token);
+		ft_lstadd_back_tokens(token, tmp_token);
 		data_lexing.pos += len;
 	}
 	free(data_lexing.line);

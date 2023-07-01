@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/29 17:26:44 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:30:45 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,24 @@ enum e_type_exec
 {
 	CMD_NODE,
 	PIPE_NODE
-} ;
+};
 
 enum e_type_token
 {
+	N_DEF,
+	WORD,
+	PIPE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+	SIMPLE_IN,
+	SIMPLE_OUT,
+	DOUBLE_IN,
+	DOUBLE_OUT
+};
+
+/*
+CODE (Moving it here or the norm)
+
 	N_DEF,			// 0
 	WORD,			// 1
 	PIPE,			// 2
@@ -59,7 +73,7 @@ enum e_type_token
 	SIMPLE_OUT,		// 6
 	DOUBLE_IN,		// 7
 	DOUBLE_OUT		// 8
-} ;
+*/
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -167,10 +181,15 @@ void		print_cmd_lst(t_cmd_lst **cmd_lst);
 t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size);
 t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size);
 void		quotes_trimming(char *buffer);
+char		*single_dollar_trimming(char *buffer);
 
 // New_token.c
 t_tokens	*new_token_pipe(void);
 t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size);
+int			prepare_substitution(char *content, t_data_lexing **data_lexing);
+t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type);
+char		*adjust_content(t_data_lexing *data_lexing,
+				char *content, int size);
 
 // Lexing_type.c
 t_tokens	*lexing_double_quote(t_data_lexing *data_lexing);
@@ -211,10 +230,8 @@ int			is_redirection(t_data_lexing *data_lexing);
 //////////////////////////////////////////////////////////////////
 
 // Free_parsing.c
-void		free_arg_in_node(t_cmd_node *cmd_node);
-void		free_redir_in_node(t_cmd_node *cmd_node);
-void		free_cmd_node(t_cmd_node *cmd_node);
-void		free_cmd_lst(t_cmd_lst **cmd_lst);
+void		list_destroy(t_cmd_lst *list);
+void		node_destroy(t_cmd_lst *list);
 
 // Init_cmd_node.c
 void		set_cmd_node_to_null(t_cmd_node *cmd_node);
@@ -223,9 +240,8 @@ int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
 int			init_cmd_node(t_tokens **token, t_cmd_lst *cmd_lst);
 
 // Get_arg.c
-// int			fill_arg(t_cmd_node *cmd_node, char *content, int i);
-// int			fill_redirection(t_cmd_node *cmd_node, char *content,
-				// int type, int i);
+int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
+int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
 int			fill_cmd_node(t_tokens **token, t_cmd_node *cmd);
 void		set_last_c_null(t_cmd_node *cmd_node, int i_arg, int i_redir);
 
@@ -280,19 +296,25 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strlen(char *str);
 
 // List_utils.c
-void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
+void		ft_lstadd_back_tokens(t_tokens **lst, t_tokens *new);
 t_tokens	*ft_lstnew(char *content);
 
-int			prepare_substitution(char *content, t_data_lexing **data_lexing);
-t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type);
-int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
-int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
-char		*adjust_content(t_data_lexing *data_lexing,
-				char *content, int size);
-char		*single_dollar_trimming(char *buffer);
-
 /* signal_handler.c */
-void	sigint_handler(int sig);
+void		sigint_handler(int sig);
+int			is_not_interpreted_dollar(char *str, int pos_dollar);
+
+//////////////////////////////////////////////////////////////////
+//																//
+//                 	  	IN FREE UTILS DIR   	                //
+//																//
+//////////////////////////////////////////////////////////////////
+
+/* ft_free.c */
+void	free_tab(char **str);
+
+/* initialization.c */
+void	init_data(t_data *data, char **env);
+
 
 //////////////////////////////////////////////////////////////////
 //																//

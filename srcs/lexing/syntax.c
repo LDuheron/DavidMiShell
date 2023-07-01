@@ -6,15 +6,16 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 17:54:54 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:34:15 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// CHECK REDIRECTION CONTENT : This function searches for syntax error related
-// to redirections such as redirections not related to any file or "<>", ">>>",
-// "<< <<" and ">|".
+// CHECK REDIRECTION CONTENT : This function searches for syntax errors
+// related to redirections. It detects issues such as redirections not
+// associated with any file or the presence of invalid symbols such as
+// "<>", ">>>", "<< <<", and ">|".
 
 int	check_redirection_content(t_tokens **token)
 {
@@ -44,14 +45,17 @@ int	check_syntax(t_tokens **token)
 	t_tokens	*tmp;
 
 	tmp = *token;
-	if (tmp->type == PIPE)
-		return (error_syntax(token, PIPE));
+	if (tmp)
+		if (tmp->type)
+			if (tmp->type == PIPE)
+				return (error_syntax(token, PIPE));
 	while (tmp)
 	{
 		if (tmp->next)
 		{
 			if (tmp->next->type == PIPE)
-				if (!(tmp->next->next) || tmp->type == PIPE
+				if (!(tmp->next->next) || !(tmp->next->next->content)
+					|| tmp->type == PIPE
 					|| tmp->next->next->type == PIPE)
 					return (error_syntax(token, PIPE));
 		}
@@ -63,8 +67,9 @@ int	check_syntax(t_tokens **token)
 	return (check_redirection_content(token));
 }
 
-// CHECK OPEN S QUOTE : This function ensures that the single quotes in the
-// given line are correctly closed.
+// CHECK OPEN S QUOTE : This function ensures that the single quotes
+// in the given line are properly closed. It returns an error code
+// if there is an open single quote at the end of the string.
 
 int	check_open_s_quote(char *str, int i)
 {
@@ -81,8 +86,9 @@ int	check_open_s_quote(char *str, int i)
 	return (i);
 }
 
-// CHECK OPEN D QUOTE : This function ensures that the double quotes in the
-// given line are correctly closed.
+// CHECK OPEN D QUOTE : This function ensures that the double quotes
+// in the given line are properly closed. It returns an error code
+// if there is an open double quote at the end of the string.
 
 int	check_open_d_quote(char *str, int i)
 {
@@ -99,8 +105,9 @@ int	check_open_d_quote(char *str, int i)
 	return (i);
 }
 
-// CHECK LINE : This function ensures that all quotes in the given
-// line are correctly closed.
+// CHECK_LINE: This function ensures that all quotes in the given
+// line are properly closed. It returns an error code if there is
+// an open quote at the end of the string.
 
 int	check_line(char *str)
 {
