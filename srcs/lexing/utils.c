@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/29 12:48:08 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:21:14 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,27 @@ void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 
 int	is_redirection(t_data_lexing *data_lexing)
 {
-	char	*string;
-	int		type;
+	int	type;
 
-	string = malloc(sizeof(char) * 3);
-	if (!string)
-		return (ERROR_MALLOC);
-	if ((*data_lexing).line[(*data_lexing).pos ])
-		string[0] = (*data_lexing).line[(*data_lexing).pos];
-	else
-		string[0] = '\0';
-	if ((*data_lexing).line[(*data_lexing).pos + 1])
-		string[1] = (*data_lexing).line[(*data_lexing).pos + 1];
-	else
-		string[1] = '\0';
-	string[2] = '\0';
-	if (ft_strncmp(string, "<<", 2) == 0)
-		type = DOUBLE_IN;
-	else if (ft_strncmp(string, ">>", 2) == 0)
-		type = DOUBLE_OUT;
-	else if (ft_strncmp(string, "<", 1) == 0)
-		type = SIMPLE_IN;
-	else if (ft_strncmp(string, ">", 1) == 0)
-		type = SIMPLE_OUT;
-	else
-		type = N_DEF;
-	free (string);
+	type = N_DEF;
+	if (data_lexing->line && data_lexing->line[data_lexing->pos])
+	{
+		if (data_lexing->line[data_lexing->pos] == '<')
+		{
+			type = SIMPLE_IN;
+			if (data_lexing->line[data_lexing->pos + 1] == '<')
+				type = DOUBLE_IN;
+		}
+		else if (data_lexing->line[data_lexing->pos] == '>')
+		{
+			type = SIMPLE_OUT;
+			if (data_lexing->line[data_lexing->pos + 1]
+				&& data_lexing->line[data_lexing->pos + 1] == '>')
+				type = DOUBLE_OUT;
+		}
+		else
+			type = N_DEF;
+	}
 	return (type);
 }
 

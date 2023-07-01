@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 17:39:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:20:29 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 		printf("Error: cmd_node is NULL\n");
 		return ;
 	}
-	if (cmd_node->argument)
+	if (cmd_node->arg_subst && cmd_node->arg_subst[0])
 	{
 		printf("Cmd : %s\n", cmd_node->argument[0]);
 		while (cmd_node->arg_subst[0][j] != -2)

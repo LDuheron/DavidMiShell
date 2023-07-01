@@ -1,0 +1,66 @@
+ERROR SYNTAX : minishell: syntax error near unexpected token '|'
+cat |
+cat | SPACE
+cat || cat
+|
+||
+
+
+REDIRECTIONS
+
+<
+>
+>>
+<<
+<< <
+<< >>
+<<te<st -> FAUX car commande vide mais rempli le tableau.
+
+TEST CMD
+$"cat"cat
+cat <redir 
+cat <redir arg
+
+QUOTE
+$"cat" -> cat
+$"cat'" -> cat'
+
+$'cat' -> cat
+$'cat"' -> cat"
+
+cat'
+$cat'
+"cat
+$"cat
+
+FUNNY ONE
+'$'$'$' -> $$ -> FAUX ajouter quote management
+
+BUG :
+$"test"test
+
+'$'$'$'
+'$' '$'
+
+NE PAS EXPAND LES HEREDOCS
+OUVRIR LES HEREDOCS AVANT DE CHECK LES SYNTAXES
+
+lduheron
+bash-5.1$ touch test
+bash-5.1$ echo $USER > test
+bash: test: Is a directory
+bash-5.1$ cat test
+cat: test: Is a directory
+bash-5.1$ ls
+include   minishell        obj        srcs  todo.txt
+Makefile  minishell.suppr  README.md  test  trash_expand
+bash-5.1$ touch test_file
+bash-5.1$ echo $USER > test_file
+bash-5.1$ cat test_file
+lduheron
+bash-5.1$ export TEST_FILE='test_file'
+bash-5.1$ echo "hello world"  > $TEST_FILE
+bash-5.1$ cat test_file
+hello world
+bash-5.1$ 
+

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 16:12:35 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 15:28:10 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:30:56 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	is_dollar(char c)
 
 int	is_metacharacter(char c)
 {
+	if (!c)
+		return (0);
 	if (c == ' ' || c == '\n' || c == '\t'
 		|| c == 38 || c == 59 || c == 60 || c == 62
 		|| c == 92 || c == 96 || is_pipe(c) == 1)

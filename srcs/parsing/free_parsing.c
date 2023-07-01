@@ -6,111 +6,75 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:19:42 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/29 19:17:55 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:23:13 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_arg_in_node(t_cmd_node *cmd_node)
+static void	free_char_tab(char **tab)
 {
 	int	i;
 
 	i = 0;
-	while (cmd_node->argument[i])
+	while (tab[i])
 	{
-		free(cmd_node->argument[i]);
-		free(cmd_node->arg_subst[i]);
+		free(tab[i]);
 		i++;
 	}
-	free(cmd_node->argument);
-	free(cmd_node->arg_subst);
+	if (tab)
+	{
+		free(tab);
+		tab = NULL;
+	}
 }
 
-void	free_redir_in_node(t_cmd_node *cmd_node)
+static void	free_int_tab(int **tab)
 {
 	int	i;
 
 	i = 0;
-	while (cmd_node->redir[i])
+	while (tab && tab[i])
 	{
-		free(cmd_node->redir[i]);
-		free(cmd_node->redir_sub[i]);
-		i++;
-	}
-	free(cmd_node->redir);
-	free(cmd_node->redir_type);
-	free(cmd_node->redir_sub);
-	
-}
-
-void	free_cmd_node(t_cmd_node *cmd_node)
-{
-	if (cmd_node->argument != NULL)
-		free_arg_in_node(cmd_node);
-	if (cmd_node->redir != NULL)
-		free_redir_in_node(cmd_node);
-}
-
-void	free_cmd_lst(t_cmd_lst **cmd_lst)
-{
-	t_cmd_lst	*tmp;
-
-	while (*cmd_lst)
-	{
-		if ((*cmd_lst)->next)
-			tmp = (*cmd_lst)->next;
-		else
-			break ;
-		if ((*cmd_lst)->type == CMD_NODE)
+		if (tab[i])
 		{
-			free_cmd_node((*cmd_lst)->cmd_node);
-			free((*cmd_lst)->cmd_node);
-			free(*cmd_lst);
+			free(tab[i]);
+			tab[i] = NULL;
 		}
-		else
-			free(*cmd_lst);
-		*cmd_lst = tmp;
+		i++;
 	}
-	if ((*cmd_lst)->type == CMD_NODE)
+	if (tab)
 	{
-		free_cmd_node((*cmd_lst)->cmd_node);
-		free((*cmd_lst)->cmd_node);
-		free(*cmd_lst);
+		free(tab);
+		tab = NULL;
 	}
-	else
-		free(cmd_lst);
-	if (cmd_lst)
-		printf("remains\n\n\n\n\n");
-	else
-		free(cmd_lst);
 }
 
+void	node_destroy(t_cmd_lst *list)
+{
+	if (list->cmd_node)
+	{
+		if (list->cmd_node->argument)
+			free_char_tab(list->cmd_node->argument);
+		if (list->cmd_node->redir)
+			free_char_tab(list->cmd_node->redir);
+		if (list->cmd_node->arg_subst)
+			free_int_tab(list->cmd_node->arg_subst);
+		if (list->cmd_node->redir_sub)
+			free_int_tab(list->cmd_node->redir_sub);
+		if (list->cmd_node->redir_type)
+			free(list->cmd_node->redir_type);
+	}
+	if (list->cmd_node)
+		free(list->cmd_node);
+}
 
-// void	free_cmd_lst(t_cmd_lst **cmd_lst)
-// {
-// 	t_cmd_lst	*tmp;
-// 	int			i;
-
-// 	tmp = NULL;
-// 	tmp = *cmd_lst;
-// 	i = 0;
-// 	while (cmd_lst)
-// 	{
-// 		if ((*cmd_lst)->type == CMD_NODE)
-// 		{
-// 			tmp = *cmd_lst;
-// 			free_cmd_node(tmp->cmd_node);
-// 			cmd_lst = &(*cmd_lst)->next;
-// 		}
-// 		else
-// 		{
-// 			tmp = *cmd_lst;
-// 			cmd_lst = &(*cmd_lst)->next;
-// 			free(cmd_lst);
-// 		}
-// 		if (!tmp->next)
-// 			break ;
-// 		i++;
-// 	}
-// }
+void	list_destroy(t_cmd_lst *list)
+{
+	if (!list || !(list))
+		return ;
+	list_destroy((list)->next);
+	node_destroy(((list)));
+	free(list);
+	list = NULL;
+}

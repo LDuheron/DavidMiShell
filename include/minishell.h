@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/29 12:08:52 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:20:55 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,24 @@ enum e_type_exec
 {
 	CMD_NODE,
 	PIPE_NODE
-} ;
+};
 
 enum e_type_token
 {
+	N_DEF,
+	WORD,
+	PIPE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+	SIMPLE_IN,
+	SIMPLE_OUT,
+	DOUBLE_IN,
+	DOUBLE_OUT
+};
+
+/*
+CODE (Moving it here or the norm)
+
 	N_DEF,			// 0
 	WORD,			// 1
 	PIPE,			// 2
@@ -58,7 +72,7 @@ enum e_type_token
 	SIMPLE_OUT,		// 6
 	DOUBLE_IN,		// 7
 	DOUBLE_OUT		// 8
-} ;
+*/
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -206,10 +220,8 @@ int			is_redirection(t_data_lexing *data_lexing);
 //////////////////////////////////////////////////////////////////
 
 // Free_parsing.c
-void		free_arg_in_node(t_cmd_node *cmd_node);
-void		free_redir_in_node(t_cmd_node *cmd_node);
-void		free_cmd_node(t_cmd_node *cmd_node);
-void		free_cmd_lst(t_cmd_lst **cmd_lst);
+void		list_destroy(t_cmd_lst *list);
+void		node_destroy(t_cmd_lst *list);
 
 // Init_cmd_node.c
 void		set_cmd_node_to_null(t_cmd_node *cmd_node);
@@ -280,6 +292,5 @@ t_tokens	*ft_lstnew(char *content);
 /* signal_handler.c */
 void		sigint_handler(int sig);
 int			is_not_interpreted_dollar(char *str, int pos_dollar);
-
 
 #endif
