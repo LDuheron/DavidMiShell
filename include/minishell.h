@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/01 17:30:45 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:05:04 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,13 @@ struct s_cmd_lst {
 };
 
 // Expand_structures ideas
+/*
 typedef struct s_env_lst
 {
 	char				*content;
 	struct s_env_lst	*next;
 }	t_env_lst;
-
+*/
 typedef struct s_expand
 {
 	char		*new_arg;
