@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_token_quote.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/01 12:54:22 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/02 18:26:54 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*single_dollar_trimming(char *buffer)
 				else if (buffer[i + 1] && is_double_quote(buffer[i + 1]))
 					i += double_quote_management(buffer, i);
 			}
+			else
+				i++;
 		}
 		else
 			i++;
@@ -162,7 +164,13 @@ t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size)
 		}
 		get_content(content, data_lexing->line, size, data_lexing->pos);
 	}
+
+	//printf("\t\tbefore content:[%s]\n", content);
+
 	content = adjust_content(data_lexing, content, size);
+
+	//printf("\t\tafter content:[%s]\n", content);
+
 	return (add_new_token(data_lexing, content, WORD));
 }
 // premier passage ou je supprime dollar si suivi de double quotes

@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/01 19:05:04 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:48:30 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ int			main(int argc, char **argv, char **env);
 void		ft_print_lst_token(t_tokens *token);
 void		print_cmd_node(t_cmd_node *cmd);
 void		print_cmd_lst(t_cmd_lst **cmd_lst);
+char		*ft_put_enum(int type);
 
 //////////////////////////////////////////////////////////////////
 //																//

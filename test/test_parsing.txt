@@ -20,6 +20,9 @@ TEST CMD
 $"cat"cat
 cat <redir 
 cat <redir arg
+echo Hello $USER
+echo $USER Hello ". $USER " $NOT_IN_ENV  '.. follow the white rabbit $USER ..' THEN..$'USER' .. $"USER"$
+
 
 QUOTE
 $"cat" -> cat
@@ -64,3 +67,22 @@ bash-5.1$ cat test_file
 hello world
 bash-5.1$ 
 
+ERREUR:
+DavidFinshell: '$' $'$
+..lexing..
+minishell: syntax error single quote
+==564736== Conditional jump or move depends on uninitialised value(s)
+==564736==    at 0x484B235: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==564736==    by 0x401968: error_in_line (error_management_in_parsing.c:39)
+==564736==    by 0x402E02: lexing (lexing.c:91)
+==564736==    by 0x401246: prompt (main.c:53)
+==564736==    by 0x401315: main (main.c:79)
+==564736== 
+==564736== Invalid free() / delete / delete[] / realloc()
+==564736==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==564736==    by 0x401968: error_in_line (error_management_in_parsing.c:39)
+==564736==    by 0x402E02: lexing (lexing.c:91)
+==564736==    by 0x401246: prompt (main.c:53)
+==564736==    by 0x401315: main (main.c:79)
+==564736==  Address 0xad422db1add64600 is not stack'd, malloc'd or (recently) free'd
+==564736== 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:44:28 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 15:29:55 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:06:10 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ char	*ft_strdup(char *src)
 		i++;
 	}
 	dest[i] = '\0';
-	free(src);
+	// This free() produces an error when I copy an envp into separate **m_envp..
+	//free(src);
 	return (dest);
 }
 

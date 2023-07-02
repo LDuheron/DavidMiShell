@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   print_cmd_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/30 14:20:29 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:48:14 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_put_enum(int type)
+{
+	if (type == WORD)
+		return ("WORD");
+	else if (type == PIPE)
+		return ("PIPE");
+	else if (type == SINGLE_QUOTE)
+		return ("SINGLE_QUOTE");
+	else if (type == DOUBLE_QUOTE)
+		return ("DOUBLE_QUOTE");
+	else if (type == SIMPLE_IN)
+		return ("SIMPLE_IN");
+	else if (type == SIMPLE_OUT)
+		return ("SIMPLE_OUT");
+	else if (type == DOUBLE_IN)
+		return ("DOUBLE_IN");
+	else if (type == DOUBLE_OUT)
+		return ("DOUBLE_OUT");
+	else
+		return ("N_DEF");
+}
 
 void	ft_print_lst_token(t_tokens *token)
 {

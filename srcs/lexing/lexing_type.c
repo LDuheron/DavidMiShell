@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/27 18:20:30 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:24:18 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,19 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 	int	i;
 	int	size;
 
+	/* DEBUG 
+	printf("\t..lexing_word..\n");
+	char	*str = data_lexing->line;
+	*/
+	/* ***** */
 	i = data_lexing->pos;
 	size = 0;
 	while (data_lexing->line[i] && is_metacharacter(data_lexing->line[i]) == 0)
 	{
+		/* DEBUG 
+		printf("\t\t[%c], is_meta:[%d]\n", str[i], is_metacharacter(str[i]));
+		*/
+		/* ***** */
 		if (is_double_quote(data_lexing->line[i]) == 1)
 			size += double_quote_management(data_lexing->line, i);
 		if (is_single_quote(data_lexing->line[i]) == 1)
@@ -90,5 +99,8 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 		i++;
 		size++;
 	}
+	/* DEBUG 
+	printf("\t..END lexing_word..\n");
+	*/
 	return (new_token(data_lexing, type, size));
 }
