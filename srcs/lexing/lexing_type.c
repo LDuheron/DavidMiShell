@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 15:24:18 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/02 18:46:21 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,40 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 {
 	int	i;
 	int	size;
+	int	tmp;
 
 	/* DEBUG 
 	printf("\t..lexing_word..\n");
 	char	*str = data_lexing->line;
 	*/
 	/* ***** */
+	tmp = 0;
 	i = data_lexing->pos;
 	size = 0;
-	while (data_lexing->line[i] && is_metacharacter(data_lexing->line[i]) == 0)
+	while (data_lexing->line[i] && is_metacharacter(data_lexing->line[i]) == 0 && is_space(data_lexing->line[i]) == 0)
 	{
 		/* DEBUG 
 		printf("\t\t[%c], is_meta:[%d]\n", str[i], is_metacharacter(str[i]));
 		*/
 		/* ***** */
+		tmp = 0;
 		if (is_double_quote(data_lexing->line[i]) == 1)
-			size += double_quote_management(data_lexing->line, i);
-		if (is_single_quote(data_lexing->line[i]) == 1)
-			size += single_quote_management(data_lexing->line, i);
-		i++;
-		size++;
+		{
+			tmp += double_quote_management(data_lexing->line, i);
+			i += tmp;
+			size += tmp;
+		}
+		else if (is_single_quote(data_lexing->line[i]) == 1)
+		{
+			tmp += single_quote_management(data_lexing->line, i);
+			i += tmp;
+			size += tmp;
+		}
+		else
+		{
+			i++;
+			size++;
+		}
 	}
 	/* DEBUG 
 	printf("\t..END lexing_word..\n");
