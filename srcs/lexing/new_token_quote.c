@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 19:10:05 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/02 20:29:07 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ char	*single_dollar_trimming(char *buffer)
 	int	j;
 
 	i = 0;
-	while (buffer && buffer[i])
+	if (nb_dollar(buffer) == 0)
+		return (buffer);
+	while (buffer && buffer[i] && buffer[i + 1])
 	{
 		if (is_single_quote(buffer[i]))
 			i += single_quote_management(buffer, i);
 		else if (buffer[i + 1] && is_double_quote(buffer[i]))
 			i += double_quote_management(buffer, i);
-		if (buffer && buffer[i] == '$' && buffer[i + 1])
+		if (buffer && buffer[i] && buffer[i + 1] && buffer[i] == '$')
 		{
 			if (is_double_quote(buffer[i + 1])
 				|| is_single_quote(buffer[i + 1]))
@@ -96,7 +98,7 @@ void	quotes_trimming(char *buffer)
 			}
 			buffer[j] = 0;
 		}
-		else
+		else if (buffer[i] != '\0')
 			i++;
 	}
 }
