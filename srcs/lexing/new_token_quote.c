@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   new_token_quote.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 18:26:54 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:10:05 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// char	*single_dollar_trimming_save(char *buffer)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (buffer && buffer[i])
-// 	{
-// 		if (buffer[i] == '$' && buffer[i + 1])
-// 		{
-// 			if (is_double_quote(buffer[i + 1])
-// 				|| is_single_quote(buffer[i + 1]))
-// 			{
-// 				j = i;
-// 				while (buffer[j])
-// 				{
-// 					buffer[j] = buffer[j + 1];
-// 					j++;
-// 				}
-// 				buffer[j] = 0;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (buffer);
-// }
 
 char	*single_dollar_trimming(char *buffer)
 {
@@ -71,7 +44,7 @@ char	*single_dollar_trimming(char *buffer)
 			else
 				i++;
 		}
-		else
+		else if (buffer[i] != '\0')
 			i++;
 	}
 	return (buffer);

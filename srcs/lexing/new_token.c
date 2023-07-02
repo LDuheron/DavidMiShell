@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 18:24:52 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:02:38 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*adjust_content(t_data_lexing *data_lexing, char *content, int size)
 
 	if (!content)
 		return (NULL);
-	
+
 
 	content = single_dollar_trimming(content);
 	nb_subst = nb_dollar(content);
