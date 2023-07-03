@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 14:48:14 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:19:00 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,54 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 	int	i;
 	int	j;
 
+	i = 0;
+	j = 0;
+	if (cmd_node == NULL)
+	{
+		printf("Error: cmd_node is NULL\n");
+		return ;
+	}
+	if (cmd_node->argument != NULL)
+	{
+		while (cmd_node->argument[i])
+		{
+			j = 0;
+			printf("\tArgument[%i] : [%s]\t", i, cmd_node->argument[i]);
+			while (cmd_node->arg_subst[i][j] != -2)
+			{
+				printf("arg_subst[%i][%i] : [%i]", i, j, cmd_node->arg_subst[i][j]);
+				j++;
+			}
+			printf("\n");
+			i++;
+		}
+	}
+	i = 0;
+	printf("\n");
+	if (cmd_node->redir != NULL)
+	{
+		while (cmd_node->redir[i])
+		{
+			j = 0;
+			printf("\tRedir[%i] : [%s]\t", i, cmd_node->redir[i]);
+			printf("redir_type[%i] : [%i]\t", i, (cmd_node->redir_type[i]));
+			while (cmd_node->redir_sub[i][j] != -2)
+			{
+				printf("Redirection_sub[%i][%i] : [%i]\n\n", i, j, cmd_node->redir_sub[i][j]);
+				j++;
+			}
+			printf("\n");
+			i++;
+		}
+	}
+}
+
+/*
+void	print_cmd_node(t_cmd_node *cmd_node)
+{
+	int	i;
+	int	j;
+
 	i = 1;
 	j = 0;
 	if (cmd_node == NULL)
@@ -114,7 +162,7 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 		}
 	}
 }
-
+*/
 void	print_cmd_lst(t_cmd_lst **cmd_lst)
 {
 	t_cmd_lst	*tmp;

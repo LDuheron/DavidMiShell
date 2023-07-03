@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 14:48:30 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/03 19:19:05 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <stdbool.h>
 
 // In or out quote.
 
@@ -152,7 +153,7 @@ typedef struct s_data
 	char		**env;
 	// allocated memory, holds copy of envp, need to be freed
 	char		**m_envp;
-	t_cmd_lst	*nodes;
+	t_cmd_lst	*cmd_lst;
 }	t_data;
 
 //////////////////////////////////////////////////////////////////
@@ -164,7 +165,8 @@ typedef struct s_data
 //////////////////////////////////////////////////////////////////
 
 // Main.c
-void		prompt(char **env);
+//void		prompt(char **env);
+void		prompt(t_data *data);
 int			main(int argc, char **argv, char **env);
 
 // Print_cmd_lst.c
@@ -314,6 +316,8 @@ int			is_not_interpreted_dollar(char *str, int pos_dollar);
 /* ft_free.c */
 void	free_tab(char **str);
 
+/* empty_buffer_check.c */
+bool	empty_buffer(char *str);
 /* initialization.c */
 void	init_data(t_data *data, char **env);
 
@@ -329,6 +333,22 @@ void	free_tab(char **str);
 
 /* initialization.c */
 void	init_data(t_data *data, char **env);
+
+//////////////////////////////////////////////////////////////////
+//																//
+//                 	  	IN EXECUTION EXEC DIR  	                //
+//																//
+//////////////////////////////////////////////////////////////////
+
+/* execution.c */
+void	execution(t_data *data);
+
+//////////////////////////////////////////////////////////////////
+//																//
+//                 	  	IN EXECUTION BUILTIN DIR  	            //
+//																//
+//////////////////////////////////////////////////////////////////
+
 
 
 #endif
