@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/03 15:42:42 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/05 21:42:38 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	put_envp(char **m_envp)
+static void	put_envp(char **m_envp)
 {
 	int	i;
 
@@ -36,32 +36,37 @@ bash: export: `=': not a valid identifier
 **
 ** Also multiple arguments to export are not handled, only the first is processed.. ?!
 eg: export VAR=value VAR2=value2
-int ft_export(t_cmd *cmd, t_data *data)
+*/
+int ft_export(t_data *data, t_cmd_lst *cmd_lst)
 {
 	char	*key;
 	char	*tmp;
 	int		i;
 
-	if (cmd->argv[1] == NULL)
+	/* DEBUG */
+	i = -1;
+	while (cmd_lst->cmd_node->argument[++i])
+		printf("[%d]: [%s]\n", i, cmd_lst->cmd_node->argument[i]);
+	/* ***** */
+
+	if (cmd_lst->cmd_node->argument[1] == NULL)
 		put_envp(data->m_envp);
-	i = search_egal(cmd->argv[1]);
+	i = ft_strchr_i(cmd_lst->cmd_node->argument[1], '=');
 	if (++i > 0)
 	{
-		key = ft_substr(cmd->argv[1], 0, i);
-		if (cmd->argv[1][i - 2] == '+')
+		key = ft_substr(cmd_lst->cmd_node->argument[1], 0, i);
+		if (cmd_lst->cmd_node->argument[1][i - 2] == '+')
 		{
 			free(key);
-			tmp = ft_substr(cmd->argv[1], 0, i - 2);
+			tmp = ft_substr(cmd_lst->cmd_node->argument[1], 0, i - 2);
 			key = ft_strjoin(tmp, "=");
-			add_envp_variable(data, key, cmd->argv[1] + i, true);
+			add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, true);
 			free(tmp);
 		}
 		else if (ft_strlen(key) > 1)
-			add_envp_variable(data, key, cmd->argv[1] + i, false);
+			add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, false);
 		free(key);
 	}
 	data->exit_return = 0;
 	return (0);
 }
-
-*/

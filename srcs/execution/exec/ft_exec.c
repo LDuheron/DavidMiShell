@@ -3,94 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/04 11:17:15 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:20:02 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redirect_in_out(t_cmd *cmd, int *fd)
-{
-	//printf("child, in_file:'%d', out_file:'%d', fd[0]'%d', fd[1]:'%d'\n", cmd->in_file, cmd->out_file, fd[0], fd[1]);
-	close(fd[0]);
-	if (cmd->in_file >= 0)
-	{
-		dup2(cmd->in_file, 0);
-		close(cmd->in_file);
-	}
-	if (cmd->out_file >= 0)
-	{
-		dup2(cmd->out_file, 1);
-		close(cmd->out_file);
-	}
-	else if (cmd->next != NULL)
-		dup2(fd[1], 1);
-	close(fd[1]);
-}
-
-void	child_process(t_data *data, t_cmd *cmd, int *fd)
-{
-	redirect_in_out(cmd, fd);
-	if (cmd->is_built && !cmd->spec_built)
-	{
-		ft_builtins(cmd, data);
-		exit(data->exit_return);
-	}
-	ft_execve(cmd, data);
-	// would need to free all the memory in child since it is duplicated 
-	exit_process(data, fd);
-}
-
-void	ft_launch_cmd(t_data *data, t_cmd *cmd, int *fd)
-{
-	global.pid = fork();
-	if (global.pid < 0)
-		return ;
-	else if (global.pid == 0)
-	{
-		if (cmd->argv[0])
-			child_process(data, cmd, fd);
-	}
-	else
-		parent_process(cmd, fd);
-}
-
-void	parent_process(t_cmd *cmd, int *fd)
-{
-	//printf("parent, in_file:'%d', fd[0]:'%d', fd[1]:'%d'\n", cmd->in_file, fd[0], fd[1]);
-	close(fd[1]);
-	if (cmd->in_file >= 0)
-		close(cmd->in_file);
-	if (cmd->in_file == -2)
-		cmd->in_file = fd[0];
-	if (cmd->next && cmd->next->in_file == -2)
-		cmd->next->in_file = fd[0];
-	else
-		close(fd[0]);
-	return ;
-}
-
 void	exit_process(t_data *data, int *fd)
 {
-	t_cmd	*current;
+	t_cmd_lst	*cmd_lst;
 
-	current = data->cmdIndex->begin;
-	while (current)
+	cmd_lst = data->cmd_lst;
+	while (cmd_lst)
 	{
-		if (current->in_file >= 0)
-			close(current->in_file);
-		if (current->out_file >= 0)
-			close(current->out_file);
-		current = current->next;
+		if (cmd_lst->in_file >= 0)
+			close(cmd_lst->in_file);
+		if (cmd_lst->out_file >= 0)
+			close(cmd_lst->out_file);
+		cmd_lst = cmd_lst->next;
 	}
 	close(fd[0]);
 	close(fd[1]);
 	exit(data->exit_return);
 }
 
+void	redirect_in_out(t_cmd_lst *cmd_lst, int *fd)
+{
+	//printf("child, in_file:'%d', out_file:'%d', fd[0]'%d', fd[1]:'%d'\n", cmd_lst->in_file, cmd_lst->out_file, fd[0], fd[1]);
+	close(fd[0]);
+	if (cmd_lst->in_file >= 0)
+	{
+		dup2(cmd_lst->in_file, 0);
+		close(cmd_lst->in_file);
+	}
+	if (cmd_lst->out_file >= 0)
+	{
+		dup2(cmd_lst->out_file, 1);
+		close(cmd_lst->out_file);
+	}
+	else if (cmd_lst->next != NULL)
+		dup2(fd[1], 1);
+	close(fd[1]);
+}
+
+/* Need to take care of ft_execve() */
+void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
+{
+	int	builtin;
+
+	redirect_in_out(cmd_lst, fd);
+
+	builtin = check_builtin(cmd_lst);
+
+	//if (cmd_lst->is_built && !cmd_lst->spec_built)
+
+	if (builtin)
+	{
+		exec_builtin(data, cmd_lst, builtin);
+		//ft_builtins(cmd, data);
+		exit(data->exit_return);
+	}
+	ft_execve(data, cmd_lst);
+	// ?? would need to free all the memory in child since it is duplicated ??
+	exit_process(data, fd);
+}
+
+void	parent_process(t_cmd_lst *cmd_lst, int *fd)
+{
+	//printf("parent, in_file:'%d', fd[0]:'%d', fd[1]:'%d'\n", cmd_lst->in_file, fd[0], fd[1]);
+	close(fd[1]);
+	if (cmd_lst->in_file >= 0)
+		close(cmd_lst->in_file);
+	if (cmd_lst->in_file == -2)
+		cmd_lst->in_file = fd[0];
+	if (cmd_lst->next && cmd_lst->next->in_file == -2)
+		cmd_lst->next->in_file = fd[0];
+	else
+		close(fd[0]);
+	return ;
+}
+
+void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd)
+{
+	// fork() need to be called in separate functoin with proper error handling
+	data->pid = fork();
+	if (data->pid < 0)
+		return ;
+	else if (data->pid == 0)
+	{
+		if (cmd_lst->cmd_node->argument[0])
+			child_process(data, cmd_lst, fd);
+	}
+	else
+		parent_process(cmd_lst, fd);
+}
+
+
+/*
 void	wait_all_and_finish(t_data *data, t_cmd *cmds)
 {
 	int	status;
@@ -112,7 +124,6 @@ void	wait_all_and_finish(t_data *data, t_cmd *cmds)
 	}
 }
 
-/*
 int	ft_exec(t_data *data)
 {
 	t_cmd_lst	*cmd;

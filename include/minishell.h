@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/05 13:41:33 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/06 00:05:39 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <errno.h>
+# include <sys/wait.h>
 
 // In or out quote.
 
@@ -138,9 +140,12 @@ struct s_cmd_node {
 };
 
 struct s_cmd_lst {
-	enum e_type_exec			type;
-	t_cmd_node					*cmd_node;
-	t_cmd_lst					*next;
+	enum e_type_exec	type;
+	t_cmd_node			*cmd_node;
+	t_cmd_lst			*next;
+	// following variables are for testing
+	int					in_file;
+	int					out_file;
 };
 
 // Expand_structures ideas
@@ -166,6 +171,7 @@ typedef struct s_data
 	char		**m_envp;
 	t_cmd_lst	*cmd_lst;
 	int			exit_return;
+	int			pid;
 }	t_data;
 
 //////////////////////////////////////////////////////////////////
@@ -353,7 +359,14 @@ void	init_data(t_data *data, char **env);
 //////////////////////////////////////////////////////////////////
 
 /* execution.c */
+int		check_builtin(t_cmd_lst *cmd_lst);
+void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin);
 void	execution(t_data *data);
+void	ft_execve(t_data *data, t_cmd_lst *cmd_lst);
+
+/* ft_wait.c */
+void	ft_wait(t_data *data);
+
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -361,6 +374,17 @@ void	execution(t_data *data);
 //																//
 //////////////////////////////////////////////////////////////////
 
+void	ft_cd(t_data *data, t_cmd_lst *cmd_lst);
+int		ft_echo(t_data *data, t_cmd_lst *cmd_lst);
+int		ft_export(t_data *data, t_cmd_lst *cmd_lst);
+int		ft_env(t_data *data);
+void	ft_exit(t_data *data, t_cmd_lst *cmd_lst);
+int		ft_pwd(t_data *data);
+int		ft_unset(t_data *data, t_cmd_lst *cmd_lst);
 
+/* utils_builtin.c */
+void	change_pwd(char **m_envp, char *key);
+void	add_envp_variable(t_data *data, char *key, char *value, bool append);
+int		ft_strchr_i(char *str, int c);
 
 #endif

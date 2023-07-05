@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/03 19:27:05 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:22:40 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	prompt(t_data *data)
 	t_cmd_lst	*cmd_lst;
 	char		*buffer;
 	int			err;
-	int			flag;
+	//int			flag;
 
 	buffer = NULL;
 	cmd_lst = NULL;
 	token = NULL;
 	err = 0;
-	flag = SUCCESS;
+	//flag = SUCCESS;
 	while (!err)
 	{
 		buffer = readline("DavidMishell: ");

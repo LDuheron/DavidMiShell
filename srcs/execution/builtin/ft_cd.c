@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:34:30 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/05 13:41:58 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:54:55 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int settings_cd(t_cmd_lst *cmd_lst)
+static int settings_cd(t_cmd_lst *cmd_lst)
 {
 	if (cmd_lst->cmd_node->argument[1] == NULL)
 		return (0);

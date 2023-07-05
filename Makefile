@@ -33,6 +33,16 @@ SRCS        := 											\
 	parsing/utils.c										\
 	signals/signal_handler.c							\
 	execution/exec/execution.c							\
+	execution/exec/ft_exec.c							\
+	execution/exec/utils_execution.c					\
+	execution/builtin/ft_cd.c							\
+	execution/builtin/ft_echo.c							\
+	execution/builtin/ft_env.c							\
+	execution/builtin/ft_exit.c							\
+	execution/builtin/ft_export.c						\
+	execution/builtin/ft_pwd.c							\
+	execution/builtin/ft_unset.c						\
+	execution/builtin/utils_buitin.c					\
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
