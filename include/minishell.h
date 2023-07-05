@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/03 19:19:05 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:41:33 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,17 @@ enum e_type_token
 	DOUBLE_OUT
 };
 
+enum e_builtin
+{
+	N_A,
+	CD,
+	ECHO,
+	ENV,
+	EXIT,
+	EXPORT,
+	PWD,
+	UNSET
+};
 /*
 CODE (Moving it here or the norm)
 
@@ -154,6 +165,7 @@ typedef struct s_data
 	// allocated memory, holds copy of envp, need to be freed
 	char		**m_envp;
 	t_cmd_lst	*cmd_lst;
+	int			exit_return;
 }	t_data;
 
 //////////////////////////////////////////////////////////////////

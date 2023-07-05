@@ -6,13 +6,12 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/03 19:42:34 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:17:15 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
 void	redirect_in_out(t_cmd *cmd, int *fd)
 {
 	//printf("child, in_file:'%d', out_file:'%d', fd[0]'%d', fd[1]:'%d'\n", cmd->in_file, cmd->out_file, fd[0], fd[1]);
@@ -113,6 +112,7 @@ void	wait_all_and_finish(t_data *data, t_cmd *cmds)
 	}
 }
 
+/*
 int	ft_exec(t_data *data)
 {
 	t_cmd_lst	*cmd;
