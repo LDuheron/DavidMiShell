@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/06 18:57:24 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/06 23:35:36 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,7 +366,7 @@ void	ft_cd(t_data *data, t_cmd_lst *cmd_lst);
 int		ft_echo(t_data *data, t_cmd_lst *cmd_lst);
 int		ft_export(t_data *data, t_cmd_lst *cmd_lst);
 int		ft_env(t_data *data);
-void	ft_exit(t_data *data, t_cmd_lst *cmd_lst);
+int		ft_exit(t_data *data, t_cmd_lst *cmd_lst);
 int		ft_pwd(t_data *data);
 int		ft_unset(t_data *data, t_cmd_lst *cmd_lst);
 
