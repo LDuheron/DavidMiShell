@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/06 19:34:47 by sbocanci         ###   ########.fr       */
+/*   Created: 2022/11/16 15:32:22 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/06 16:38:47 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef LIBFT_H
+# define LIBFT_H
 
-/* Need to take care of ft_exit */
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
-{
-	(void)data;
-	(void)cmd_lst;
-}
+# include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-/*
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
-{
-	if (cmd_lst->cmd_node->argument[1])
-	{
-	}
+void	ft_putchar_fd(char c, int fd);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char *s, int fd);
+size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *s);
+char	**ft_split(char const *s, char c);
 
-	rl_clear_history();
-	// free all memory here
-    exit(data->exit_return);
-}
-*/
+#endif

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/06 00:05:39 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/06 18:57:24 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft.h"
 # include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -75,19 +76,6 @@ enum e_builtin
 	PWD,
 	UNSET
 };
-/*
-CODE (Moving it here or the norm)
-
-	N_DEF,			// 0
-	WORD,			// 1
-	PIPE,			// 2
-	SINGLE_QUOTE,	// 3
-	DOUBLE_QUOTE,	// 4
-	SIMPLE_IN,		// 5
-	SIMPLE_OUT,		// 6
-	DOUBLE_IN,		// 7
-	DOUBLE_OUT		// 8
-*/
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -169,6 +157,7 @@ typedef struct s_data
 	char		**env;
 	// allocated memory, holds copy of envp, need to be freed
 	char		**m_envp;
+	char		**path_dirs;
 	t_cmd_lst	*cmd_lst;
 	int			exit_return;
 	int			pid;
@@ -298,7 +287,7 @@ void		free_token_structure(t_tokens **tokens);
 //////////////////////////////////////////////////////////////////
 
 // Ft_strjoin.c
-char		*ft_strjoin(char *s1, char *s2);
+//char		*ft_strjoin(char *s1, char *s2);
 
 // Is_something.c
 int			is_alpha(int c);
@@ -313,9 +302,9 @@ int			is_sign(char c);
 int			is_space(char c);
 
 // Libft_utils.c
-char		*ft_strdup(char *src);
+//char		*ft_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-int			ft_strlen(char *str);
+//int			ft_strlen(char *str);
 
 // List_utils.c
 void		ft_lstadd_back_tokens(t_tokens **lst, t_tokens *new);
@@ -334,23 +323,19 @@ int			is_not_interpreted_dollar(char *str, int pos_dollar);
 /* ft_free.c */
 void	free_tab(char **str);
 
-/* empty_buffer_check.c */
+
+//////////////////////////////////////////////////////////////////
+//																//
+//                 	  	IN INITIALIZATION UTILS DIR   	                //
+//																//
+//////////////////////////////////////////////////////////////////
+
+/* initialization.c */
+void	init_data(t_data *data, char **env);
+
+/* utils_init.c */
 bool	empty_buffer(char *str);
-/* initialization.c */
-void	init_data(t_data *data, char **env);
-
-
-//////////////////////////////////////////////////////////////////
-//																//
-//                 	  	IN FREE UTILS DIR   	                //
-//																//
-//////////////////////////////////////////////////////////////////
-
-/* ft_free.c */
-void	free_tab(char **str);
-
-/* initialization.c */
-void	init_data(t_data *data, char **env);
+char	**get_path_directories(char **m_envp);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -363,6 +348,9 @@ int		check_builtin(t_cmd_lst *cmd_lst);
 void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin);
 void	execution(t_data *data);
 void	ft_execve(t_data *data, t_cmd_lst *cmd_lst);
+
+/* ft_exec.c */
+void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
 
 /* ft_wait.c */
 void	ft_wait(t_data *data);

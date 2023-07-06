@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/03 13:19:00 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:52:51 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 		while (cmd_node->argument[i])
 		{
 			j = 0;
+			printf("\t");
 			printf("\tArgument[%i] : [%s]\t", i, cmd_node->argument[i]);
 			while (cmd_node->arg_subst[i][j] != -2)
 			{
+				printf("\t");
 				printf("arg_subst[%i][%i] : [%i]", i, j, cmd_node->arg_subst[i][j]);
 				j++;
 			}
@@ -92,7 +94,9 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 		while (cmd_node->redir[i])
 		{
 			j = 0;
+			printf("\t");
 			printf("\tRedir[%i] : [%s]\t", i, cmd_node->redir[i]);
+			printf("\t");
 			printf("redir_type[%i] : [%i]\t", i, (cmd_node->redir_type[i]));
 			while (cmd_node->redir_sub[i][j] != -2)
 			{
@@ -168,16 +172,18 @@ void	print_cmd_lst(t_cmd_lst **cmd_lst)
 	t_cmd_lst	*tmp;
 	int			i;
 
-	printf("\nPRINT cmd_lst : \n\n");
+	printf("\tPRINT cmd_lst : \n\n");
 	tmp = *cmd_lst;
 	i = 0;
 	while (tmp)
 	{
+		printf("\t");
 		printf(" ----- NODE %i ----- \n", i);
+		printf("\t");
 		printf("type : %i\n", tmp->type);
 		if (tmp->type == CMD_NODE)
 			print_cmd_node(tmp->cmd_node);
-		printf("\n\n");
+		//printf("\n\n");
 		if (!tmp->next)
 			break ;
 		i++;

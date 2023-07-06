@@ -9,16 +9,23 @@ NAME := minishell
 SRC_DIR     := srcs
 OBJ_DIR     := obj
 SRCS        := 											\
+	libft/ft_putchar_fd.c								\
+	libft/ft_putendl_fd.c								\
+	libft/ft_putstr_fd.c								\
+	libft/ft_strlen.c									\
+	libft/ft_substr.c									\
+	libft/ft_strdup.c									\
+	libft/ft_strjoin.c									\
+	libft/ft_split.c									\
 	main.c												\
 	print_cmd_lst.c 									\
 	utils/cmd_lst_utils/error_management_in_parsing.c	\
-	utils/cmd_lst_utils/ft_strjoin.c					\
 	utils/cmd_lst_utils/is_something.c					\
 	utils/cmd_lst_utils/is_something_2.c				\
 	utils/cmd_lst_utils/libft_utils.c					\
 	utils/free/ft_free.c								\
-	utils/initialization/empty_buffer_check.c			\
 	utils/initialization/initialization.c				\
+	utils/initialization/utils_init.c					\
 	lexing/syntax.c										\
 	lexing/lexing_type.c     							\
 	lexing/lexing.c    									\
@@ -42,7 +49,7 @@ SRCS        := 											\
 	execution/builtin/ft_export.c						\
 	execution/builtin/ft_pwd.c							\
 	execution/builtin/ft_unset.c						\
-	execution/builtin/utils_buitin.c					\
+	execution/builtin/utils_builtin.c					\
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

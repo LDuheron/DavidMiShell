@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   empty_buffer_check.c                               :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 15:33:08 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/03 15:44:19 by sbocanci         ###   ########.fr       */
+/*   Created: 2022/11/07 14:29:45 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/06 12:31:53 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/libft.h"
 
-bool	empty_buffer(char *str)
+size_t	ft_strlen(const char *s)
 {
-	while (*str)
-	{
-		if (!is_space(*str))
-			return (false);
-		str++;
-	}
-	return (true);
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
+
+/*
+size_t	ft_strlen(const char *s)
+{
+	if (!*s)
+		return (0);
+	return (ft_strlen(s + 1) + 1);
+}
+*/

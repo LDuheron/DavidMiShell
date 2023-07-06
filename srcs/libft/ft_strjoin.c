@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/06 19:34:47 by sbocanci         ###   ########.fr       */
+/*   Created: 2022/11/07 14:29:45 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/06 16:53:57 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/libft.h"
 
-/* Need to take care of ft_exit */
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	(void)data;
-	(void)cmd_lst;
-}
+	char	*s3;
+	char	*tmp;
 
-/*
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
-{
-	if (cmd_lst->cmd_node->argument[1])
-	{
-	}
-
-	rl_clear_history();
-	// free all memory here
-    exit(data->exit_return);
+	if (!s1 || !s2)
+		return (NULL);
+	s3 = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!s3)
+		return (NULL);
+	tmp = s3;
+	while (*s1 != '\0')
+		*tmp++ = *s1++;
+	while (*s2 != '\0')
+		*tmp++ = *s2++;
+	*tmp = '\0';
+	return (s3);
 }
-*/

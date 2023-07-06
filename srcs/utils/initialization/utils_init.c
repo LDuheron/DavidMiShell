@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   utils_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/06 19:34:47 by sbocanci         ###   ########.fr       */
+/*   Created: 2023/07/06 16:42:51 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/06 16:45:28 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Need to take care of ft_exit */
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
+bool	empty_buffer(char *str)
 {
-	(void)data;
-	(void)cmd_lst;
-}
-
-/*
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
-{
-	if (cmd_lst->cmd_node->argument[1])
+	while (*str)
 	{
+		if (!is_space(*str))
+			return (false);
+		str++;
 	}
-
-	rl_clear_history();
-	// free all memory here
-    exit(data->exit_return);
+	return (true);
 }
-*/
+
+char	**get_path_directories(char **m_envp)
+{
+	char	**path;
+	int		i;
+
+	i = 0;
+	while (m_envp[i])
+	{
+		if (ft_strncmp(m_envp[i], "PATH=", 5) == 0)
+			break ;
+		i++;
+	}
+	path = ft_split(m_envp[i] + 5, ':');
+	return (path);
+}

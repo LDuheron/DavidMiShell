@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/06 19:34:47 by sbocanci         ###   ########.fr       */
+/*   Created: 2022/11/22 13:15:28 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/06 13:03:54 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/libft.h"
 
-/* Need to take care of ft_exit */
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
+void	ft_putchar_fd(char c, int fd)
 {
-	(void)data;
-	(void)cmd_lst;
+	write(fd, &c, 1);
 }
-
-/*
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
-{
-	if (cmd_lst->cmd_node->argument[1])
-	{
-	}
-
-	rl_clear_history();
-	// free all memory here
-    exit(data->exit_return);
-}
-*/

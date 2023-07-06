@@ -3,40 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:07:17 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/05 23:59:22 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/06 19:35:36 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-int	ft_exec(t_data *data)
-{
-	t_cmd_lst	*cmd;
-	int			fd[2];
-
-	//cmd = data->cmdIndex->begin;
-	while (cmd)
-	{
-		//printf("\tnb_pipes: '%d'\n", data->cmdIndex->nb_pipe);
-		if (cmd->spec_built)
-			spec_built(cmd, data);
-		else
-		{
-			if (pipe(fd) == -1)
-				return (-1);
-			else
-				ft_launch_cmd(data, cmd, fd);
-		}
-		cmd = cmd->next;
-	}
-	wait_all_and_finish(data, data->cmdIndex->begin);
-	return (1);
-}
-*/
 /* DEBUG */
 char	*print_builtin(int builtin)
 {
@@ -97,50 +72,50 @@ void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 void	execution(t_data *data)
 {
 	t_cmd_lst	*cmd_lst;
-	//int			fd[2];
+	int			fd[2];
 	int			builtin;
 	
+	printf("\t");
+	printf("..execution..\n");
 	builtin = 0;
 	cmd_lst = data->cmd_lst;
 	while (cmd_lst)
 	{
-		builtin = check_builtin(cmd_lst);
-
-		//printf("\tbuiltin: '%d'\n", print_builtin(builtin));
-
-		if (builtin)
-			exec_builtin(data, cmd_lst, builtin);
-		else
+		if (cmd_lst->type == CMD_NODE)
 		{
-			/*
-			if (pipe(fd) == -1)
-				return (-1);
+			builtin = check_builtin(cmd_lst);
+			printf("\t");
+			printf("\tbuiltin: '%s'\n", print_builtin(builtin));
+			if (builtin)
+				exec_builtin(data, cmd_lst, builtin);
 			else
-				ft_launch_cmd(data, cmd, fd);
-			*/
+			{
+				// pipe error to be handled properly ..
+				if (pipe(fd) == -1)
+				 	return ;
+					//return (-1);
+				else
+					ft_launch_cmd(data, cmd_lst, fd);
+				/*
+				*/
+			}
 		}
 		cmd_lst = cmd_lst->next;
 	}
 	ft_wait(data);
 }
 
-/* Need to take care of path_directories().. */
 void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 {
-	(void)data;
-	(void)cmd_lst;
-}
-/*
-{
-	int y;
-	char *exec;
+	int		y;
+	char	*exec;
 
-	//no_str(cmd->cmd);
+	//printf("..ft_execve..\n");
 	y = 0;
 	while (data->path_dirs[++y])
 	{
 		exec = ft_strjoin(ft_strjoin(data->path_dirs[y], "/"), cmd_lst->cmd_node->argument[0]);
-		//printf("execve, path'%s', pid:'%d'\n", exec, global.pid);
+		//printf("execve, path'%s', pid:'%d'\n", exec, data.pid);
 		data->exit_return = execve(exec, cmd_lst->cmd_node->argument, data->env);
 		//printf("exit_return: '%d'\n", data->exit_return);
 		free(exec);
@@ -150,4 +125,5 @@ void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 	data->exit_return = errno;
 	exit(data->exit_return);
 }
+/*
 */

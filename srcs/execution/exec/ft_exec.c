@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/05 23:20:02 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/06 19:35:58 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	exit_process(t_data *data, int *fd)
 	}
 	close(fd[0]);
 	close(fd[1]);
+
+	/* DEBUG */
+	/* ***** */
 	exit(data->exit_return);
 }
 
@@ -89,6 +92,9 @@ void	parent_process(t_cmd_lst *cmd_lst, int *fd)
 void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 {
 	// fork() need to be called in separate functoin with proper error handling
+	printf("\t..pipe & fork");
+	printf("\t..ft_launch_cmd..\n");
+
 	data->pid = fork();
 	if (data->pid < 0)
 		return ;
@@ -100,51 +106,3 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 	else
 		parent_process(cmd_lst, fd);
 }
-
-
-/*
-void	wait_all_and_finish(t_data *data, t_cmd *cmds)
-{
-	int	status;
-	int	pid;
-
-	while (cmds)
-	{
-		pid = waitpid(0, &status, 0);
-		if (pid == global.pid)
-		{
-			if (WIFEXITED(status))
-				data->exit_return = WEXITSTATUS(status);
-		}
-		if (cmds->out_file >= 0)
-			close(cmds->out_file);
-		if (cmds->in_file >= 0)
-			close(cmds->in_file);
-		cmds = cmds->next;
-	}
-}
-
-int	ft_exec(t_data *data)
-{
-	t_cmd_lst	*cmd;
-	int			fd[2];
-
-	//cmd = data->cmdIndex->begin;
-	while (cmd)
-	{
-		//printf("\tnb_pipes: '%d'\n", data->cmdIndex->nb_pipe);
-		if (cmd->spec_built)
-			spec_built(cmd, data);
-		else
-		{
-			if (pipe(fd) == -1)
-				return (-1);
-			else
-				ft_launch_cmd(data, cmd, fd);
-		}
-		cmd = cmd->next;
-	}
-	wait_all_and_finish(data, data->cmdIndex->begin);
-	return (1);
-}
-*/
