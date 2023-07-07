@@ -6,13 +6,13 @@
 /*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/07 00:29:06 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/07 10:17:26 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_isnum(char *str)
+bool	ft_isnum(const char *str)
 {
 	while (*str)
 	{
@@ -30,39 +30,47 @@ int	ft_abs(int num)
 	return (num);
 }
 
+bool	valid_exit_number(const char *str)
+{
+	size_t	len;
+
+	if (*str == '-' || *str == '+')
+		str++;
+	if (!ft_isnum(str))
+		return (false);
+	len = ft_strlen(str);
+	if (len >= 19)
+		return (false);
+	return (true);
+}
+
 int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 {
-	int	code;
-
-	code = 0;
-	if (!cmd_lst->cmd_node)
+	if (cmd_lst->cmd_node->argument[1])
 	{
-		// free all memory
-		exit(data->exit_return);
-		return (0);
+		if (valid_exit_number(cmd_lst->cmd_node->argument[1]))
+		{
+			if (cmd_lst->cmd_node->argument[2])
+			{
+				ft_putstr_fd("minishell: exit: too many arguments\n",
+					STDERR_FILENO);
+				return (1);
+			}
+			data->exit_return = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1]) % 256);
+		}
+		else
+		{
+			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd(cmd_lst->cmd_node->argument[1], STDERR_FILENO);
+			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+			data->exit_return = 2;
+		}
 	}
-	else if (cmd_lst->cmd_node->argument[1] 
-		&& !ft_isnum(cmd_lst->cmd_node->argument[1]))
-	{
-		ft_putstr_fd("davidMishell: exit: ", 2);
-		ft_putstr_fd(cmd_lst->cmd_node->argument[1], 2);
-		ft_putstr_fd(" numeric argument required\n", 2);
-		// free all memory
-		exit(2);
-		return (0);
-	}
-	else if (cmd_lst->cmd_node->argument[2])
-	{
-		ft_putstr_fd("bash: exit: too many arguments\n", 2);
-		data->exit_return = 1;
-		return (1);
-	}
-	else if (cmd_lst->cmd_node->argument[1])
-		code = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1]) % 256);
-	// free all memory
-	exit(code);
-	return (0);
+	rl_clear_history();
+	// free_all
+	exit(data->exit_return);
 }
+
 /* Need to take care of ft_exit */
 /*
 void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
