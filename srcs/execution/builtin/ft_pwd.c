@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/05 23:30:15 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/07 13:36:46 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,8 @@ int	ft_pwd(t_data *data)
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
 	data->exit_return = 0;
+	/* DEBUG */
+	printf("\t..ft_pwd..\texit_return:[%d]\n", data->exit_return);
+	/* ***** */
 	return (0);
 }

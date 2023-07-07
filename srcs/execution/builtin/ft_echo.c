@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:29:47 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/05 23:29:59 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/07 13:43:43 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ int	ft_echo(t_data *data, t_cmd_lst *cmd_lst)
 	if (!n_option)
 		write(1, "\n", 1);
 	data->exit_return = 0;
+	/* DEBUG */
+	printf("\t..ft_echo\t exit_return:[%d]\n", data->exit_return);
+	/* ***** */
 	return 0;
 }

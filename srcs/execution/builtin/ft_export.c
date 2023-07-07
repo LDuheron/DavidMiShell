@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/05 21:42:38 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/07 13:27:07 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,28 @@ int ft_export(t_data *data, t_cmd_lst *cmd_lst)
 
 	if (cmd_lst->cmd_node->argument[1] == NULL)
 		put_envp(data->m_envp);
-	i = ft_strchr_i(cmd_lst->cmd_node->argument[1], '=');
-	if (++i > 0)
+	else
 	{
-		key = ft_substr(cmd_lst->cmd_node->argument[1], 0, i);
-		if (cmd_lst->cmd_node->argument[1][i - 2] == '+')
+		i = ft_strchr_i(cmd_lst->cmd_node->argument[1], '=');
+		if (++i > 0)
 		{
+			key = ft_substr(cmd_lst->cmd_node->argument[1], 0, i);
+			/* DEBUG */
+			printf("\t..ft_export..\n");
+			printf("\t\tkey:[%s]\n", key);
+			/* ***** */
+			if (cmd_lst->cmd_node->argument[1][i - 2] == '+')
+			{
+				free(key);
+				tmp = ft_substr(cmd_lst->cmd_node->argument[1], 0, i - 2);
+				key = ft_strjoin(tmp, "=");
+				add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, true);
+				free(tmp);
+			}
+			else if (ft_strlen(key) > 1)
+				add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, false);
 			free(key);
-			tmp = ft_substr(cmd_lst->cmd_node->argument[1], 0, i - 2);
-			key = ft_strjoin(tmp, "=");
-			add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, true);
-			free(tmp);
 		}
-		else if (ft_strlen(key) > 1)
-			add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, false);
-		free(key);
 	}
 	data->exit_return = 0;
 	return (0);

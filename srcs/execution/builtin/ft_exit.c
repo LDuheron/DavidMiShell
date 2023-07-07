@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/07 10:17:26 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/07 13:12:31 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 	}
 	rl_clear_history();
 	// free_all
+	/* DEBUG */
+	printf("\n..ft_exit..\t exit_return:[%d]\n", data->exit_return);
+	/* ***** */
 	exit(data->exit_return);
 }
 

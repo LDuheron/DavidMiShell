@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:07:17 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/06 19:35:36 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:41:36 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,16 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 	builtin = N_A;
 	if (ft_strncmp(cmd_lst->cmd_node->argument[0], "cd", 2) == 0)
 		builtin = CD;
+	else if (ft_strncmp(cmd_lst->cmd_node->argument[0], "echo", 4) == 0)
+		builtin = ECHO;
+	else if (ft_strncmp(cmd_lst->cmd_node->argument[0], "env", 3) == 0)
+		builtin = ENV;
 	else if (ft_strncmp(cmd_lst->cmd_node->argument[0], "exit", 4) == 0)
 		builtin = EXIT;
 	else if (ft_strncmp(cmd_lst->cmd_node->argument[0], "export", 6) == 0)
 		builtin = EXPORT;
+	else if (ft_strncmp(cmd_lst->cmd_node->argument[0], "pwd", 3) == 0)
+		builtin = PWD;
 	else if (ft_strncmp(cmd_lst->cmd_node->argument[0], "unset", 5) == 0)
 		builtin = UNSET;
 	return (builtin);
