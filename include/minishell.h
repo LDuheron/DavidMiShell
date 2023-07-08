@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/06 23:35:36 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/08 19:37:15 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,8 @@ void	execution(t_data *data);
 void	ft_execve(t_data *data, t_cmd_lst *cmd_lst);
 
 /* ft_exec.c */
-void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
+//void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
+void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
 
 /* ft_wait.c */
 void	ft_wait(t_data *data);
@@ -374,5 +375,10 @@ int		ft_unset(t_data *data, t_cmd_lst *cmd_lst);
 void	change_pwd(char **m_envp, char *key);
 void	add_envp_variable(t_data *data, char *key, char *value, bool append);
 int		ft_strchr_i(char *str, int c);
+
+/* DEBUG FUNCTION */
+char	*print_builtin(int builtin);
+char	*print_node_type(int type);
+/* ************** */
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/07 13:27:07 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:27:15 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int ft_export(t_data *data, t_cmd_lst *cmd_lst)
 	char	*tmp;
 	int		i;
 
-	/* DEBUG */
+	/* DEBUG 
+	printf("\t..ft_export..\n");
 	i = -1;
 	while (cmd_lst->cmd_node->argument[++i])
 		printf("[%d]: [%s]\n", i, cmd_lst->cmd_node->argument[i]);
+	*/
 	/* ***** */
 
 	if (cmd_lst->cmd_node->argument[1] == NULL)
@@ -58,8 +60,7 @@ int ft_export(t_data *data, t_cmd_lst *cmd_lst)
 		{
 			key = ft_substr(cmd_lst->cmd_node->argument[1], 0, i);
 			/* DEBUG */
-			printf("\t..ft_export..\n");
-			printf("\t\tkey:[%s]\n", key);
+			//printf("\t\tkey:[%s]\n", key);
 			/* ***** */
 			if (cmd_lst->cmd_node->argument[1][i - 2] == '+')
 			{

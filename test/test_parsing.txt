@@ -86,3 +86,13 @@ minishell: syntax error single quote
 ==564736==    by 0x401315: main (main.c:79)
 ==564736==  Address 0xad422db1add64600 is not stack'd, malloc'd or (recently) free'd
 ==564736== 
+
+EXPAND LOGIC !!! IMPORTANT !!!
+So, after asking around learned that the expansion of the ENV variables ($USER, etc) shall be done 
+rightbefore the execution ! 
+Avoiding things like: 
+export FT_USER=new_user | echo $FT_USER
+..in such case $FT_USER should be in the ENV already !
+I would need to modify piece of code responsible for expansion, so it could handle expansion via passing a str..
+ 
+

@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:07:17 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/07 13:41:36 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:27:38 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ char	*print_builtin(int builtin)
 		return ("UNSET");
 	else
 		return ("N_DEF");
+}
+
+char	*print_node_type(int type)
+{
+	if (type == CMD_NODE)
+		return("CMD_NODE");
+	if (type == PIPE_NODE)
+		return("PIPE_NODE");
+	return ("no_type");
 }
 /* ***** */
 
@@ -74,7 +83,27 @@ void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 		ft_unset(data, cmd_lst);
 }
 
-/* Need to take care of ft_pipe() as separate f().. */
+void	execution(t_data *data)
+{
+	t_cmd_lst	*cmd_lst;
+	
+	/* DEBUG */
+	printf("\t");
+	printf("..execution..\n");
+	/* ***** */
+
+	cmd_lst = data->cmd_lst;
+	while (cmd_lst)
+	{
+		if (cmd_lst->type == CMD_NODE)
+		{
+			ft_launch_cmd(data, cmd_lst);
+		}
+		cmd_lst = cmd_lst->next;
+	}
+	ft_wait(data);
+}
+/* Need to take care of ft_pipe() as separate f().. 
 void	execution(t_data *data)
 {
 	t_cmd_lst	*cmd_lst;
@@ -82,7 +111,7 @@ void	execution(t_data *data)
 	int			builtin;
 	
 	printf("\t");
-	printf("..execution..\n");
+	printf("..execution..");
 	builtin = 0;
 	cmd_lst = data->cmd_lst;
 	while (cmd_lst)
@@ -90,8 +119,8 @@ void	execution(t_data *data)
 		if (cmd_lst->type == CMD_NODE)
 		{
 			builtin = check_builtin(cmd_lst);
-			printf("\t");
 			printf("\tbuiltin: '%s'\n", print_builtin(builtin));
+			printf("\n");
 			if (builtin)
 				exec_builtin(data, cmd_lst, builtin);
 			else
@@ -102,14 +131,13 @@ void	execution(t_data *data)
 					//return (-1);
 				else
 					ft_launch_cmd(data, cmd_lst, fd);
-				/*
-				*/
 			}
 		}
 		cmd_lst = cmd_lst->next;
 	}
 	ft_wait(data);
 }
+*/
 
 void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 {

@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:44:00 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/07 13:30:00 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:28:01 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int ft_env(t_data *data)
 	i = 0;
 	while (data->m_envp[i])
 	{
-		// DEBUG //
+		/* DEBUG */
 		printf("[%d] : '%s'\n", i, data->m_envp[i]);
+		/* ***** */
 		//ft_putendl_fd(data->m_envp[i], 1);
 		i++;
 	}
