@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/09 17:27:55 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:24:57 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ int			is_space(char c);
 
 // Libft_utils.c
 //char		*ft_strdup(char *src);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
+//int			ft_strncmp(const char *s1, const char *s2, size_t n);
 //int			ft_strlen(char *str);
 
 // List_utils.c

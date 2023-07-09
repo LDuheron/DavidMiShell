@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/09 18:38:52 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:13:51 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,86 +35,82 @@ void	ft_wait(t_data *data)
 	}
 }
 
-/*
-int	look_up_key_value(char *key, char *value, const char **m_envp)
+/* The folowing code expands the ENV variable, raw version, seems to be working 
+** will need to cleen and optimize it a bit.. */
+char	*replace_value(char *str, char *key, char *value)
 {
-	int j;
-	int	key_len;
-	int	value_len;
-
-	key_len = ft_strlen(key);
-	value_len = 0;
-	j = 0;
-	while (m_envp[j])
+	char	*new_str;
+	int		k_len;
+	int		v_len;
+	int		i;
+	int		j;
+	//printf("\t\tkey: [%s]\tvalue: [%s]\tstr: [%s]\n", key, value, str);
+	//printf("\t\tlen_key: [%ld]\tlen_value: [%ld]\tlen_str: [%ld]\n", ft_strlen(key), ft_strlen(value), ft_strlen(str));
+	
+	new_str = NULL;
+	if (ft_strlen(str) == ft_strlen(key))
+		return (value);
+	v_len = ft_strlen(value);
+	k_len = ft_strlen(key);
+	new_str = malloc(ft_strlen(str) - k_len + v_len + 1);
+	i = 0;
+	//while (ft_strncmp(key, str + i, ft_strlen(key)))
+	while (str[i] && str[i] != '$')
 	{
-		if (strncmp(key, m_envp[j], key_len) == 0 && m_envp[j][key_len] == '=')
-		{
-			value_len = ft_strlen(m_envp[j]) - key_len - 1;
-			strncpy(value, m_envp[j] + key_len + 1, value_len);
-			value[value_len] = '\0';
-			return (value_len);
-			break;
-		}
-		value[0] = '\0';
-		j++;
+		new_str[i] = str[i];
+		i++;
 	}
-}
-
-int	get_key_and_look_up_value(t_cmd_data *cmd, int j, int *output_len, const char **m_envp)
-{
-	int key_len;
-	int value_len;
-	char key[2048];
-	char value[2048];
-
-	key_len = 0;
-	value_len = 0;
-	j++;
-	while (isalnum(cmd->input[j]) || cmd->input[j] == '_')
+	j = -1;
+	while (value[++j])
+		new_str[i + j] = value[j];
+	while (str[k_len + i])
 	{
-		key[key_len++] = cmd->input[j++];
+		new_str[v_len + i] = str[k_len + i];
+		i++;
 	}
-	key[key_len] = '\0';
-	//printf("\tkey: [%s], len: [%d]\t", key, key_len);
-
-	value_len = look_up_key_value(key, value, m_envp);
-
-	//printf("\tvalue: [%s], len: [%d]\n", value, value_len);
-
-	strcat(cmd->output, value);
-	*output_len += value_len;
-	return (key_len);
+	new_str[v_len + i] = '\0';
+	/*
+	*/
+	free(value);
+	return (new_str);
 }
-*/
 
 /* ..in this f() we extract the value from envp..
 ** need to add another f() to replace the old str with the new one with the value */
-char	*look_up_key_and_replace(char *str, int key_len, char **m_envp)
+//char	*look_up_key_and_replace(char *str, int key_len, char **m_envp)
+char	*look_up_key_value(char *str, int key_len, char **m_envp)
 {
 	char	*new_str;
 	char	*key;
 	char	*value;
 	int		i;
+	int		j;
 
 	value = NULL;
 	new_str = NULL;
 	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
-	key = ft_substr(str, i + 1, key_len);	
-	i = 0;
-	while (m_envp[i])
+	key = ft_substr(str, i, key_len + 1);	
+	j = 0;
+	while (m_envp[j])
 	{
-		if (ft_strncmp(key, m_envp[i], key_len) == 0 && m_envp[i][key_len] == '=')
+		if (ft_strncmp(key + 1, m_envp[j], key_len - 1) == 0 && m_envp[j][key_len] == '=')
 		{
-			value = ft_strdup(m_envp[i] + key_len + 1);
+			value = ft_strdup(m_envp[j] + key_len + 1);
 			break ;
 		}
-		i++;
+		j++;
 	}
-	printf("\t\tkey: [%s]\tvalue: [%s]\tstr: [%s], new_str: [%s]\n", key, value, str, new_str);
+	if (!value)
+		value = ft_strdup("");
+	new_str = replace_value(str, key, value);
+
+	//printf("\t\tstr: [%s]\tkey: [%s]\tvalue: [%s]\tnew_str: [%s]\n", str, key, value, new_str);
+
+	//free(str);
 	free(key);
-	free(value);
+	//free(value);
 	return (new_str);
 }
 
@@ -122,6 +118,7 @@ void	expand_envp(t_cmd_node *cmd_node, char **m_envp)
 {
 	(void)m_envp;
 	char	**argument;
+	char	*tmp;
 	int		key_len;
 	int		i;
 	int		j;
@@ -134,7 +131,8 @@ void	expand_envp(t_cmd_node *cmd_node, char **m_envp)
 		while (cmd_node->arg_subst[i][j] > 0)
 		{
 			key_len = cmd_node->arg_subst[i][j];
-			look_up_key_and_replace(argument[i], key_len, m_envp);
+			tmp = look_up_key_value(argument[i], key_len, m_envp);
+			argument[i] = tmp;
 			j++;
 		}
 		i++;

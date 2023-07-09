@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:29:47 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/07 13:43:43 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:51:07 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 bool	ft_echo_with_n(t_cmd_lst *cmd_lst)
 {
+	char	*str;
+
+	str = cmd_lst->cmd_node->argument[1];
+	if (str && ft_strncmp(str, "-n", 2) == 0)
+		return (true);
+	return (false);
+	/*
 	return (cmd_lst->cmd_node->argument[0] && ft_strncmp(cmd_lst->cmd_node->argument[0], "echo", 4) == 0
 		&& cmd_lst->cmd_node->argument[1] && ft_strncmp(cmd_lst->cmd_node->argument[1], "-n", 2) == 0);
+	*/
 }
 
 int	ft_echo(t_data *data, t_cmd_lst *cmd_lst)

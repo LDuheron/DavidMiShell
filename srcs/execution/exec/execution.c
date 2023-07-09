@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:07:17 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/09 16:17:52 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:15:01 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 	printf("\t\t..exec_builtin.. ..expand here..\n\n");
 	
 	expand_envp(cmd_lst->cmd_node, data->m_envp);
-
+	//print_cmd_lst(&cmd_lst);
 	/* ***** */
 
 	if (builtin == CD)
@@ -110,41 +110,6 @@ void	execution(t_data *data)
 	}
 	ft_wait(data);
 }
-/* Need to take care of ft_pipe() as separate f().. 
-void	execution(t_data *data)
-{
-	t_cmd_lst	*cmd_lst;
-	int			fd[2];
-	int			builtin;
-	
-	printf("\t");
-	printf("..execution..");
-	builtin = 0;
-	cmd_lst = data->cmd_lst;
-	while (cmd_lst)
-	{
-		if (cmd_lst->type == CMD_NODE)
-		{
-			builtin = check_builtin(cmd_lst);
-			printf("\tbuiltin: '%s'\n", print_builtin(builtin));
-			printf("\n");
-			if (builtin)
-				exec_builtin(data, cmd_lst, builtin);
-			else
-			{
-				// pipe error to be handled properly ..
-				if (pipe(fd) == -1)
-				 	return ;
-					//return (-1);
-				else
-					ft_launch_cmd(data, cmd_lst, fd);
-			}
-		}
-		cmd_lst = cmd_lst->next;
-	}
-	ft_wait(data);
-}
-*/
 
 void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 {
@@ -154,6 +119,7 @@ void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 	/* DEBUG */
 	printf("\t\t..ft_execve.. ..expand here..\n\n");
 
+	expand_envp(cmd_lst->cmd_node, data->m_envp);
 	/* ***** */
 
 	y = 0;
