@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/08 20:29:09 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:45:28 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 	if (builtin)
 	{
 		exec_builtin(data, cmd_lst, builtin);
-		//ft_builtins(cmd, data);
 		exit(data->exit_return);
 	}
 	ft_execve(data, cmd_lst);
@@ -125,22 +124,6 @@ void	parent_process(t_cmd_lst *cmd_lst, int *fd)
 
 void	parent_process(t_cmd_lst *cmd_lst, int *fd)
 {
-	/* DEBUG 
-	t_cmd_lst *tmp = cmd_lst;
-	printf("\t\t..parent_process..");
-	printf(".. in_file:[%d], out_file:[%d], fd[0]:[%d], fd[1]:[%d]\t", cmd_lst->in_file, cmd_lst->out_file, fd[0], fd[1]);
-	printf("nodes_type:\n");
-	while (tmp)
-	{
-		printf("\t\t\ttype:[%s]\t", print_node_type(tmp->type));
-		if (tmp->cmd_node)
-			printf("cmd:[%s]", tmp->cmd_node->argument[0]);
-		printf("\n");
-		tmp = tmp->next;
-	}
-	//printf("\n");
-	*/
-	/* ***** */
 	close(fd[1]);
 	if (cmd_lst->in_file >= 0)
 		close(cmd_lst->in_file);
@@ -168,13 +151,13 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 	/* DEBUG */
 	printf("\t..ft_launch_cmd..");
 	printf("\tbuiltin: [%s], argument_0:[%s]\t", print_builtin(builtin), cmd_lst->cmd_node->argument[0]);
-	printf("cmd_lst->next @ [%p]", cmd_lst->next);
+	//printf("cmd_lst->next @ [%p]", cmd_lst->next);
 	printf("\n");
 	/* ***** */
 
 	if (builtin && !cmd_lst->next)
 	{
-		printf("\t\t.... exec_builtin\n");
+		//printf("\t\t.... exec_builtin\n");
 		exec_builtin(data, cmd_lst, builtin);
 	}
 	else

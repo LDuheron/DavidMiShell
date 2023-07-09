@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:07:17 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/08 20:27:38 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/09 16:17:52 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 
 void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 {
+	/* DEBUG */
+	printf("\t\t..exec_builtin.. ..expand here..\n\n");
+	
+	expand_envp(cmd_lst->cmd_node, data->m_envp);
+
+	/* ***** */
+
 	if (builtin == CD)
 		ft_cd(data, cmd_lst);
 	else if (builtin == ECHO)
@@ -144,7 +151,11 @@ void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 	int		y;
 	char	*exec;
 
-	//printf("..ft_execve..\n");
+	/* DEBUG */
+	printf("\t\t..ft_execve.. ..expand here..\n\n");
+
+	/* ***** */
+
 	y = 0;
 	while (data->path_dirs[++y])
 	{

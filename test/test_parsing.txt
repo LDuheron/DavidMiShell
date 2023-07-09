@@ -89,7 +89,7 @@ minishell: syntax error single quote
 
 EXPAND LOGIC !!! IMPORTANT !!!
 So, after asking around learned that the expansion of the ENV variables ($USER, etc) shall be done 
-rightbefore the execution ! 
+right before the execution ! 
 Avoiding things like: 
 export FT_USER=new_user | echo $FT_USER
 ..in such case $FT_USER should be in the ENV already !

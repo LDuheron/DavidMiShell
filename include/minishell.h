@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/08 19:37:15 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/09 17:27:55 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,8 +353,10 @@ void	ft_execve(t_data *data, t_cmd_lst *cmd_lst);
 //void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
 void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
 
-/* ft_wait.c */
+/* utils_execution.c */
 void	ft_wait(t_data *data);
+void	expand_envp(t_cmd_node *cmd_node, char **m_envp);
+char	*look_up_key_and_replace(char *str, int key_len, char **m_envp);
 
 
 //////////////////////////////////////////////////////////////////

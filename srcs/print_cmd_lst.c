@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/06 18:52:51 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:54:53 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,9 @@ void	print_cmd_lst(t_cmd_lst **cmd_lst)
 	while (tmp)
 	{
 		printf("\t");
-		printf(" ----- NODE %i ----- \n", i);
+		printf(" ----- NODE %i ----- ", i);
 		printf("\t");
-		printf("type : %i\n", tmp->type);
+		printf("type : [%s]\n", print_node_type(tmp->type));
 		if (tmp->type == CMD_NODE)
 			print_cmd_node(tmp->cmd_node);
 		//printf("\n\n");
