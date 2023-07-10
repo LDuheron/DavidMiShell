@@ -17,6 +17,7 @@ SRCS        := 											\
 	libft/ft_substr.c									\
 	libft/ft_strdup.c									\
 	libft/ft_strncmp.c									\
+	libft/ft_strcmp.c									\
 	libft/ft_strjoin.c									\
 	libft/ft_split.c									\
 	main.c												\

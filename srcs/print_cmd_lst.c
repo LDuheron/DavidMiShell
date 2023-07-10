@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/09 11:54:53 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:38:11 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 			printf("\t");
 			printf("\tRedir[%i] : [%s]\t", i, cmd_node->redir[i]);
 			printf("\t");
-			printf("redir_type[%i] : [%i]\t", i, (cmd_node->redir_type[i]));
+			printf("redir_type[%i] : [%s]\t", i, ft_put_enum(cmd_node->redir_type[i]));
 			while (cmd_node->redir_sub[i][j] != -2)
 			{
 				printf("Redirection_sub[%i][%i] : [%i]\n\n", i, j, cmd_node->redir_sub[i][j]);
@@ -109,6 +109,29 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 	}
 }
 
+void	print_cmd_lst(t_cmd_lst **cmd_lst)
+{
+	t_cmd_lst	*tmp;
+	int			i;
+
+	printf("\tPRINT cmd_lst : \n\n");
+	tmp = *cmd_lst;
+	i = 0;
+	while (tmp)
+	{
+		printf("\t");
+		printf(" ----- NODE %i ----- ", i);
+		printf("\t");
+		printf("type : [%s]\n", print_node_type(tmp->type));
+		if (tmp->type == CMD_NODE)
+			print_cmd_node(tmp->cmd_node);
+		//printf("\n\n");
+		if (!tmp->next)
+			break ;
+		i++;
+		tmp = tmp->next;
+	}
+}
 /*
 void	print_cmd_node(t_cmd_node *cmd_node)
 {
@@ -167,26 +190,3 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 	}
 }
 */
-void	print_cmd_lst(t_cmd_lst **cmd_lst)
-{
-	t_cmd_lst	*tmp;
-	int			i;
-
-	printf("\tPRINT cmd_lst : \n\n");
-	tmp = *cmd_lst;
-	i = 0;
-	while (tmp)
-	{
-		printf("\t");
-		printf(" ----- NODE %i ----- ", i);
-		printf("\t");
-		printf("type : [%s]\n", print_node_type(tmp->type));
-		if (tmp->type == CMD_NODE)
-			print_cmd_node(tmp->cmd_node);
-		//printf("\n\n");
-		if (!tmp->next)
-			break ;
-		i++;
-		tmp = tmp->next;
-	}
-}
