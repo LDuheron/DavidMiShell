@@ -117,16 +117,30 @@ void	execution(t_data *data)
 }
 
 /* This check handles the case if the **argumen in NULL and there is somethingin **redir */
-void	no_such_file_error(t_data *data, t_cmd_lst *cmd_lst)
+void	print_error(t_data *data, t_cmd_lst *cmd_lst)
 {
-	if (cmd_lst->cmd_node->redir)
+	if (cmd_lst->cmd_node->argument)
+	{
+		if (ft_strchr_i(cmd_lst->cmd_node->argument[0], '/') == -1)
+		{
+			ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+		}
+		else
+		{
+			ft_putstr_fd("DavidMishell: ", 2);
+			ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+		}
+	}
+	else  if (cmd_lst->cmd_node->redir)
 	{
 		ft_putstr_fd("DavidMishell: ", 2);
 		ft_putstr_fd(cmd_lst->cmd_node->redir[0], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		data->exit_return = errno;
-		exit(data->exit_return);
 	}
+	data->exit_return = errno;
+	exit(data->exit_return);
 }
 
 char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
@@ -136,7 +150,6 @@ char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
 
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
-	to_execute = NULL;
 	i = 0;
 	while (path_dirs[i])
 	{
@@ -163,23 +176,12 @@ void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 	{
 		arg = cmd_lst->cmd_node->argument;
 		expand_envp(cmd_lst->cmd_node, data->m_envp);
-
 		to_execute = absolute_path_to_cmd(arg[0], data->path_dirs);
-			//exec = ft_strjoin(ft_strjoin(data->path_dirs[y], "/"), cmd_lst->cmd_node->argument[0]);
-		//printf("execve, path'%s', pid:'%d'\n", exec, data.pid);
-		//printf("to_execute: [%s]\n", to_execute);
-
 		data->exit_return = execve(to_execute, cmd_lst->cmd_node->argument, data->env);
-		//printf("exit_return: '%d'\n", data->exit_return);
-		//free(to_execute);
-
-		ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		data->exit_return = errno;
-		exit(data->exit_return);
+		print_error(data, cmd_lst);
 	}
 	else
-		no_such_file_error(data, cmd_lst);
+		print_error(data, cmd_lst);
 }
 
 /*
