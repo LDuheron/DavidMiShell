@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/07 13:12:31 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:47:54 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,7 @@ int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 	rl_clear_history();
 	// free_all
 	/* DEBUG */
-	printf("\n..ft_exit..\t exit_return:[%d]\n", data->exit_return);
+	//printf("\n..ft_exit..\t exit_return:[%d]\n", data->exit_return);
 	/* ***** */
 	exit(data->exit_return);
 }
-
-/* Need to take care of ft_exit */
-/*
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
-{
-	(void)data;
-	(void)cmd_lst;
-}
-
-void ft_exit(t_data *data, t_cmd_lst *cmd_lst)
-{
-	if (cmd_lst->cmd_node->argument[1])
-	{
-	}
-
-	rl_clear_history();
-	// free all memory here
-    exit(data->exit_return);
-}
-*/

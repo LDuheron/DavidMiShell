@@ -3,58 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:47:52 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/11 15:55:23 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:40:19 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_in_file_fd(char *file_name)
+void	ft_create_here_doc(char *delimiter)
+{
+	int		fd;
+	char	*buffer;
+
+	buffer = NULL;
+	fd = open(HD_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	write(1, "> ", 2);
+	while (get_next_line(0, &buffer) > 0)
+	{
+		/* we need to handle the case of ctrl^C / ctrl^D !?.. */
+		if (!ft_strncmp(buffer, delimiter, ft_strlen(buffer)))
+			break ;
+		else
+		{
+			ft_putstr_fd(buffer, fd);
+			write(fd, "\n", 1);
+		}
+		free(buffer);
+		write(1, "> ", 2);
+	}
+	free(buffer);
+	close (fd);
+}
+
+int	in_file_fd(enum e_type_token redir_type, char *file_name)
 {
 	int		file_fd;
 
-	file_fd = open(file_name, O_RDONLY);
-	if (file_fd < 0)
+	if (redir_type == SIMPLE_IN)
 	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		perror(file_name);
-		return (-1);
+		file_fd = open(file_name, O_RDONLY);
+		if (file_fd < 0)
+		{
+			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+			perror(file_name);
+		}
+	}
+	else if (redir_type == DOUBLE_IN)
+	{
+		ft_create_here_doc(file_name);
+		file_fd = open(HD_FILE, O_RDONLY);
+		if (file_fd < 0)
+		{
+			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+			perror(HD_FILE);
+		}
 	}
 	return (file_fd);
 }
 
-int	get_here_doc_fd(char *heredoc_str)
-{
-	printf("\t\t..heredoc_string: [%s]\n", heredoc_str);
-	return (-2);
-}
-
-int	get_out_file_fd(char *file_name)
+int	out_file_fd(enum e_type_token redir_type, char *file_name)
 {
 	int		file_fd;
 
-	file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (file_fd < 0)
+	if (redir_type == SIMPLE_OUT)
 	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		perror(file_name);
-		return (-1);
+		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (file_fd < 0)
+		{
+			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+			perror(file_name);
+		}
 	}
-	return (file_fd);
-}
-int	get_append_file_fd(char *file_name)
-{
-	int		file_fd;
-
-	file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	if (file_fd < 0)
+	else if (redir_type == DOUBLE_OUT)
 	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		perror(file_name);
-		return (-1);
+		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		if (file_fd < 0)
+		{
+			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+			perror(file_name);
+		}
 	}
 	return (file_fd);
 }
@@ -62,31 +91,24 @@ int	get_append_file_fd(char *file_name)
 void	set_redirection(t_data *data, t_cmd_lst *cmd_lst)
 {
 	(void)data;
-	t_cmd_node	*node;
-	int			i;
-	printf("\t..set_redirection..\n");
+	t_cmd_node			*node;
+	enum e_type_token	redir_type;
+	int					i;
 
-	i = 0;
 	node = cmd_lst->cmd_node;
-	if (node->redir)
+	i = 0;
+	if (cmd_lst->cmd_node->redir)
 	{
 		while (node->redir[i])
 		{
-			if (node->redir_type[i] == SIMPLE_IN)
+			redir_type = node->redir_type[i];
+			if (redir_type == SIMPLE_IN || redir_type == DOUBLE_IN)
 			{
-				cmd_lst->in_file = get_in_file_fd(node->redir[i]);
+				cmd_lst->in_file = in_file_fd(redir_type, node->redir[i]);
 			}
-			if (node->redir_type[i] == DOUBLE_IN)
+			if (redir_type == SIMPLE_OUT || redir_type == DOUBLE_OUT)
 			{
-				cmd_lst->in_file = get_here_doc_fd(node->redir[i]);
-			}
-			if (node->redir_type[i] == SIMPLE_OUT)
-			{
-				cmd_lst->out_file = get_out_file_fd(node->redir[i]);
-			}
-			if (node->redir_type[i] == DOUBLE_OUT)
-			{
-				cmd_lst->out_file = get_append_file_fd(node->redir[i]);
+				cmd_lst->out_file = out_file_fd(redir_type, node->redir[i]);
 			}
 			i++;
 		}

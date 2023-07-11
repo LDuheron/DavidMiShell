@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:29:47 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/10 11:22:03 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:53:44 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_echo(t_data *data, t_cmd_lst *cmd_lst)
 	bool	n_option;
 	int		i;
 
-	printf("\t..ft_echo\n");
 	n_option = ft_echo_with_n(cmd_lst);
 	i = 0;
 	if (n_option)

@@ -6,7 +6,7 @@
 /*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/05 23:22:40 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/11 20:45:17 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	prompt(t_data *data)
 			if (cmd_lst)
 			{
 				data->cmd_lst = cmd_lst;
-				print_cmd_lst(&cmd_lst);
+				//print_cmd_lst(&cmd_lst);
 				execution(data);
 			}
 			list_destroy(cmd_lst);
