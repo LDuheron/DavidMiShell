@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/10 11:23:44 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:41:40 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 
 	/* DEBUG */
 	//printf("\t\t..child_process..");
+	
+	set_redirection(data, cmd_lst);
 	/* ***** */
 
 	redirect_in_out(cmd_lst, fd);

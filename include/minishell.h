@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/09 23:24:57 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/11 15:42:40 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 // In or out quote.
 
@@ -352,6 +353,9 @@ void	ft_execve(t_data *data, t_cmd_lst *cmd_lst);
 /* ft_exec.c */
 //void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
 void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
+
+/* redirection.c */
+void	set_redirection(t_data *data, t_cmd_lst *cmd_lst);
 
 /* utils_execution.c */
 void	ft_wait(t_data *data);

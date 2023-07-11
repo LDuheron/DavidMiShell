@@ -44,6 +44,7 @@ SRCS        := 											\
 	signals/signal_handler.c							\
 	execution/exec/execution.c							\
 	execution/exec/ft_exec.c							\
+	execution/exec/redirection.c						\
 	execution/exec/utils_execution.c					\
 	execution/builtin/ft_cd.c							\
 	execution/builtin/ft_echo.c							\

@@ -154,7 +154,10 @@ char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
 	while (path_dirs[i])
 	{
 		to_execute = ft_strjoin(ft_strjoin(path_dirs[i], "/"), cmd);
-		printf("\tpaths[%d]: [%s], to_exec: [%s]\n",i,	path_dirs[i], to_execute);
+
+		/* DEBUG */
+		//printf("\tpaths[%d]: [%s], to_exec: [%s]\n",i,	path_dirs[i], to_execute);
+		/* ***** */
 
 		if (access(to_execute, X_OK) == 0)
 			break ;
