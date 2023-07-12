@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 18:27:18 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:31:55 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,14 @@ int	lexing(t_tokens **token, char *buffer)
 		tmp_token = which_new_token(&data_lexing);
 
 		//printf("\t\tso far so good..\n");
-
+		
 		if (tmp_token == 0)
 			return (error_malloc(&data_lexing));
 		len = tmp_token->len;
 		ft_lstadd_back_tokens(token, tmp_token);
 		data_lexing.pos += len;
+		while (is_space(data_lexing.line[data_lexing.pos]) == 1)
+			data_lexing.pos++;
 
 		/* DEBUG 
 		printf("\tpos:[%d], len:[%d]\n", data_lexing.pos, data_lexing.len);
