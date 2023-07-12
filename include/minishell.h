@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/11 19:12:44 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/12 14:12:25 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ typedef struct s_data
 	char		**m_envp;
 	char		**path_dirs;
 	t_cmd_lst	*cmd_lst;
-	int			exit_return;
+	int			exit_code;
 	int			pid;
 }	t_data;
 
@@ -314,6 +314,7 @@ t_tokens	*ft_lstnew(char *content);
 
 /* signal_handler.c */
 void		sigint_handler(int sig);
+void		ft_signal_heredoc(int signal);
 int			is_not_interpreted_dollar(char *str, int pos_dollar);
 
 //////////////////////////////////////////////////////////////////

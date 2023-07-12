@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:44:00 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/11 20:47:21 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/12 13:52:19 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int ft_env(t_data *data)
 		ft_putendl_fd(data->m_envp[i], 1);
 		i++;
 	}
-	data->exit_return = 0; 
+	data->exit_code = 0; 
 	return (0);
 }

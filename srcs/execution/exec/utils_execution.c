@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/10 15:57:22 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:51:10 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_wait(t_data *data)
 		if (pid == data->pid)
 		{
 			if (WIFEXITED(status))
-				data->exit_return = WEXITSTATUS(status);
+				data->exit_code = WEXITSTATUS(status);
 		}
 		if (cmd_lst->out_file >= 0)
 			close(cmd_lst->out_file);

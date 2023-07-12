@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/08 13:27:15 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:53:50 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ int ft_export(t_data *data, t_cmd_lst *cmd_lst)
 	char	*tmp;
 	int		i;
 
-	/* DEBUG 
-	printf("\t..ft_export..\n");
-	i = -1;
-	while (cmd_lst->cmd_node->argument[++i])
-		printf("[%d]: [%s]\n", i, cmd_lst->cmd_node->argument[i]);
-	*/
-	/* ***** */
-
 	if (cmd_lst->cmd_node->argument[1] == NULL)
 		put_envp(data->m_envp);
 	else
@@ -59,9 +51,6 @@ int ft_export(t_data *data, t_cmd_lst *cmd_lst)
 		if (++i > 0)
 		{
 			key = ft_substr(cmd_lst->cmd_node->argument[1], 0, i);
-			/* DEBUG */
-			//printf("\t\tkey:[%s]\n", key);
-			/* ***** */
 			if (cmd_lst->cmd_node->argument[1][i - 2] == '+')
 			{
 				free(key);
@@ -75,6 +64,6 @@ int ft_export(t_data *data, t_cmd_lst *cmd_lst)
 			free(key);
 		}
 	}
-	data->exit_return = 0;
+	data->exit_code = 0;
 	return (0);
 }

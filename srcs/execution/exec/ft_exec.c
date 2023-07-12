@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/11 14:41:40 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:50:40 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,11 @@ void	exit_process(t_data *data, int *fd)
 	}
 	close(fd[0]);
 	close(fd[1]);
-
-	/* DEBUG */
-	/* ***** */
-	exit(data->exit_return);
+	exit(data->exit_code);
 }
 
 void	redirect_in_out(t_cmd_lst *cmd_lst, int *fd)
 {
-	/* DEBUG */
-	//printf("..redir_in_out.. in_file:'%d', out_file:'%d', fd[0]'%d', fd[1]:'%d'\t", cmd_lst->in_file, cmd_lst->out_file, fd[0], fd[1]);
-	/* ***** */
-
 	close(fd[0]);
 	if (cmd_lst->in_file >= 0)
 	{
@@ -59,29 +52,15 @@ void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 {
 	int	builtin;
 
-	/* DEBUG */
-	//printf("\t\t..child_process..");
-	
 	set_redirection(data, cmd_lst);
-	/* ***** */
-
 	redirect_in_out(cmd_lst, fd);
-
 	builtin = check_builtin(cmd_lst);
-
-	/* DEBUG 
-	printf("\tbuiltin: [%s], argument_0:[%s]", print_builtin(builtin), cmd_lst->cmd_node->argument[0]);
-	printf("\n");
-	*/
-	/* ***** */
-
 	if (builtin)
 	{
 		exec_builtin(data, cmd_lst, builtin);
-		exit(data->exit_return);
+		exit(data->exit_code);
 	}
 	ft_execve(data, cmd_lst);
-	// ?? would need to free all the memory in child since it is duplicated ??
 	exit_process(data, fd);
 }
 
@@ -110,23 +89,12 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 	int	builtin;
 
 	builtin = check_builtin(cmd_lst);
-
-	/* DEBUG 
-	printf("\t..ft_launch_cmd..");
-	printf("\tbuiltin: [%s], argument_0:[%s]\t", print_builtin(builtin), cmd_lst->cmd_node->argument[0]);
-	//printf("cmd_lst->next @ [%p]", cmd_lst->next);
-	printf("\n");
-	*/
-	/* ***** */
-
 	if (builtin && !cmd_lst->next)
 	{
-		//printf("\t\t.... exec_builtin\n");
 		exec_builtin(data, cmd_lst, builtin);
 	}
 	else
 	{
-		//printf("\t\t.... pipe & fork\n");
 		// both pipe() and fork() need to be called in separate functoin with proper error handling
 		if (pipe(fd) == -1)
 			printf("Pipe error handling here\n");
