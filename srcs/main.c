@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 11:07:06 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:20:10 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ void	prompt(t_data *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	int	code;
 	(void)argv;
-	
+
 	if (argc != 1)
 		return (0);
 	init_data(&data, env);
@@ -80,7 +81,8 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, &sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	prompt(&data);
+	code = data.exit_return;
 	free_tab(data.m_envp);
 	printf("exit\n");
-	return (0);
+	return (code);
 }
