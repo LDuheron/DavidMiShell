@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 16:20:10 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:43:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	prompt(t_data *data)
 			if (cmd_lst)
 			{
 				data->cmd_lst = cmd_lst;
-				print_cmd_lst(&cmd_lst);
+				// print_cmd_lst(&cmd_lst);
 				execution(data);
 			}
 			list_destroy(cmd_lst);
@@ -71,7 +71,7 @@ void	prompt(t_data *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
-	int	code;
+	int		code;
 	(void)argv;
 
 	if (argc != 1)
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, &sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	prompt(&data);
-	code = data.exit_return;
+	code = data.exit_code;
 	free_tab(data.m_envp);
 	printf("exit\n");
 	return (code);

@@ -72,7 +72,7 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 
 void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 {
-	expand_envp(cmd_lst->cmd_node, data->m_envp);
+	expand_envp(data, cmd_lst->cmd_node);
 
 	if (builtin == CD)
 		ft_cd(data, cmd_lst);
@@ -163,9 +163,9 @@ void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 	if (cmd_lst->cmd_node->argument)
 	{
 		arg = cmd_lst->cmd_node->argument;
-		expand_envp(cmd_lst->cmd_node, data->m_envp);
+		expand_envp(data, cmd_lst->cmd_node);
 		to_execute = absolute_path_to_cmd(arg[0], data->path_dirs);
-		data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument, data->env);
+		data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument, data->m_envp);
 		print_error(data, cmd_lst);
 	}
 	else

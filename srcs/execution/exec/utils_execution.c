@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 13:51:10 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:40:46 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*replace_value(char *str, char *key, char *value)
 	int		v_len;
 	int		i;
 	int		j;
-	
+
 	v_len = ft_strlen(value);
 	k_len = ft_strlen(key);
 	new_str = malloc(ft_strlen(str) - k_len + v_len + 1);
@@ -76,7 +76,7 @@ char	*look_up_key_value(char *str, int k_len, char **env)
 	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
-	key = ft_substr(str, i, k_len + 1);	
+	key = ft_substr(str, i, k_len + 1);
 	i = -1;
 	while (env[++i])
 		if (ft_strncmp(key + 1, env[i], k_len - 1) == 0 && env[i][k_len] == '=')
@@ -93,13 +93,13 @@ char	*look_up_key_value(char *str, int k_len, char **env)
 	return (new_str);
 }
 
-void	expand_envp(t_cmd_node *cmd_node, char **env)
+void	expand_envp(t_data *data, t_cmd_node *cmd_node)
 {
 	char	*tmp;
 	int		key_len;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	while (cmd_node->argument && cmd_node->argument[i])
 	{
@@ -107,7 +107,10 @@ void	expand_envp(t_cmd_node *cmd_node, char **env)
 		while (cmd_node->arg_subst[i][j] > 0)
 		{
 			key_len = cmd_node->arg_subst[i][j];
-			tmp = look_up_key_value(cmd_node->argument[i], key_len, env);
+			if (key_len == 1 && cmd_node->argument[i][1] == '?')
+				tmp = ft_itoa(data->exit_code);
+			else
+				tmp = look_up_key_value(cmd_node->argument[i], key_len, data->m_envp);
 			cmd_node->argument[i] = tmp;
 			j++;
 		}
