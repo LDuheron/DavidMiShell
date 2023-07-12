@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:46:13 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/05 23:54:56 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/12 13:54:38 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int ft_unset(t_data *data, t_cmd_lst *cmd_lst)
 			i++;
 		}
 	}
-	data->exit_return = 0;
+	data->exit_code = 0;
 	return (0);
 }

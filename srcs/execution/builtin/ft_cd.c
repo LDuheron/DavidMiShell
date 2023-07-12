@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:34:30 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/05 18:54:55 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/12 13:51:40 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	ft_cd(t_data *data, t_cmd_lst *cmd_lst)
 	{
 		ft_putstr_fd("cd: no such file or directory: ", 2);
 		ft_putendl_fd(path, 2);
-		data->exit_return = 1;
+		data->exit_code = 1;
 	}
 	else
 	{
-		data->exit_return = 0;
+		data->exit_code = 0;
 		change_pwd(data->m_envp, "PWD=");
 		change_pwd(data->m_envp, "OLDPWD=");
 	}

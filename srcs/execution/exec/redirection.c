@@ -6,17 +6,61 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:47:52 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 11:05:05 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:24:51 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+void	ft_close_heredoc()
+{
+	close(fd);
+	dup2(fd_cpy, STDIN_FILENO);
+	close(fd_cpy);
+}
+
+int	ft_create_here_doc(char *delimiter)
+{
+	int		fd[2];
+	int		fd_cpy;
+	int		file_fd;
+	char	*buffer;
+
+	dup(STDIN_FILENO);
+	if (pipe(fd) == -1)
+	{
+		// pipe error handling here
+		return (errno);
+	}
+	signal(SIGINT, &ft_signal_heredoc);
+	buffer = NULL;
+	file_fd = open(HD_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	write(1, "> ", 2);
+	while (get_next_line(0, &buffer) > 0)
+	{
+		if (!ft_strncmp(buffer, delimiter, ft_strlen(buffer)))
+			break ;
+		else
+		{
+			ft_putstr_fd(buffer, fd);
+			write(fd, "\n", 1);
+		}
+		free(buffer);
+		write(1, "> ", 2);
+	}
+	free(buffer);
+	close (file_fd);
+	return (0);
+}
+*/
 
 void	ft_create_here_doc(char *delimiter)
 {
 	int		fd;
 	char	*buffer;
 
+	signal(SIGINT, &ft_signal_heredoc);
 	buffer = NULL;
 	fd = open(HD_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	write(1, "> ", 2);

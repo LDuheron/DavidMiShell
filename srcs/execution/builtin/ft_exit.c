@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/12 11:14:14 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:52:29by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ bool	valid_exit_number(const char *str)
 	return (true);
 }
 
+/* ..might need to control the ft_putstr_fd("exit\n") in the child !? */
 int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 {
 	if (cmd_lst->cmd_node->argument[1])
@@ -56,14 +57,14 @@ int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 					STDERR_FILENO);
 				return (1);
 			}
-			data->exit_return = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1]) % 256);
+			data->exit_code = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1]) % 256);
 		}
 		else
 		{
 			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 			ft_putstr_fd(cmd_lst->cmd_node->argument[1], STDERR_FILENO);
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-			data->exit_return = 2;
+			data->exit_code = 2;
 		}
 	}
 	rl_clear_history();
@@ -72,5 +73,5 @@ int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 	//printf("\n..ft_exit..\t exit_return:[%d]\n", data->exit_return);
 	/* ***** */
 	ft_putstr_fd("exit\n", 1);
-	exit(data->exit_return);
+	exit(data->exit_code);
 }

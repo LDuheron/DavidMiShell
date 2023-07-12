@@ -72,10 +72,6 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 
 void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 {
-	/* DEBUG */
-	//printf("\t\t..exec_builtin.. ..expand here..\n\n");
-	//print_cmd_lst(&cmd_lst);
-	/* ***** */
 	expand_envp(cmd_lst->cmd_node, data->m_envp);
 
 	if (builtin == CD)
@@ -98,12 +94,6 @@ void	execution(t_data *data)
 {
 	t_cmd_lst	*cmd_lst;
 	
-	/* DEBUG 
-	printf("\t");
-	printf("..execution..\n");
-	*/
-	/* ***** */
-
 	cmd_lst = data->cmd_lst;
 	while (cmd_lst)
 	{
@@ -139,8 +129,8 @@ void	print_error(t_data *data, t_cmd_lst *cmd_lst)
 		ft_putstr_fd(cmd_lst->cmd_node->redir[0], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
-	data->exit_return = errno;
-	exit(data->exit_return);
+	data->exit_code = errno;
+	exit(data->exit_code);
 }
 
 char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
@@ -154,11 +144,6 @@ char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
 	while (path_dirs[i])
 	{
 		to_execute = ft_strjoin(ft_strjoin(path_dirs[i], "/"), cmd);
-
-		/* DEBUG */
-		//printf("\tpaths[%d]: [%s], to_exec: [%s]\n",i,	path_dirs[i], to_execute);
-		/* ***** */
-
 		if (access(to_execute, X_OK) == 0)
 			break ;
 		free(to_execute);
@@ -180,33 +165,9 @@ void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 		arg = cmd_lst->cmd_node->argument;
 		expand_envp(cmd_lst->cmd_node, data->m_envp);
 		to_execute = absolute_path_to_cmd(arg[0], data->path_dirs);
-		data->exit_return = execve(to_execute, cmd_lst->cmd_node->argument, data->env);
+		data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument, data->env);
 		print_error(data, cmd_lst);
 	}
 	else
 		print_error(data, cmd_lst);
 }
-
-/*
-void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
-{
-	int		y;
-	char	*exec;
-
-	expand_envp(cmd_lst->cmd_node, data->m_envp);
-
-	y = 0;
-	while (data->path_dirs[++y])
-	{
-		exec = ft_strjoin(ft_strjoin(data->path_dirs[y], "/"), cmd_lst->cmd_node->argument[0]);
-		//printf("execve, path'%s', pid:'%d'\n", exec, data.pid);
-		data->exit_return = execve(exec, cmd_lst->cmd_node->argument, data->env);
-		//printf("exit_return: '%d'\n", data->exit_return);
-		free(exec);
-	}
-	ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
-	data->exit_return = errno;
-	exit(data->exit_return);
-}
-*/

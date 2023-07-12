@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:15:20 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/06 16:46:38 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:43:33 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	init_data(t_data *data, char **env)
 	// check if the is a malloc error for m_envp
 	data->path_dirs = get_path_directories(data->m_envp);
 	data->cmd_lst = NULL;
-	data->exit_return = 0;
+	data->exit_code = 0;
 	data->pid = 42;
 }
