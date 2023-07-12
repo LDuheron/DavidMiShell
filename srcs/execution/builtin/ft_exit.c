@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/11 20:47:54 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/12 11:14:14 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 	/* DEBUG */
 	//printf("\n..ft_exit..\t exit_return:[%d]\n", data->exit_return);
 	/* ***** */
+	ft_putstr_fd("exit\n", 1);
 	exit(data->exit_return);
 }
