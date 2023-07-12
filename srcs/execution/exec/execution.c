@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 18:07:17 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/10 15:53:28by sbocanci         ###   ########.fr       */
+/*   Created: 2023/07/12 18:20:39 by lduheron          #+#    #+#             */
+/*   Updated: 2023/07/12 18:24:44 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 /* DEBUG */
 char	*print_builtin(int builtin)
 {
-	if (builtin == CD)	
+	if (builtin == CD)
 		return ("CD");
-	else if (builtin == ECHO)	
+	else if (builtin == ECHO)
 		return ("ECHO");
-	else if (builtin == ENV)	
+	else if (builtin == ENV)
 		return ("ENV");
-	else if (builtin == EXIT)	
+	else if (builtin == EXIT)
 		return ("EXIT");
-	else if (builtin == EXPORT)	
+	else if (builtin == EXPORT)
 		return ("EXPORT");
-	else if (builtin == PWD)	
+	else if (builtin == PWD)
 		return ("PWD");
-	else if (builtin == UNSET)	
+	else if (builtin == UNSET)
 		return ("UNSET");
 	else
 		return ("N_DEF");
@@ -36,9 +36,9 @@ char	*print_builtin(int builtin)
 char	*print_node_type(int type)
 {
 	if (type == CMD_NODE)
-		return("CMD_NODE");
+		return ("CMD_NODE");
 	if (type == PIPE_NODE)
-		return("PIPE_NODE");
+		return ("PIPE_NODE");
 	return ("no_type");
 }
 /* ***** */
@@ -46,8 +46,8 @@ char	*print_node_type(int type)
 int	check_builtin(t_cmd_lst *cmd_lst)
 {
 	char	**argument;
-	int	builtin;
-	
+	int		builtin;
+
 	argument = cmd_lst->cmd_node->argument;
 	builtin = N_A;
 	if (argument)
@@ -73,7 +73,6 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 {
 	expand_envp(data, cmd_lst->cmd_node);
-
 	if (builtin == CD)
 		ft_cd(data, cmd_lst);
 	else if (builtin == ECHO)
@@ -93,7 +92,7 @@ void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 void	execution(t_data *data)
 {
 	t_cmd_lst	*cmd_lst;
-	
+
 	cmd_lst = data->cmd_lst;
 	while (cmd_lst)
 	{
@@ -106,7 +105,9 @@ void	execution(t_data *data)
 	ft_wait(data);
 }
 
-/* This check handles the case if the **argumen in NULL and there is somethingin **redir */
+/* This check handles the case if the **argumen in NULL and
+there is something in **redir */
+
 void	print_error(t_data *data, t_cmd_lst *cmd_lst)
 {
 	if (cmd_lst->cmd_node->argument)
@@ -123,7 +124,7 @@ void	print_error(t_data *data, t_cmd_lst *cmd_lst)
 			ft_putstr_fd(": No such file or directory\n", 2);
 		}
 	}
-	else  if (cmd_lst->cmd_node->redir)
+	else if (cmd_lst->cmd_node->redir)
 	{
 		ft_putstr_fd("DavidMishell: ", 2);
 		ft_putstr_fd(cmd_lst->cmd_node->redir[0], 2);
@@ -155,7 +156,7 @@ char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
 	return (to_execute);
 }
 
-void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
+void	ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 {
 	char	**arg;
 	char	*to_execute;
@@ -165,7 +166,8 @@ void ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 		arg = cmd_lst->cmd_node->argument;
 		expand_envp(data, cmd_lst->cmd_node);
 		to_execute = absolute_path_to_cmd(arg[0], data->path_dirs);
-		data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument, data->m_envp);
+		data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument,
+				data->m_envp);
 		print_error(data, cmd_lst);
 	}
 	else

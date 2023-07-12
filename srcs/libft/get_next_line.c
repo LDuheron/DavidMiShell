@@ -1,9 +1,19 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/12 18:21:34 by lduheron          #+#    #+#             */
+/*   Updated: 2023/07/12 18:21:40 by lduheron         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
 /* GNL */
-static void		paste_line(char **readed_line, char *buff);
+static void	paste_line(char **readed_line, char *buff);
 static int	result(char **line, char **readed_line, int fd, int readed);
 static void	ft_strdel(char **str);
 

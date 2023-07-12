@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:15:20 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 13:43:33 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:20:03 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_envp(t_data *data)
 {
 	int		count;
 
-	data->m_envp = (char **)malloc(sizeof(char*) * BUFFER);
+	data->m_envp = (char **)malloc(sizeof(char *) * BUFFER);
 	if (!data->m_envp)
 		return ;
 	count = 0;

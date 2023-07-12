@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:46:13 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/12 13:54:38 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:08:15 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* ..this function wasn't tested yet !! */
-int ft_unset(t_data *data, t_cmd_lst *cmd_lst)
+int	ft_unset(t_data *data, t_cmd_lst *cmd_lst)
 {
 	int		i;
 	int		j;
@@ -23,9 +23,9 @@ int ft_unset(t_data *data, t_cmd_lst *cmd_lst)
 		i = 0;
 		while (data->m_envp[i])
 		{
-			if (ft_strncmp(data->m_envp[i], 
-				cmd_lst->cmd_node->argument[1], 
-				ft_strchr_i(data->m_envp[i], '=')) == 0)
+			if (ft_strncmp(data->m_envp[i],
+					cmd_lst->cmd_node->argument[1],
+					ft_strchr_i(data->m_envp[i], '=')) == 0)
 			{
 				free(data->m_envp[i]);
 				j = i;

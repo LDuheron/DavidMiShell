@@ -6,28 +6,11 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 17:43:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:25:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// MAIN WITHOUT READLINE
-// int	main_2(int argc, char **argv, char **env)
-// {
-// 	t_tokens	*token;
-// 	t_cmd_lst	*cmd_lst;
-
-// 	(void)env;
-// 	token = NULL;
-// 	cmd_lst = NULL;
-// 	if (argc != 2)
-// 		return (0);
-// 	if (lexing(&token, argv[1]) == SUCCESS)
-// 		if (check_syntax(&token) == SUCCESS)
-// 			parsing(&cmd_lst, &token);
-// 	return (0);
-// }
 
 void	prompt(t_data *data)
 {
@@ -72,12 +55,11 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	int		code;
-	(void)argv;
 
+	(void)argv;
 	if (argc != 1)
 		return (0);
 	init_data(&data, env);
-
 	signal(SIGINT, &sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	prompt(&data);

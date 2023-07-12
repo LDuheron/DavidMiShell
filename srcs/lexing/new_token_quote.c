@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 20:29:07 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:16:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,15 +139,6 @@ t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size)
 		}
 		get_content(content, data_lexing->line, size, data_lexing->pos);
 	}
-
-	//printf("\t\tbefore content:[%s]\n", content);
-
 	content = adjust_content(data_lexing, content, size);
-
-	//printf("\t\tafter content:[%s]\n", content);
-
 	return (add_new_token(data_lexing, content, WORD));
 }
-// premier passage ou je supprime dollar si suivi de double quotes
-// compte le nombre de dollar et on malloc le tableau de int
-// single_dollar_trimming(content_tmp);

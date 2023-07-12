@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 17:40:46 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:22:58 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ char	*look_up_key_value(char *str, int k_len, char **env)
 	key = ft_substr(str, i, k_len + 1);
 	i = -1;
 	while (env[++i])
+	{
 		if (ft_strncmp(key + 1, env[i], k_len - 1) == 0 && env[i][k_len] == '=')
 		{
 			free(value);
 			value = ft_strdup(env[i] + k_len + 1);
 			break ;
 		}
+	}
 	if (ft_strcmp(str, key) == 0)
 		new_str = value;
 	else
@@ -110,7 +112,8 @@ void	expand_envp(t_data *data, t_cmd_node *cmd_node)
 			if (key_len == 1 && cmd_node->argument[i][1] == '?')
 				tmp = ft_itoa(data->exit_code);
 			else
-				tmp = look_up_key_value(cmd_node->argument[i], key_len, data->m_envp);
+				tmp = look_up_key_value(cmd_node->argument[i],
+						key_len, data->m_envp);
 			cmd_node->argument[i] = tmp;
 			j++;
 		}

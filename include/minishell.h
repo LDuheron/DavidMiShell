@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 17:41:53 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:04:42 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,14 +138,6 @@ struct s_cmd_lst {
 	int					out_file;
 };
 
-// Expand_structures ideas
-/*
-typedef struct s_env_lst
-{
-	char				*content;
-	struct s_env_lst	*next;
-}	t_env_lst;
-*/
 typedef struct s_expand
 {
 	char		*new_arg;
@@ -324,8 +316,7 @@ int			is_not_interpreted_dollar(char *str, int pos_dollar);
 //////////////////////////////////////////////////////////////////
 
 /* ft_free.c */
-void	free_tab(char **str);
-
+void		free_tab(char **str);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -334,11 +325,11 @@ void	free_tab(char **str);
 //////////////////////////////////////////////////////////////////
 
 /* initialization.c */
-void	init_data(t_data *data, char **env);
+void		init_data(t_data *data, char **env);
 
 /* utils_init.c */
-bool	empty_buffer(char *str);
-char	**get_path_directories(char **m_envp);
+bool		empty_buffer(char *str);
+char		**get_path_directories(char **m_envp);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -347,23 +338,22 @@ char	**get_path_directories(char **m_envp);
 //////////////////////////////////////////////////////////////////
 
 /* execution.c */
-int		check_builtin(t_cmd_lst *cmd_lst);
-void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin);
-void	execution(t_data *data);
-void	ft_execve(t_data *data, t_cmd_lst *cmd_lst);
+int			check_builtin(t_cmd_lst *cmd_lst);
+void		exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin);
+void		execution(t_data *data);
+void		ft_execve(t_data *data, t_cmd_lst *cmd_lst);
 
 /* ft_exec.c */
-//void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
-void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
+//void		ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
+void		ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
 
 /* redirection.c */
-void	set_redirection(t_data *data, t_cmd_lst *cmd_lst);
+void		set_redirection(t_data *data, t_cmd_lst *cmd_lst);
 
 /* utils_execution.c */
-void	ft_wait(t_data *data);
-void	expand_envp(t_data *data, t_cmd_node *cmd_node);
-char	*look_up_key_and_replace(char *str, int key_len, char **m_envp);
-
+void		ft_wait(t_data *data);
+void		expand_envp(t_data *data, t_cmd_node *cmd_node);
+char		*look_up_key_and_replace(char *str, int key_len, char **m_envp);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -371,22 +361,23 @@ char	*look_up_key_and_replace(char *str, int key_len, char **m_envp);
 //																//
 //////////////////////////////////////////////////////////////////
 
-void	ft_cd(t_data *data, t_cmd_lst *cmd_lst);
-int		ft_echo(t_data *data, t_cmd_lst *cmd_lst);
-int		ft_export(t_data *data, t_cmd_lst *cmd_lst);
-int		ft_env(t_data *data);
-int		ft_exit(t_data *data, t_cmd_lst *cmd_lst);
-int		ft_pwd(t_data *data);
-int		ft_unset(t_data *data, t_cmd_lst *cmd_lst);
+void		ft_cd(t_data *data, t_cmd_lst *cmd_lst);
+int			ft_echo(t_data *data, t_cmd_lst *cmd_lst);
+int			ft_export(t_data *data, t_cmd_lst *cmd_lst);
+int			ft_env(t_data *data);
+int			ft_exit(t_data *data, t_cmd_lst *cmd_lst);
+int			ft_pwd(t_data *data);
+int			ft_unset(t_data *data, t_cmd_lst *cmd_lst);
 
 /* utils_builtin.c */
-void	change_pwd(char **m_envp, char *key);
-void	add_envp_variable(t_data *data, char *key, char *value, bool append);
-int		ft_strchr_i(char *str, int c);
+void		change_pwd(char **m_envp, char *key);
+void		add_envp_variable(t_data *data, char *key, char *value,
+				bool append);
+int			ft_strchr_i(char *str, int c);
 
 /* DEBUG FUNCTION */
-char	*print_builtin(int builtin);
-char	*print_node_type(int type);
+char		*print_builtin(int builtin);
+char		*print_node_type(int type);
 /* ************** */
 
 #endif

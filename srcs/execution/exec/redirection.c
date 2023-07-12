@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:47:52 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 16:24:51 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:15:40 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,11 @@ int	out_file_fd(enum e_type_token redir_type, char *file_name)
 
 void	set_redirection(t_data *data, t_cmd_lst *cmd_lst)
 {
-	(void)data;
 	t_cmd_node			*node;
 	enum e_type_token	redir_type;
 	int					i;
 
+	(void)data;
 	redir_type = N_DEF;
 	node = cmd_lst->cmd_node;
 	i = 0;

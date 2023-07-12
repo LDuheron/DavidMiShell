@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 13:53:50 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:22:29 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,20 @@ static void	put_envp(char **m_envp)
 }
 
 /* 
-** The following errors are generated in bash if input (export =) or (export FT_USER+) :
+** The following errors are generated in bash if input (export =)
+	or (export FT_USER+) :
 
 bash: export: `FT_USER+': not a valid identifier
 bash: export: `=': not a valid identifier
 
 ** this is not handled here.. not sure if it is needed ?!
 **
-** Also multiple arguments to export are not handled, only the first is processed.. ?!
+** Also multiple arguments to export are not handled, only the first
+	is processed.. ?!
 eg: export VAR=value VAR2=value2
 */
-int ft_export(t_data *data, t_cmd_lst *cmd_lst)
+
+int	ft_export(t_data *data, t_cmd_lst *cmd_lst)
 {
 	char	*key;
 	char	*tmp;

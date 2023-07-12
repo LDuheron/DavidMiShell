@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:20 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/05 23:30:23 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/12 18:07:11 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	change_pwd(char **m_envp, char *key)
 {	
 	char	*get_cwd;
 	int		i;
-	
+
 	i = 0;
 	while (m_envp[i])
 	{
@@ -32,7 +32,8 @@ void	change_pwd(char **m_envp, char *key)
 }
 
 /* this adds new key=value pair to the data->m_envp. 
-** also appends VALUE to VAR if 'export VAR+=VALUE' is used. New VAR is created if 'VAR+=' as in bash */
+** also appends VALUE to VAR if 'export VAR+=VALUE' is used.
+New VAR is created if 'VAR+=' as in bash */
 void	add_envp_variable(t_data *data, char *key, char *value, bool append)
 {
 	int		i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 23:31:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/12 13:52:29by sbocanci         ###   ########.fr       */
+/*   Created: 2023/07/12 18:08:46 by lduheron          #+#    #+#             */
+/*   Updated: 2023/07/12 18:11:09 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	valid_exit_number(const char *str)
 }
 
 /* ..might need to control the ft_putstr_fd("exit\n") in the child !? */
-int ft_exit(t_data *data, t_cmd_lst *cmd_lst)
+int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 {
 	if (cmd_lst->cmd_node->argument[1])
 	{

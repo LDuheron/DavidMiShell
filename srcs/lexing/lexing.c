@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 11:31:55 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:17:26 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 	int			type;
 
 	type = find_type(&data_lexing);
-	
 	/* DEBUG 
 	char *str = data_lexing->line;
 	int	i = data_lexing->pos;
 	printf("\twhich_new_token. type:[%s], line:[%s]\n", ft_put_enum(type), str + i);
 	*/
 	/* ***** */
-	
 	if (type == WORD)
 		return (lexing_word(data_lexing, WORD));
 	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
@@ -87,7 +85,6 @@ int	lexing(t_tokens **token, char *buffer)
 	printf("..lexing..\n");
 	*/
 	/* ***** */
-
 	len = 0;
 	if (check_line(buffer) == ERROR_SYNTAX)
 		return (error_in_line(&data_lexing));
@@ -99,9 +96,6 @@ int	lexing(t_tokens **token, char *buffer)
 		while (is_space(data_lexing.line[data_lexing.pos]) == 1)
 			data_lexing.pos++;
 		tmp_token = which_new_token(&data_lexing);
-
-		//printf("\t\tso far so good..\n");
-		
 		if (tmp_token == 0)
 			return (error_malloc(&data_lexing));
 		len = tmp_token->len;
@@ -109,14 +103,12 @@ int	lexing(t_tokens **token, char *buffer)
 		data_lexing.pos += len;
 		while (is_space(data_lexing.line[data_lexing.pos]) == 1)
 			data_lexing.pos++;
-
 		/* DEBUG 
 		printf("\tpos:[%d], len:[%d]\n", data_lexing.pos, data_lexing.len);
 		*/
 		/* ***** */
 	}
 	free(data_lexing.line);
-
 	/* DEBUG 
 	printf("..END lexing..\n");
 	*/

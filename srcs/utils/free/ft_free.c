@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:49:32 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/06/29 17:27:50 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:18:15 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_tab(char **str)
 	if (!str)
 		return ;
 	i = 0;
-	while (str[i]) 
+	while (str[i])
 	{
 		free(str[i]);
 		i++;
