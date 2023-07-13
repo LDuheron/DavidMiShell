@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 18:04:42 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/13 09:01:39 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <fcntl.h>
 
 // In or out quote.
+
+extern int	g_status;
 
 # define OUT 0
 # define IN 1
@@ -349,6 +351,7 @@ void		ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
 
 /* redirection.c */
 void		set_redirection(t_data *data, t_cmd_lst *cmd_lst);
+void		ft_here_doc(char *delimiter);
 
 /* utils_execution.c */
 void		ft_wait(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:20:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 18:24:44 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/13 09:17:14 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ void	execution(t_data *data)
 	t_cmd_lst	*cmd_lst;
 
 	cmd_lst = data->cmd_lst;
+
+	/* DEBUG */
+	set_redirection(data, cmd_lst);
+	/* ***** */
+
 	while (cmd_lst)
 	{
 		if (cmd_lst->type == CMD_NODE)

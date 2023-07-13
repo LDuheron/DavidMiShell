@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 13:50:40 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/13 09:16:27 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 {
 	int	builtin;
 
-	set_redirection(data, cmd_lst);
+	/* DEBUG */
+	//set_redirection(data, cmd_lst);
+	/* ***** */
 	redirect_in_out(cmd_lst, fd);
 	builtin = check_builtin(cmd_lst);
 	if (builtin)

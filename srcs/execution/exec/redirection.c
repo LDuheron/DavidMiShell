@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:47:52 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 18:15:40 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/13 09:08:57 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	ft_create_here_doc(char *delimiter)
 	close (file_fd);
 	return (0);
 }
-*/
 
 void	ft_create_here_doc(char *delimiter)
 {
@@ -66,7 +65,6 @@ void	ft_create_here_doc(char *delimiter)
 	write(1, "> ", 2);
 	while (get_next_line(0, &buffer) > 0)
 	{
-		/* we need to handle the case of ctrl^C / ctrl^D !?.. */
 		if (!ft_strncmp(buffer, delimiter, ft_strlen(buffer)))
 			break ;
 		else
@@ -80,6 +78,7 @@ void	ft_create_here_doc(char *delimiter)
 	free(buffer);
 	close (fd);
 }
+*/
 
 int	in_file_fd(enum e_type_token redir_type, char *file_name)
 {
@@ -97,12 +96,18 @@ int	in_file_fd(enum e_type_token redir_type, char *file_name)
 	}
 	else if (redir_type == DOUBLE_IN)
 	{
-		ft_create_here_doc(file_name);
-		file_fd = open(HD_FILE, O_RDONLY);
-		if (file_fd < 0)
+		/* DEBUG */
+		//ft_create_here_doc(file_name);
+		ft_here_doc(file_name);
+		/* ***** */
+		if (g_status == 0)
 		{
-			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
-			perror(HD_FILE);
+			file_fd = open(HD_FILE, O_RDONLY);
+			if (file_fd < 0)
+			{
+				ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+				perror(HD_FILE);
+			}
 		}
 	}
 	return (file_fd);
@@ -156,6 +161,11 @@ void	set_redirection(t_data *data, t_cmd_lst *cmd_lst)
 			if (redir_type == SIMPLE_OUT || redir_type == DOUBLE_OUT)
 			{
 				cmd_lst->out_file = out_file_fd(redir_type, node->redir[i]);
+			}
+			if (g_status == 2)
+			{
+				g_status = 0;
+				break ;
 			}
 			i++;
 		}
