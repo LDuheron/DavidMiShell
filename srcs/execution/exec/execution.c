@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:20:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/13 15:51:17 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/13 20:58:46 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,27 +84,38 @@ void	execution(t_data *data)
 /* This check handles the case if the **argumen in NULL and
 there is something in **redir */
 
-void	print_error(t_data *data, t_cmd_lst *cmd_lst)
+void	print_error_cmd(t_data *data, t_cmd_lst *cmd_lst)
 {
-	if (cmd_lst->cmd_node->argument)
+	if (ft_strchr_i(cmd_lst->cmd_node->argument[0], '/') == -1)
 	{
-		if (ft_strchr_i(cmd_lst->cmd_node->argument[0], '/') == -1)
-		{
-			ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
-			ft_putstr_fd(": command not found\n", 2);
-		}
-		else
-		{
-			ft_putstr_fd("DavidMishell: ", 2);
-			ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-		}
+		ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 	}
-	else if (cmd_lst->cmd_node->redir)
+	else
 	{
 		ft_putstr_fd("DavidMishell: ", 2);
-		ft_putstr_fd(cmd_lst->cmd_node->redir[0], 2);
+		ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+	data->exit_code = errno;
+	exit(data->exit_code);
+}
+
+void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_lst->cmd_node->redir[i])
+	{
+		if (!access(cmd_lst->cmd_node->redir[i], X_OK))
+		{
+			ft_putstr_fd("DavidMishell: ", 2);
+			ft_putstr_fd(cmd_lst->cmd_node->redir[0], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			break ;
+		}
+		i++;
 	}
 	data->exit_code = errno;
 	exit(data->exit_code);
@@ -144,8 +155,10 @@ void	ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 		to_execute = absolute_path_to_cmd(arg[0], data->path_dirs);
 		data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument,
 				data->m_envp);
-		print_error(data, cmd_lst);
+		print_error_cmd(data, cmd_lst);
 	}
-	else
-		print_error(data, cmd_lst);
+	else if (cmd_lst->cmd_node->redir)
+	{
+		print_error_dir(data, cmd_lst);
+	}
 }

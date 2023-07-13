@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:53 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/13 15:49:04 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/13 20:56:49 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	sigint_handler(int sig)
 		{
 			g_status = sig; // sig == 2
 			close(STDIN_FILENO);
+			write(1, "\n", 1);
 		}
 	}
 }
