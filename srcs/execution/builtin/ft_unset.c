@@ -3,37 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:46:13 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/12 18:08:15 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:48:18 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* ..this function wasn't tested yet !! */
+void	search_and_destroy(char **args, char **env, int index)
+{
+	int	i;
+	int	j;
+	int	k_len;
+
+	k_len = ft_strlen(args[index]);
+	i = 0;
+	while (env && env[i])
+	{
+		if (ft_strncmp(env[i], args[index], k_len) == 0 && env[i][k_len] == '=')
+		{
+			free(env[i]);
+			j = i;
+			while (env[++j])
+				env[j - 1] = env[j];
+			env[j - 1] = NULL;
+			break ;
+		}
+		i++;
+	}
+}
+
 int	ft_unset(t_data *data, t_cmd_lst *cmd_lst)
 {
+	char	**argument;
 	int		i;
-	int		j;
 
-	if (cmd_lst->cmd_node->argument[1] != NULL)
+	argument = cmd_lst->cmd_node->argument;
+	i = 1;
+	if (argument[i] != NULL)
 	{
-		i = 0;
-		while (data->m_envp[i])
+		while (argument[i])
 		{
-			if (ft_strncmp(data->m_envp[i],
-					cmd_lst->cmd_node->argument[1],
-					ft_strchr_i(data->m_envp[i], '=')) == 0)
-			{
-				free(data->m_envp[i]);
-				j = i;
-				while (data->m_envp[++j])
-					data->m_envp[j - 1] = data->m_envp[j];
-				data->m_envp[j - 1] = NULL;
-				break ;
-			}
+			search_and_destroy(argument, data->m_envp, i);
 			i++;
 		}
 	}

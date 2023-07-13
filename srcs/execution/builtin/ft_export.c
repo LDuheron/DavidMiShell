@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 18:22:29 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:49:12 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,47 @@ bash: export: `FT_USER+': not a valid identifier
 bash: export: `=': not a valid identifier
 
 ** this is not handled here.. not sure if it is needed ?!
-**
-** Also multiple arguments to export are not handled, only the first
-	is processed.. ?!
-eg: export VAR=value VAR2=value2
 */
 
-int	ft_export(t_data *data, t_cmd_lst *cmd_lst)
+void	search_and_extract_key(t_data *data, char **argument, int index)
 {
 	char	*key;
 	char	*tmp;
+	int		i;
+
+	i = ft_strchr_i(argument[index], '=');
+	if (++i > 0)
+	{
+		key = ft_substr(argument[index], 0, i);
+		if (argument[index][i - 2] == '+')
+		{
+			free(key);
+			tmp = ft_substr(argument[index], 0, i - 2);
+			key = ft_strjoin(tmp, "=");
+			add_envp_variable(data, key, argument[index] + i, true);
+			free(tmp);
+		}
+		else if (ft_strlen(key) > 1)
+			add_envp_variable(data, key, argument[index] + i, false);
+		free(key);
+	}
+}
+
+int	ft_export(t_data *data, t_cmd_lst *cmd_lst)
+{
+	char	**argument;
 	int		i;
 
 	if (cmd_lst->cmd_node->argument[1] == NULL)
 		put_envp(data->m_envp);
 	else
 	{
-		i = ft_strchr_i(cmd_lst->cmd_node->argument[1], '=');
-		if (++i > 0)
+		i = 1;
+		argument = cmd_lst->cmd_node->argument;
+		while (argument[i])
 		{
-			key = ft_substr(cmd_lst->cmd_node->argument[1], 0, i);
-			if (cmd_lst->cmd_node->argument[1][i - 2] == '+')
-			{
-				free(key);
-				tmp = ft_substr(cmd_lst->cmd_node->argument[1], 0, i - 2);
-				key = ft_strjoin(tmp, "=");
-				add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, true);
-				free(tmp);
-			}
-			else if (ft_strlen(key) > 1)
-				add_envp_variable(data, key, cmd_lst->cmd_node->argument[1] + i, false);
-			free(key);
+			search_and_extract_key(data, argument, i);	
+			i++;
 		}
 	}
 	data->exit_code = 0;
