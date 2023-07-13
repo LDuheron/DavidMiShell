@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/13 09:07:34 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/13 16:11:45 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	prompt(t_data *data)
 			if (cmd_lst)
 			{
 				data->cmd_lst = cmd_lst;
-				// print_cmd_lst(&cmd_lst);
+				//print_cmd_lst(&cmd_lst);
 				execution(data);
 			}
 			list_destroy(cmd_lst);

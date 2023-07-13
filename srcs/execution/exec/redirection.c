@@ -3,82 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:47:52 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/13 09:08:57 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/13 16:11:35 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-void	ft_close_heredoc()
-{
-	close(fd);
-	dup2(fd_cpy, STDIN_FILENO);
-	close(fd_cpy);
-}
-
-int	ft_create_here_doc(char *delimiter)
-{
-	int		fd[2];
-	int		fd_cpy;
-	int		file_fd;
-	char	*buffer;
-
-	dup(STDIN_FILENO);
-	if (pipe(fd) == -1)
-	{
-		// pipe error handling here
-		return (errno);
-	}
-	signal(SIGINT, &ft_signal_heredoc);
-	buffer = NULL;
-	file_fd = open(HD_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	write(1, "> ", 2);
-	while (get_next_line(0, &buffer) > 0)
-	{
-		if (!ft_strncmp(buffer, delimiter, ft_strlen(buffer)))
-			break ;
-		else
-		{
-			ft_putstr_fd(buffer, fd);
-			write(fd, "\n", 1);
-		}
-		free(buffer);
-		write(1, "> ", 2);
-	}
-	free(buffer);
-	close (file_fd);
-	return (0);
-}
-
-void	ft_create_here_doc(char *delimiter)
-{
-	int		fd;
-	char	*buffer;
-
-	signal(SIGINT, &ft_signal_heredoc);
-	buffer = NULL;
-	fd = open(HD_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	write(1, "> ", 2);
-	while (get_next_line(0, &buffer) > 0)
-	{
-		if (!ft_strncmp(buffer, delimiter, ft_strlen(buffer)))
-			break ;
-		else
-		{
-			ft_putstr_fd(buffer, fd);
-			write(fd, "\n", 1);
-		}
-		free(buffer);
-		write(1, "> ", 2);
-	}
-	free(buffer);
-	close (fd);
-}
-*/
 
 int	in_file_fd(enum e_type_token redir_type, char *file_name)
 {
@@ -88,27 +20,11 @@ int	in_file_fd(enum e_type_token redir_type, char *file_name)
 	if (redir_type == SIMPLE_IN)
 	{
 		file_fd = open(file_name, O_RDONLY);
-		if (file_fd < 0)
-		{
-			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
-			perror(file_name);
-		}
 	}
 	else if (redir_type == DOUBLE_IN)
 	{
-		/* DEBUG */
-		//ft_create_here_doc(file_name);
 		ft_here_doc(file_name);
-		/* ***** */
-		if (g_status == 0)
-		{
-			file_fd = open(HD_FILE, O_RDONLY);
-			if (file_fd < 0)
-			{
-				ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
-				perror(HD_FILE);
-			}
-		}
+		file_fd = open(HD_FILE, O_RDONLY);
 	}
 	return (file_fd);
 }
@@ -119,23 +35,9 @@ int	out_file_fd(enum e_type_token redir_type, char *file_name)
 
 	file_fd = -2;
 	if (redir_type == SIMPLE_OUT)
-	{
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (file_fd < 0)
-		{
-			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
-			perror(file_name);
-		}
-	}
 	else if (redir_type == DOUBLE_OUT)
-	{
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0666);
-		if (file_fd < 0)
-		{
-			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
-			perror(file_name);
-		}
-	}
 	return (file_fd);
 }
 
@@ -145,29 +47,42 @@ void	set_redirection(t_data *data, t_cmd_lst *cmd_lst)
 	enum e_type_token	redir_type;
 	int					i;
 
-	(void)data;
+	/* DEBUG 
+	printf("\t\t..START..set_redirection..\t");
+	printf("g_stat: [%d]\n", g_status);
+	*/
+	/* ***** */
 	redir_type = N_DEF;
 	node = cmd_lst->cmd_node;
 	i = 0;
-	if (cmd_lst->cmd_node->redir)
+	while (g_status < 2 && node->redir[i])
 	{
-		while (node->redir[i])
+		redir_type = node->redir_type[i];
+		if (redir_type == SIMPLE_IN || redir_type == DOUBLE_IN)
 		{
-			redir_type = node->redir_type[i];
-			if (redir_type == SIMPLE_IN || redir_type == DOUBLE_IN)
-			{
-				cmd_lst->in_file = in_file_fd(redir_type, node->redir[i]);
-			}
-			if (redir_type == SIMPLE_OUT || redir_type == DOUBLE_OUT)
-			{
-				cmd_lst->out_file = out_file_fd(redir_type, node->redir[i]);
-			}
-			if (g_status == 2)
-			{
-				g_status = 0;
-				break ;
-			}
-			i++;
+			if (cmd_lst->in_file > 2)
+				close (cmd_lst->in_file);
+			cmd_lst->in_file = in_file_fd(redir_type, node->redir[i]);
 		}
+		if (redir_type == SIMPLE_OUT || redir_type == DOUBLE_OUT)
+		{
+			cmd_lst->out_file = out_file_fd(redir_type, node->redir[i]);
+		}
+		/* DEBUG */
+		//printf("\t\tin_file: [%d], out_file: [%d]\n", cmd_lst->in_file, cmd_lst->out_file);
+		/* **** */
+		if (cmd_lst->in_file == -1)
+		{
+			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+			redir_type == DOUBLE_IN ? perror(HD_FILE) : perror(node->redir[i]);
+			data->exit_code = 1;
+			g_status = 2;
+		}
+		i++;
 	}
+	/* DEBUG 
+	printf("\t\t..END..set_redirection..\t");
+	printf("g_stat: [%d]\n", g_status);
+	*/
+	/* ***** */
 }

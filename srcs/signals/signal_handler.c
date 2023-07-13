@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:53 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/13 09:08:17 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/13 15:49:04 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		//printf("\tsig_handl: '%d', pid: '%d'", sig, global.pid);
+		//printf("\nsig_handl: '%d', g_stat: '%d'\n", sig, g_status);
 		if (g_status == 0)
 		{
-			write(1, "\n", 1);
 			rl_on_new_line();
 			rl_replace_line("", 0);
+			write(1, "\n", 1);
 			rl_redisplay();
 		}
-		if (g_status == 2)
+		if (g_status == 1)
 		{
-			//g_status = 0;
+			g_status = sig; // sig == 2
 			close(STDIN_FILENO);
 		}
 	}

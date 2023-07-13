@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:20:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/13 09:17:14 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/13 15:51:17 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,63 +43,28 @@ char	*print_node_type(int type)
 }
 /* ***** */
 
-int	check_builtin(t_cmd_lst *cmd_lst)
-{
-	char	**argument;
-	int		builtin;
-
-	argument = cmd_lst->cmd_node->argument;
-	builtin = N_A;
-	if (argument)
-	{
-		if (ft_strncmp(argument[0], "cd", 2) == 0)
-			builtin = CD;
-		else if (ft_strncmp(argument[0], "echo", 4) == 0)
-			builtin = ECHO;
-		else if (ft_strncmp(argument[0], "env", 3) == 0)
-			builtin = ENV;
-		else if (ft_strncmp(argument[0], "exit", 4) == 0)
-			builtin = EXIT;
-		else if (ft_strncmp(argument[0], "export", 6) == 0)
-			builtin = EXPORT;
-		else if (ft_strncmp(argument[0], "pwd", 3) == 0)
-			builtin = PWD;
-		else if (ft_strncmp(argument[0], "unset", 5) == 0)
-			builtin = UNSET;
-	}
-	return (builtin);
-}
-
-void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
-{
-	expand_envp(data, cmd_lst->cmd_node);
-	if (builtin == CD)
-		ft_cd(data, cmd_lst);
-	else if (builtin == ECHO)
-		ft_echo(data, cmd_lst);
-	else if (builtin == ENV)
-		ft_env(data);
-	else if (builtin == EXIT)
-		ft_exit(data, cmd_lst);
-	else if (builtin == EXPORT)
-		ft_export(data, cmd_lst);
-	else if (builtin == PWD)
-		ft_pwd(data);
-	else if (builtin == UNSET)
-		ft_unset(data, cmd_lst);
-}
-
 void	execution(t_data *data)
 {
 	t_cmd_lst	*cmd_lst;
-
-	cmd_lst = data->cmd_lst;
+	t_cmd_lst	*tmp;
 
 	/* DEBUG */
-	set_redirection(data, cmd_lst);
+	//printf("\t..START..exetition..\tg_status: [%d], exit_code: [%d]\n", g_status, data->exit_code);
 	/* ***** */
-
-	while (cmd_lst)
+	cmd_lst = data->cmd_lst;
+	tmp = cmd_lst;
+	while (tmp)
+	{
+		if (tmp->type == CMD_NODE && cmd_lst->cmd_node->redir)
+		{
+			set_redirection(data, tmp);
+		}
+		tmp = tmp->next;
+	}
+	/* DEBUG */
+	//printf("\t..BEFORE..execution..\tg_status: [%d], exit_code: [%d]\n", g_status, data->exit_code);
+	/* ***** */
+	while (g_status < 2 && cmd_lst)
 	{
 		if (cmd_lst->type == CMD_NODE)
 		{
@@ -107,6 +72,12 @@ void	execution(t_data *data)
 		}
 		cmd_lst = cmd_lst->next;
 	}
+	if (g_status > 0)
+		g_status = 0;
+
+	/* DEBUG */
+	//printf("\t..AFTER..execution..\tg_status: [%d], exit_code: [%d]\n", g_status, data->exit_code);
+	/* ***** */
 	ft_wait(data);
 }
 

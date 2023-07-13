@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/13 09:01:39 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/13 13:43:47 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,8 +340,6 @@ char		**get_path_directories(char **m_envp);
 //////////////////////////////////////////////////////////////////
 
 /* execution.c */
-int			check_builtin(t_cmd_lst *cmd_lst);
-void		exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin);
 void		execution(t_data *data);
 void		ft_execve(t_data *data, t_cmd_lst *cmd_lst);
 
@@ -373,6 +371,8 @@ int			ft_pwd(t_data *data);
 int			ft_unset(t_data *data, t_cmd_lst *cmd_lst);
 
 /* utils_builtin.c */
+int			check_builtin(t_cmd_lst *cmd_lst);
+void		exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin);
 void		change_pwd(char **m_envp, char *key);
 void		add_envp_variable(t_data *data, char *key, char *value,
 				bool append);
