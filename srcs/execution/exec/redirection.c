@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:47:52 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/13 16:11:35 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:54:52 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_redirection(t_data *data, t_cmd_lst *cmd_lst)
 	redir_type = N_DEF;
 	node = cmd_lst->cmd_node;
 	i = 0;
-	while (g_status < 2 && node->redir[i])
+	while (g_status < 2 && node->redir && node->redir[i])
 	{
 		redir_type = node->redir_type[i];
 		if (redir_type == SIMPLE_IN || redir_type == DOUBLE_IN)

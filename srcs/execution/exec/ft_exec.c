@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/13 13:44:50 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:30:21 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 			return ;
 		else if (data->pid == 0)
 		{
+			signal(SIGINT, &ft_signal_child);
+			signal(SIGQUIT, &ft_signal_child);
 			child_process(data, cmd_lst, fd);
 		}
 		else

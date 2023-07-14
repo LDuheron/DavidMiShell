@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 18:22:58 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:26:36 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	ft_wait(t_data *data)
 		{
 			if (WIFEXITED(status))
 				data->exit_code = WEXITSTATUS(status);
+			if (WIFSIGNALED(status))
+			{
+				data->exit_code = WTERMSIG(status) + 128;
+				if (data->exit_code == 130)
+					ft_putstr_fd("\n", STDERR_FILENO);
+				if (data->exit_code == 131)
+					ft_putstr_fd("core dumped)\n", STDERR_FILENO);
+			}
 		}
 		if (cmd_lst->out_file >= 0)
 			close(cmd_lst->out_file);

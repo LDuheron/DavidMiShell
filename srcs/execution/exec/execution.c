@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:20:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/13 20:58:46 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/14 13:28:03 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	execution(t_data *data)
 	/* DEBUG */
 	//printf("\t..BEFORE..execution..\tg_status: [%d], exit_code: [%d]\n", g_status, data->exit_code);
 	/* ***** */
+	signal(SIGINT, SIG_IGN);
 	while (g_status < 2 && cmd_lst)
 	{
 		if (cmd_lst->type == CMD_NODE)
@@ -79,6 +80,7 @@ void	execution(t_data *data)
 	//printf("\t..AFTER..execution..\tg_status: [%d], exit_code: [%d]\n", g_status, data->exit_code);
 	/* ***** */
 	ft_wait(data);
+	signal(SIGINT, &sigint_handler);
 }
 
 /* This check handles the case if the **argumen in NULL and

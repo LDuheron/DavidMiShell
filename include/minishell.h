@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/13 13:43:47 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:29:33 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,8 @@ t_tokens	*ft_lstnew(char *content);
 
 /* signal_handler.c */
 void		sigint_handler(int sig);
-void		ft_signal_heredoc(int signal);
+void		ft_signal_child(int signal);
+//void		ft_signal_heredoc(int signal);
 int			is_not_interpreted_dollar(char *str, int pos_dollar);
 
 //////////////////////////////////////////////////////////////////
