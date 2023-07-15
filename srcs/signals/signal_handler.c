@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:53 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/14 13:49:13 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:42:05 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,19 @@ void	ft_signal_child(int signal)
 		exit(131);
 	}
 }
+
 /*
+void	ft_signal_heredoc(int signal)
+{
+	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_redisplay();
+		close(STDIN_FILENO);
+		//g_signal = 1;
+	}
+}
 void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)

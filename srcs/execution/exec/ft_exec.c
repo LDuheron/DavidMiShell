@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/14 13:30:21 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:16:10 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 		}
 		else
 		{
+			signal(SIGINT, SIG_IGN);
 			parent_process(cmd_lst, fd);
 		}
 	}

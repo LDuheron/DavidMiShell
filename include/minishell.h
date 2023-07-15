@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/14 13:29:33 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:31:50 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,8 @@ void		ft_execve(t_data *data, t_cmd_lst *cmd_lst);
 void		ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
 
 /* redirection.c */
-void		set_redirection(t_data *data, t_cmd_lst *cmd_lst);
+bool		set_redirection(t_data *data, t_cmd_lst *cmd_lst);
+//void		set_redirection(t_data *data, t_cmd_lst *cmd_lst);
 void		ft_here_doc(char *delimiter);
 
 /* utils_execution.c */
