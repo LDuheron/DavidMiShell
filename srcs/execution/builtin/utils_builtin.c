@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:20 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/13 13:41:41 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/15 23:27:48 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,6 @@ void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 		ft_pwd(data);
 	else if (builtin == UNSET)
 		ft_unset(data, cmd_lst);
-}
-
-void	change_pwd(char **m_envp, char *key)
-{	
-	char	*get_cwd;
-	int		i;
-
-	i = 0;
-	while (m_envp[i])
-	{
-		if (ft_strncmp(m_envp[i], key, ft_strlen(key)) == 0)
-			break ;
-		i++;
-	}
-	get_cwd = getcwd(NULL, 0);
-	if (m_envp[i])
-		free(m_envp[i]);
-	m_envp[i] = ft_strjoin(key, get_cwd);
-	free(get_cwd);
 }
 
 /* this adds new key=value pair to the data->m_envp. 

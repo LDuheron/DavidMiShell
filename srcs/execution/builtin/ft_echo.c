@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:29:47 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/12 18:22:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/15 21:25:46 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ bool	ft_echo_with_n(t_cmd_lst *cmd_lst)
 		return (true);
 	return (false);
 }
-/* return (cmd_lst->cmd_node->argument[0] &&
-	ft_strncmp(cmd_lst->cmd_node->argument[0], "echo", 4) == 0
-	&& cmd_lst->cmd_node->argument[1] &&
-	ft_strncmp(cmd_lst->cmd_node->argument[1], "-n", 2) == 0);
-*/
 
 int	ft_echo(t_data *data, t_cmd_lst *cmd_lst)
 {
@@ -48,8 +43,5 @@ int	ft_echo(t_data *data, t_cmd_lst *cmd_lst)
 	if (!n_option)
 		write(1, "\n", 1);
 	data->exit_code = 0;
-	/* DEBUG */
-	//printf("\t..ft_echo\t exit_return:[%d]\n", data->exit_return);
-	/* ***** */
 	return (0);
 }
