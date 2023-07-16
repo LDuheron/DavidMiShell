@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/06 18:48:46 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:25:41 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ int	get_content(char *dst, char *src, unsigned int size, unsigned int start)
 	return (0);
 }
 
-/* ..virsion of ft_strjoin() used here is a bit different from the one in libft
+/* ..virsion of ft_strjoin() used here is a bit different
+from the one in libft
 ** it mallocs an empty str if s1 (first argument) is NULL.. 
-** original ft_strjoin() doesn't do it, it just returns NULL if any of the args are NULL 
+** original ft_strjoin() doesn't do it, it just returns NULL if any of
+the args are NULL 
 ** slightly modified init_data_lexing_structure() is a bit lower
 
 void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
@@ -53,7 +55,6 @@ void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 /* Modified to adopt ft_strjoin() from libft */
 void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 {
-	//data_lexing->line = NULL;
 	data_lexing->line = ft_strdup(argv);
 	data_lexing->len = ft_strlen(data_lexing->line);
 	data_lexing->d_tab_tmp = NULL;

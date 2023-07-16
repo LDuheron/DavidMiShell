@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/13 23:49:12 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/16 17:25:51 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_export(t_data *data, t_cmd_lst *cmd_lst)
 		argument = cmd_lst->cmd_node->argument;
 		while (argument[i])
 		{
-			search_and_extract_key(data, argument, i);	
+			search_and_extract_key(data, argument, i);
 			i++;
 		}
 	}

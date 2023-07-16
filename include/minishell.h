@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 13:25:23 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:23:39 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ enum e_builtin
 //																//
 //////////////////////////////////////////////////////////////////
 
-typedef struct s_data_lexing				t_data_lexing;
-typedef struct s_tokens						t_tokens;
+typedef struct s_data_lexing		t_data_lexing;
+typedef struct s_tokens				t_tokens;
 
 struct s_data_lexing {
 	int		flag;
@@ -120,8 +120,8 @@ struct s_tokens {
 //																//
 //////////////////////////////////////////////////////////////////
 
-typedef struct s_cmd_node					t_cmd_node;
-typedef struct s_cmd_lst					t_cmd_lst;
+typedef struct s_cmd_node		t_cmd_node;
+typedef struct s_cmd_lst		t_cmd_lst;
 
 struct s_cmd_node {
 	char	**argument;
@@ -131,11 +131,12 @@ struct s_cmd_node {
 	int		**redir_sub;
 };
 
+	// following variables are for testing
 struct s_cmd_lst {
 	enum e_type_exec	type;
 	t_cmd_node			*cmd_node;
 	t_cmd_lst			*next;
-	// following variables are for testing
+
 	int					in_file;
 	int					out_file;
 };
@@ -145,13 +146,11 @@ typedef struct s_expand
 	char		*new_arg;
 	int			i;
 	int			j;
-}		t_expand;
+}	t_expand;
 
 typedef struct s_data
 {
-	// pointer to original envp 
 	char		**env;
-	// allocated memory, holds copy of envp, need to be freed
 	char		**m_envp;
 	char		**path_dirs;
 	t_cmd_lst	*cmd_lst;
@@ -323,7 +322,7 @@ void		free_tab(char **str);
 
 //////////////////////////////////////////////////////////////////
 //																//
-//                 	  	IN INITIALIZATION UTILS DIR   	                //
+//                	IN INITIALIZATION UTILS DIR   	            //
 //																//
 //////////////////////////////////////////////////////////////////
 

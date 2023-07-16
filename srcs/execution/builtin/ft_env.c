@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:44:00 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/12 18:05:28 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:11:25 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int	ft_env(t_data *data)
 	i = 0;
 	while (data->m_envp[i])
 	{
-		/* DEBUG */
-		//printf("[%d] : '%s'\n", i, data->m_envp[i]);
-		/* ***** */
 		ft_putendl_fd(data->m_envp[i], 1);
 		i++;
 	}

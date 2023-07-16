@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management_in_parsing.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/02 18:13:25 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:26:09 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_token_structure(t_tokens **tokens)
 
 int	error_malloc(t_data_lexing *data_lexing)
 {
-	//(void)data_lexing;
 	printf("minishell: error malloc\n");
 	free(data_lexing->line);
 	return (ERROR_MALLOC);
@@ -38,7 +37,6 @@ int	error_malloc(t_data_lexing *data_lexing)
 int	error_in_line(t_data_lexing *data_lexing)
 {
 	(void)data_lexing;
-	//free(data_lexing->line);
 	return (ERROR_MALLOC);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/15 17:16:10 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:24:27 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 	}
 	else
 	{
-		// both pipe() and fork() need to be called in separate functoin with proper error handling
+		// both pipe() and fork() need to be called in separate function with proper error handling
 		if (pipe(fd) == -1)
 			printf("Pipe error handling here\n");
 		data->pid = fork();

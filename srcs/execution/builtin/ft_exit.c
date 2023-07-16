@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:08:46 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 18:11:09 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:28:33 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ bool	valid_exit_number(const char *str)
 	return (true);
 }
 
-/* ..might need to control the ft_putstr_fd("exit\n") in the child !? */
 int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 {
 	if (cmd_lst->cmd_node->argument[1])
@@ -57,7 +56,8 @@ int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 					STDERR_FILENO);
 				return (1);
 			}
-			data->exit_code = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1]) % 256);
+			data->exit_code = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1])
+					% 256);
 		}
 		else
 		{
@@ -68,10 +68,6 @@ int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 		}
 	}
 	rl_clear_history();
-	// free_all
-	/* DEBUG */
-	//printf("\n..ft_exit..\t exit_return:[%d]\n", data->exit_return);
-	/* ***** */
 	ft_putstr_fd("exit\n", 1);
 	exit(data->exit_code);
 }

@@ -6,13 +6,13 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 16:08:28 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:26:35 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_status = 0;
+int	g_status = 0;
 
 void	prompt(t_data *data)
 {
@@ -20,13 +20,11 @@ void	prompt(t_data *data)
 	t_cmd_lst	*cmd_lst;
 	char		*buffer;
 	int			err;
-	//int			flag;
 
 	buffer = NULL;
 	cmd_lst = NULL;
 	token = NULL;
 	err = 0;
-	//flag = SUCCESS;
 	while (!err)
 	{
 		buffer = readline("DavidMishell: ");
@@ -48,8 +46,6 @@ void	prompt(t_data *data)
 			list_destroy(cmd_lst);
 			cmd_lst = NULL;
 		}
-		if (token)
-			printf("test");
 		add_history(buffer);
 		free(buffer);
 	}
@@ -72,8 +68,8 @@ int	main(int argc, char **argv, char **env)
 		free_tab(data.env);
 	if (data.m_envp)
 		free_tab(data.m_envp);
-	if (data.path_dirs)
-		free_tab(data.path_dirs);
+	// if (data.path_dirs)
+	// 	free_tab(data.path_dirs);
 	list_destroy(data.cmd_lst);
 	printf("exit\n");
 	return (code);

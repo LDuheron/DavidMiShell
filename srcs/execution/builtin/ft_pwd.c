@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/16 13:42:18 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:10:53 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	ft_pwd(t_data *data)
 
 int	ft_pwd(t_data *data, t_cmd_lst *cmd_lst)
 {
-    char	*pwd;
-	
+	char	*pwd;
+
 	pwd = cmd_lst->cmd_node->argument[1];
 	if (pwd && ft_strcmp(pwd, "--help") == 0)
 	{
@@ -43,7 +43,7 @@ int	ft_pwd(t_data *data, t_cmd_lst *cmd_lst)
 		ft_putstr_fd("\tthe current directory cannot be read.\n", 1);
 		data->exit_code = 0;
 		return (0);
-    }
+	}
 	else
 	{
 		pwd = getcwd(NULL, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:18:19 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/16 14:11:17 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:15:25 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	ft_here_doc_close(int std_in_dup, int file_fd)
 	dup2(std_in_dup, STDIN_FILENO);
 	close(std_in_dup);
 	close(file_fd);
+	if (g_status == 1)
+		g_status = 0;
 }
 
 void	ft_here_doc(char *delimiter)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/15 16:10:17 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:28:01 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	ft_wait(t_data *data)
 	}
 }
 
-/* The folowing code expands the ENV variable, raw version, seems to be working fine
+/* The folowing code expands the ENV variable, raw version,
+seems to be working fine
 */
 char	*replace_value(char *str, char *key, char *value)
 {

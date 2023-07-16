@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:53 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/15 17:42:05 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:24:53 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		//printf("\nsig_handl: '%d', g_stat: '%d'\n", sig, g_status);
 		if (g_status == 0)
 		{
 			write(1, "\n", 1);
@@ -26,7 +25,7 @@ void	sigint_handler(int sig)
 		}
 		if (g_status == 1)
 		{
-			g_status = sig; // sig == 2
+			g_status = sig;
 			close(STDIN_FILENO);
 			write(1, "\n", 1);
 		}
