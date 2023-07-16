@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 15:55:58 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 16:08:28 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ int	main(int argc, char **argv, char **env)
 	code = data.exit_code;
 	if (data.env)
 		free_tab(data.env);
-	free_tab(data.m_envp);
-	free_tab(data.path_dirs);
+	if (data.m_envp)
+		free_tab(data.m_envp);
+	if (data.path_dirs)
+		free_tab(data.path_dirs);
 	list_destroy(data.cmd_lst);
 	printf("exit\n");
 	return (code);

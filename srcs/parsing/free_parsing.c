@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:19:42 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/30 14:23:13 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 16:28:20 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ static void	free_int_tab(int **tab)
 			tab[i] = NULL;
 		}
 		i++;
+	}
+	if (tab[i])
+	{
+		free(tab[i]);
+		tab = NULL;
 	}
 	if (tab)
 	{
