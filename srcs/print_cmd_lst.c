@@ -3,14 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   print_cmd_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 18:02:27 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:21:51 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* DEBUG */
+char	*print_builtin(int builtin)
+{
+	if (builtin == CD)
+		return ("CD");
+	else if (builtin == ECHO)
+		return ("ECHO");
+	else if (builtin == ENV)
+		return ("ENV");
+	else if (builtin == EXIT)
+		return ("EXIT");
+	else if (builtin == EXPORT)
+		return ("EXPORT");
+	else if (builtin == PWD)
+		return ("PWD");
+	else if (builtin == UNSET)
+		return ("UNSET");
+	else
+		return ("N_DEF");
+}
+
+char	*print_node_type(int type)
+{
+	if (type == CMD_NODE)
+		return ("CMD_NODE");
+	if (type == PIPE_NODE)
+		return ("PIPE_NODE");
+	return ("no_type");
+}
 
 char	*ft_put_enum(int type)
 {
@@ -134,61 +164,4 @@ void	print_cmd_lst(t_cmd_lst **cmd_lst)
 		tmp = tmp->next;
 	}
 }
-/*
-void	print_cmd_node(t_cmd_node *cmd_node)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	if (cmd_node == NULL)
-	{
-		printf("Error: cmd_node is NULL\n");
-		return ;
-	}
-	if (cmd_node->arg_subst && cmd_node->arg_subst[0])
-	{
-		printf("Cmd : %s\n", cmd_node->argument[0]);
-		while (cmd_node->arg_subst[0][j] != -2)
-		{
-			printf("Cmd_subst : %i\n\n", cmd_node->arg_subst[0][j]);
-			j++;
-		}
-	}
-	if (cmd_node->argument != NULL)
-	{
-		while (cmd_node->argument[i])
-		{
-			j = 0;
-			printf("Argument[%i] : %s\n", i, cmd_node->argument[i]);
-			while (cmd_node->arg_subst[i][j] != -2)
-			{
-				printf("Cmd_subst[%i][%i] : %i\n", i, j,
-					cmd_node->arg_subst[i][j]);
-				j++;
-			}
-			i++;
-		}
-	}
-	i = 0;
-	printf("\n");
-	if (cmd_node->redir != NULL)
-	{
-		while (cmd_node->redir[i])
-		{
-			j = 0;
-			printf("Redirection[%i] : %s\n", i, cmd_node->redir[i]);
-			printf("Redirection_type[%i] : %i\n", i,
-				(cmd_node->redir_type[i]));
-			while (cmd_node->redir_sub[i][j] != -2)
-			{
-				printf("Redirection_sub[%i][%i] : %i\n\n", i, j,
-					cmd_node->redir_sub[i][j]);
-				j++;
-			}
-			i++;
-		}
-	}
-}
-*/
+/* ***** */

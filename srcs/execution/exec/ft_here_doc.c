@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:18:19 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/15 16:50:41 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:11:17 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ void	ft_here_doc(char *delimiter)
 	int		std_in_dup;
 
 	std_in_dup = ft_here_doc_init(&file_fd);
-	/* DEBUG 
-	printf("\t\t\t..START..ft_heredoc..\t");
-	printf("g_status: [%d]\n", g_status);
-	*/
-	//signal(SIGINT, &sigint_handler);
-	/* **** */
 	while (g_status == 1)
 	{
 		line = readline("> ");
@@ -57,11 +51,4 @@ void	ft_here_doc(char *delimiter)
 			break ;
 	}
 	ft_here_doc_close(std_in_dup, file_fd);
-	/* DEBUG 
-	printf("\t\t\t..END..ft_heredoc..\t");
-	printf("g_status: [%d]\n", g_status);
-	signal(SIGINT, &ft_signal_child);
-	signal(SIGQUIT, &ft_signal_child);
-	*/
-	/* **** */
 }

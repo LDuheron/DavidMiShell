@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:42:51 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/06 16:45:28 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:20:35 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**get_path_directories(char **m_envp)
 	char	**path;
 	int		i;
 
+	path = NULL;
 	i = 0;
 	while (m_envp[i])
 	{
@@ -35,6 +36,7 @@ char	**get_path_directories(char **m_envp)
 			break ;
 		i++;
 	}
-	path = ft_split(m_envp[i] + 5, ':');
+	if (m_envp[i])
+		path = ft_split(m_envp[i] + 5, ':');
 	return (path);
 }
