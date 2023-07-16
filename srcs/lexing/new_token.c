@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 16:19:56 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:30:39 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type)
 		new_elem->len = ft_strlen(content);
 		new_elem->content = ft_strdup(content);
 		new_elem->dollars_tab = data_lexing->d_tab_tmp;
+		//free(content);
 	}
 	else
 	{
@@ -33,7 +34,6 @@ t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type)
 		new_elem->dollars_tab = NULL;
 	}
 	new_elem->next = NULL;
-	free(content);
 	return (new_elem);
 }
 

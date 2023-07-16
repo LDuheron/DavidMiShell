@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 17:26:35 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:43:13 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,33 @@ int	g_status = 0;
 
 void	prompt(t_data *data)
 {
-	t_tokens	*token;
-	t_cmd_lst	*cmd_lst;
 	char		*buffer;
-	int			err;
 
-	buffer = NULL;
-	cmd_lst = NULL;
-	token = NULL;
-	err = 0;
-	while (!err)
+	buffer = readline("DavidMishell: ");
+	while (buffer)
 	{
-		buffer = readline("DavidMishell: ");
-		if (!buffer)
-			break ;
-		else if (empty_buffer(buffer))
-			continue ;
-		else
+		data->cmd_lst = NULL;
+		if (!empty_buffer(buffer))
 		{
-			if (lexing(&token, buffer) == SUCCESS)
-				if (check_syntax(&token) == SUCCESS)
-					parsing(&cmd_lst, &token);
-			if (cmd_lst)
+			if (lexing(&data->token, buffer) == SUCCESS)
+				if (check_syntax(&data->token) == SUCCESS)
+					parsing(&data->cmd_lst, &data->token);
+			if (data->cmd_lst)
 			{
-				data->cmd_lst = cmd_lst;
 				//print_cmd_lst(&cmd_lst);
 				execution(data);
 			}
-			list_destroy(cmd_lst);
-			cmd_lst = NULL;
+			list_destroy(data->cmd_lst);
+			add_history(buffer);
 		}
-		add_history(buffer);
 		free(buffer);
+		buffer = readline("DavidMishell: ");
 	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	data;
-	int		code;
+	t_data		data;
 
 	(void)argv;
 	if (argc != 1)
@@ -63,14 +51,8 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, &sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	prompt(&data);
-	code = data.exit_code;
-	if (data.env)
-		free_tab(data.env);
 	if (data.m_envp)
 		free_tab(data.m_envp);
-	// if (data.path_dirs)
-	// 	free_tab(data.path_dirs);
-	list_destroy(data.cmd_lst);
 	printf("exit\n");
-	return (code);
+	return (data.exit_code);
 }

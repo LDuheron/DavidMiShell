@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:15:20 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/16 15:56:12 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:43:38 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_data(t_data *data, char **env)
 	init_envp(data);
 	data->path_dirs = NULL;
 	data->cmd_lst = NULL;
+	data->token = NULL;
 	data->exit_code = 0;
 	data->pid = 42;
 }

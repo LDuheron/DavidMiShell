@@ -6,11 +6,31 @@
 /*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:44:28 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/09 23:22:47 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/16 23:01:55 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_strdup_content(char *src)
+{
+	int		i;
+	char	*dest;
+
+	i = 0;
+	dest = malloc(sizeof(char) * ft_strlen(src) + 1);
+	if (dest == NULL)
+		return (NULL);
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	// This free() produces an error when I copy an envp into separate **m_envp..
+	free(src);
+	return (dest);
+}
 
 /*
 int	ft_strncmp(const char *s1, const char *s2, size_t n)

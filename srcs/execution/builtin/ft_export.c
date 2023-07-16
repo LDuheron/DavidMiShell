@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/16 17:25:51 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:05:58 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ static void	put_envp(char **m_envp)
 		i++;
 	}
 }
-
-/* 
-** The following errors are generated in bash if input (export =)
-	or (export FT_USER+) :
-
-bash: export: `FT_USER+': not a valid identifier
-bash: export: `=': not a valid identifier
-
-** this is not handled here.. not sure if it is needed ?!
-*/
 
 void	search_and_extract_key(t_data *data, char **argument, int index)
 {
@@ -60,6 +50,32 @@ void	search_and_extract_key(t_data *data, char **argument, int index)
 	}
 }
 
+bool	ft_valid_key(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!is_alpha(str[i]) && str[i] != '_')
+	{
+		ft_putstr_fd("DavidMishell: export: `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		return (false);
+	}
+	while (str[i] && str[i] != '=')
+	{
+		if (!(is_alpha(str[i]) || is_number(str[i])) && str[i] != '_')
+		{
+			ft_putstr_fd("DavidMishell: export: `", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
 int	ft_export(t_data *data, t_cmd_lst *cmd_lst)
 {
 	char	**argument;
@@ -73,10 +89,18 @@ int	ft_export(t_data *data, t_cmd_lst *cmd_lst)
 		argument = cmd_lst->cmd_node->argument;
 		while (argument[i])
 		{
-			search_and_extract_key(data, argument, i);
+			if (ft_valid_key(argument[i]) == false)
+			{
+				data->exit_code = 1;
+				return (1);
+			}
+			else
+			{
+				search_and_extract_key(data, argument, i);
+				data->exit_code = 0;
+			}
 			i++;
 		}
 	}
-	data->exit_code = 0;
 	return (0);
 }

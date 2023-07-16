@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 17:23:39 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:03:51 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,11 @@ typedef struct s_expand
 
 typedef struct s_data
 {
+	t_tokens	*token;
+	t_cmd_lst	*cmd_lst;
 	char		**env;
 	char		**m_envp;
 	char		**path_dirs;
-	t_cmd_lst	*cmd_lst;
 	int			exit_code;
 	int			pid;
 }	t_data;
@@ -297,7 +298,7 @@ int			is_sign(char c);
 int			is_space(char c);
 
 // Libft_utils.c
-//char		*ft_strdup(char *src);
+char		*ft_strdup_content(char *src);
 //int			ft_strncmp(const char *s1, const char *s2, size_t n);
 //int			ft_strlen(char *str);
 
@@ -328,6 +329,8 @@ void		free_tab(char **str);
 
 /* initialization.c */
 void		init_data(t_data *data, char **env);
+//void		init_data(t_data *data, t_cmd_lst *cmd_lst, char **env);
+//void		init_data(t_data *data, t_tokens *token, t_cmd_lst *s_cmd_lst, char **env);
 
 /* utils_init.c */
 bool		empty_buffer(char *str);

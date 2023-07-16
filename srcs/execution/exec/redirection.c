@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:47:52 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/16 14:23:36 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:56:28 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ int	out_file_fd(enum e_type_token redir_type, char *file_name)
 	return (file_fd);
 }
 
+bool	ft_infile_error(t_data *data, int redir_type, char *in_file)
+{
+	if (redir_type == DOUBLE_IN)
+	{
+		ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+		perror(HD_FILE);
+	}
+	else
+	{
+		ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
+		perror(in_file);
+	}
+	data->exit_code = 1;
+	return (false);
+}
+
 bool	set_redirection(t_data *data, t_cmd_lst *cmd_lst)
 {
 	t_cmd_node			*node;
@@ -60,16 +76,9 @@ bool	set_redirection(t_data *data, t_cmd_lst *cmd_lst)
 			cmd_lst->in_file = in_file_fd(redir_type, node->redir[i]);
 		}
 		if (redir_type == SIMPLE_OUT || redir_type == DOUBLE_OUT)
-		{
 			cmd_lst->out_file = out_file_fd(redir_type, node->redir[i]);
-		}
 		if (cmd_lst->in_file == -1)
-		{
-			ft_putstr_fd("DavidMishell: ", STDERR_FILENO);
-			redir_type == DOUBLE_IN ? perror(HD_FILE) : perror(node->redir[i]);
-			data->exit_code = 1;
-			return (false);
-		}
+			return (ft_infile_error(data, redir_type, node->redir[i]));
 		i++;
 	}
 	if (g_status != 0)
