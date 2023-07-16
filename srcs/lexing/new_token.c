@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 18:21:07 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:50:38 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type)
 	{
 		new_elem->len = ft_strlen(content);
 		new_elem->content = ft_strdup(content);
+
 		new_elem->dollars_tab = data_lexing->d_tab_tmp;
 	}
 	else
@@ -33,6 +34,7 @@ t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type)
 		new_elem->dollars_tab = NULL;
 	}
 	new_elem->next = NULL;
+	free(content);
 	return (new_elem);
 }
 

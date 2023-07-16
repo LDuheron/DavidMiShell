@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:24:21 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/30 15:10:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:57:51 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i)
 		cmd_node->arg_subst[i][j] = (*token)->dollars_tab[j];
 		j++;
 	}
+	free((*token)->content);
 	free((*token)->dollars_tab);
 	return (SUCCESS);
 }

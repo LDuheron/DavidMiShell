@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/15 14:58:53 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:55:58 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	prompt(t_data *data)
 			list_destroy(cmd_lst);
 			cmd_lst = NULL;
 		}
+		if (token)
+			printf("test");
 		add_history(buffer);
 		free(buffer);
 	}
@@ -66,7 +68,11 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	prompt(&data);
 	code = data.exit_code;
+	if (data.env)
+		free_tab(data.env);
 	free_tab(data.m_envp);
+	free_tab(data.path_dirs);
+	list_destroy(data.cmd_lst);
 	printf("exit\n");
 	return (code);
 }
