@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 17:16:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:45:00 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	lexing(t_tokens **token, char *buffer)
 	t_data_lexing	data_lexing;
 	t_tokens		*tmp_token;
 
-	len = 0;
 	if (check_line(buffer) == ERROR_SYNTAX)
 		return (error_in_line(&data_lexing));
 	init_data_lexing_structure(&data_lexing, buffer);
@@ -91,7 +90,8 @@ int	lexing(t_tokens **token, char *buffer)
 		len = tmp_token->len;
 		ft_lstadd_back_tokens(token, tmp_token);
 		data_lexing.pos += len;
-		while (is_space(data_lexing.line[data_lexing.pos]) == 1)
+		while ((data_lexing.pos < data_lexing.len)
+			&& is_space(data_lexing.line[data_lexing.pos]) == 1)
 			data_lexing.pos++;
 	}
 	free(data_lexing.line);
