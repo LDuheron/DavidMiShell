@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 16:49:49 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:50:56 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	prompt(t_data *data)
 					parsing(&data->cmd_lst, &data->token);
 			if (data->cmd_lst)
 			{
-				// print_cmd_lst(&data->cmd_lst);
+				//print_cmd_lst(&data->cmd_lst);
 				execution(data);
 			}
 			list_destroy(data->cmd_lst);

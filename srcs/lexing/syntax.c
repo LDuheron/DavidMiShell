@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 14:12:18 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:36:03 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	check_syntax(t_tokens **token)
 	t_tokens	*tmp;
 
 	tmp = *token;
-	ft_print_lst_token(*token);
+	/* DEBUG */
+	//ft_print_lst_token(*token);
+	/* ***** */
 	if (tmp && tmp->type && tmp->type == PIPE)
 		return (error_syntax(token, PIPE));
 	while (tmp)
