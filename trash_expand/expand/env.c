@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 00:42:33 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 23:51:53 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:48:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,54 @@ int	expand(t_cmd_lst **cmd_lst, char **env)
 	print_env_lst(&env_lst);
 	return (SUCCESS);
 }
+
+// void	quotes_trimming_copy(char *buffer)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (buffer[i])
+// 	{
+// 		if (is_double_quote(buffer[i]))
+// 		{
+// 			j = i;
+// 			while (buffer[j])
+// 			{
+// 				buffer[j] = buffer[j + 1];
+// 				j++;
+// 			}
+// 			buffer[j] = 0;
+// 			while (buffer[i] && is_double_quote(buffer[i]) == 0)
+// 				i++;
+// 			j = i;
+// 			while (buffer[j])
+// 			{
+// 				buffer[j] = buffer[j + 1];
+// 				j++;
+// 			}
+// 			buffer[j] = 0;
+// 		}
+// 		else if (is_single_quote(buffer[i]))
+// 		{
+// 			j = i;
+// 			while (buffer[j])
+// 			{
+// 				buffer[j] = buffer[j + 1];
+// 				j++;
+// 			}
+// 			buffer[j] = 0;
+// 			while (buffer[i] && is_single_quote(buffer[i]) == 0)
+// 				i++;
+// 			j = i;
+// 			while (buffer[j])
+// 			{
+// 				buffer[j] = buffer[j + 1];
+// 				j++;
+// 			}
+// 			buffer[j] = 0;
+// 		}
+// 		else if (buffer[i] != '\0')
+// 			i++;
+// 	}
+// }

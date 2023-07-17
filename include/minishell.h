@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 23:03:51 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/17 12:49:07 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,12 @@ int			check_open_d_quote(char *str, int i);
 int			check_open_s_quote(char *str, int i);
 int			check_redirection_content(t_tokens **token);
 int			check_syntax(t_tokens **tokens);
+
+// Trimming_utils.c
+int			single_dollar_trimming_utils(char *buffer, int i);
+int			single_quotes_trimming_utils(char *buffer, int i);
+int			double_quotes_trimming_utils(char *buffer, int i);
+
 
 // Utils.c
 int			get_content(char *dst, char *src, unsigned int size,
