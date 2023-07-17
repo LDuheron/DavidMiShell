@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/12 18:16:48 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:08:21 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*single_dollar_trimming(char *buffer)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	if (nb_dollar(buffer) == 0)
@@ -30,19 +29,7 @@ char	*single_dollar_trimming(char *buffer)
 		{
 			if (is_double_quote(buffer[i + 1])
 				|| is_single_quote(buffer[i + 1]))
-			{
-				j = i;
-				while (buffer[j])
-				{
-					buffer[j] = buffer[j + 1];
-					j++;
-				}
-				buffer[j] = 0;
-				if (is_single_quote(buffer[i + 1]))
-					i += single_quote_management(buffer, i) - 1;
-				else if (buffer[i + 1] && is_double_quote(buffer[i + 1]))
-					i += double_quote_management(buffer, i);
-			}
+				i = single_dollar_trimming_utils(buffer, i);
 			else
 				i++;
 		}
@@ -55,49 +42,14 @@ char	*single_dollar_trimming(char *buffer)
 void	quotes_trimming(char *buffer)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (buffer[i])
 	{
 		if (is_double_quote(buffer[i]))
-		{
-			j = i;
-			while (buffer[j])
-			{
-				buffer[j] = buffer[j + 1];
-				j++;
-			}
-			buffer[j] = 0;
-			while (buffer[i] && is_double_quote(buffer[i]) == 0)
-				i++;
-			j = i;
-			while (buffer[j])
-			{
-				buffer[j] = buffer[j + 1];
-				j++;
-			}
-			buffer[j] = 0;
-		}
+			i = single_quotes_trimming_utils(buffer, i);
 		else if (is_single_quote(buffer[i]))
-		{
-			j = i;
-			while (buffer[j])
-			{
-				buffer[j] = buffer[j + 1];
-				j++;
-			}
-			buffer[j] = 0;
-			while (buffer[i] && is_single_quote(buffer[i]) == 0)
-				i++;
-			j = i;
-			while (buffer[j])
-			{
-				buffer[j] = buffer[j + 1];
-				j++;
-			}
-			buffer[j] = 0;
-		}
+			i = double_quotes_trimming_utils(buffer, i);
 		else if (buffer[i] != '\0')
 			i++;
 	}

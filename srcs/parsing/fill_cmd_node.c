@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:24:21 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 23:29:17 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/17 12:38:14 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i)
 	cmd_node->arg_subst[i][nb_subst] = -2;
 	while (j < nb_subst)
 	{
-		cmd_node->arg_subst[i][j] = -2;
 		cmd_node->arg_subst[i][j] = (*token)->dollars_tab[j];
 		j++;
 	}

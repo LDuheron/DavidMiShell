@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 17:14:27 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:47:25 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,33 +77,17 @@ t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
 t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 {
 	int	i;
-	int	size;
-	int	tmp;
 
-	tmp = 0;
 	i = data_lexing->pos;
-	size = 0;
 	while (data_lexing->line[i] && is_metacharacter(data_lexing->line[i]) == 0
 		&& is_space(data_lexing->line[i]) == 0)
 	{
-		tmp = 0;
 		if (is_double_quote(data_lexing->line[i]) == 1)
-		{
-			tmp += double_quote_management(data_lexing->line, i);
-			i += tmp;
-			size += tmp;
-		}
+			i += double_quote_management(data_lexing->line, i);
 		else if (is_single_quote(data_lexing->line[i]) == 1)
-		{
-			tmp += single_quote_management(data_lexing->line, i);
-			i += tmp;
-			size += tmp;
-		}
+			i += single_quote_management(data_lexing->line, i);
 		else
-		{
 			i++;
-			size++;
-		}
 	}
-	return (new_token(data_lexing, type, size));
+	return (new_token(data_lexing, type, (i - data_lexing->pos)));
 }
