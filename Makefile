@@ -22,7 +22,6 @@ SRCS        := 											\
 	libft/ft_strcmp.c									\
 	libft/ft_strjoin.c									\
 	libft/ft_split.c									\
-	libft/get_next_line.c								\
 	main.c												\
 	print_cmd_lst.c 									\
 	utils/cmd_lst_utils/error_management_in_parsing.c	\

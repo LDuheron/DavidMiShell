@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/17 01:03:41 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/17 10:50:44 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_wait(t_data *data)
 			close(cmd_lst->in_file);
 		cmd_lst = cmd_lst->next;
 	}
+	unlink(HD_FILE);
 }
 
 /* The folowing code expands the ENV variable, raw version,
@@ -91,14 +92,12 @@ char	*look_up_key_value(char *str, int k_len, char **env)
 	key = ft_substr(str, i, k_len + 1);
 	i = -1;
 	while (env[++i])
-	{
 		if (ft_strncmp(key + 1, env[i], k_len - 1) == 0 && env[i][k_len] == '=')
 		{
 			free(value);
 			value = ft_strdup(env[i] + k_len + 1);
 			break ;
 		}
-	}
 	if (ft_strcmp(str, key) == 0)
 		new_str = value;
 	else

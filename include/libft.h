@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:32:22 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/12 17:18:44 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:46:49 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ char	*ft_strdup(const char *s);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
-int		get_next_line(int fd, char **line);
 
 #endif

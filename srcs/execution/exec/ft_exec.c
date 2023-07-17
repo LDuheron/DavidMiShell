@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/17 00:56:11 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/17 10:52:11 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 
 void	parent_process(t_cmd_lst *cmd_lst, int *fd)
 {
+	signal(SIGINT, SIG_IGN);
 	close(fd[1]);
 	if (cmd_lst->in_file >= 0)
 		close(cmd_lst->in_file);
@@ -105,9 +106,6 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 			child_process(data, cmd_lst, fd);
 		}
 		else
-		{
-			signal(SIGINT, SIG_IGN);
 			parent_process(cmd_lst, fd);
-		}
 	}
 }
