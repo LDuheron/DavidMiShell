@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:20:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 14:21:10 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:42:45 sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,46 +72,46 @@ void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
 
 char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
 {
-	char	*to_execute;
-	int		i;
+    char	to_execute[BUFFER];
+    int		i;
 
-	if (!path_dirs)
-		return (cmd);
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
-	i = 0;
-	while (path_dirs && path_dirs[i])
-	{
-		to_execute = ft_strjoin(ft_strjoin(path_dirs[i], "/"), cmd);
-		if (access(to_execute, X_OK) == 0)
-			break ;
-		free(to_execute);
-		to_execute = NULL;
-		i++;
-	}
-	free_tab(path_dirs);
-	if (!to_execute)
-		return (cmd);
-	return (to_execute);
+    if (path_dirs == NULL || (access(cmd, X_OK) == 0))
+        return (ft_strdup(cmd));
+    i = 0;
+    while (path_dirs && path_dirs[i])
+    {
+        ft_strcpy(to_execute, path_dirs[i]);
+        ft_strcat(to_execute, "/");
+        ft_strcat(to_execute, cmd);
+        if (access(to_execute, X_OK) == 0)
+            break ;
+        i++;
+    }
+    free_tab(path_dirs);
+    if (to_execute[0] == '\0')
+        return (ft_strdup(cmd));
+    return (ft_strdup(to_execute));
 }
 
 void	ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 {
-	char	**arg;
-	char	*to_execute;
+    char	**arg;
+	char	*dup;
+    char	to_execute[BUFFER];
 
-	data->path_dirs = get_path_directories(data->m_envp);
-	if (cmd_lst->cmd_node->argument)
-	{
-		arg = cmd_lst->cmd_node->argument;
-		expand_envp(data, cmd_lst->cmd_node);
-		to_execute = absolute_path_to_cmd(arg[0], data->path_dirs);
-		data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument,
-				data->m_envp);
-		print_error_cmd(data, cmd_lst);
-	}
-	else if (cmd_lst->cmd_node->redir)
-	{
-		print_error_dir(data, cmd_lst);
-	}
+    data->path_dirs = get_path_directories(data->m_envp);
+    if (cmd_lst->cmd_node->argument)
+    {
+        arg = cmd_lst->cmd_node->argument;
+        expand_envp(data, cmd_lst->cmd_node);
+		dup = absolute_path_to_cmd(arg[0], data->path_dirs);
+        ft_strcpy(to_execute, dup);
+		free(dup);
+        data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument, data->m_envp);
+        print_error_cmd(data, cmd_lst);
+    }
+    else if (cmd_lst->cmd_node->redir)
+    {
+        print_error_dir(data, cmd_lst);
+    }
 }

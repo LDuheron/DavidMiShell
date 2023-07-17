@@ -10,11 +10,14 @@ SRC_DIR     := srcs
 OBJ_DIR     := obj
 SRCS        := 											\
 	libft/ft_atoi.c										\
+	libft/ft_bzero.c									\
 	libft/ft_itoa.c										\
 	libft/ft_putchar_fd.c								\
 	libft/ft_putendl_fd.c								\
 	libft/ft_putstr_fd.c								\
 	libft/ft_strlen.c									\
+	libft/ft_strcat.c									\
+	libft/ft_strcpy.c									\
 	libft/ft_substr.c									\
 	libft/ft_strdup.c									\
 	libft/ft_strchr.c									\

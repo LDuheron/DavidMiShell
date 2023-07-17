@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:32:22 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/17 10:46:49 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:53:05 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+void	ft_bzero(void *s, size_t n);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);
+char	*ft_strcpy(char *dest, char *src);
+void	ft_strcat(char *dst, const char *src);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
