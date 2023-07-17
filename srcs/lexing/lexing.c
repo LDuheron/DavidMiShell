@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 11:45:00 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:56:21 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	lexing(t_tokens **token, char *buffer)
 			data_lexing.pos++;
 		tmp_token = which_new_token(&data_lexing);
 		if (tmp_token == 0)
-			return (error_malloc(&data_lexing));
+			return (ERROR);
 		len = tmp_token->len;
 		ft_lstadd_back_tokens(token, tmp_token);
 		data_lexing.pos += len;
