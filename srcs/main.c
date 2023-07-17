@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 10:38:08 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/17 13:53:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	prompt(t_data *data)
 					parsing(&data->cmd_lst, &data->token);
 			if (data->cmd_lst)
 			{
-				//print_cmd_lst(&cmd_lst);
+				print_cmd_lst(&data->cmd_lst);
 				execution(data);
 			}
 			list_destroy(data->cmd_lst);
