@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 18:20:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 11:42:45 sbocanci         ###   ########.fr       */
+/*   Created: 2023/07/17 13:23:03 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/17 13:28:45 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,48 +70,50 @@ void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
 	exit(data->exit_code);
 }
 
-char	*absolute_path_to_cmd(char *cmd, char **path_dirs)
+void	absolute_path_to_cmd(t_data *data, char *cmd, char to_execute[BUFFER])
 {
-    char	to_execute[BUFFER];
-    int		i;
+	int		i;
 
-    if (path_dirs == NULL || (access(cmd, X_OK) == 0))
-        return (ft_strdup(cmd));
-    i = 0;
-    while (path_dirs && path_dirs[i])
-    {
-        ft_strcpy(to_execute, path_dirs[i]);
-        ft_strcat(to_execute, "/");
-        ft_strcat(to_execute, cmd);
-        if (access(to_execute, X_OK) == 0)
-            break ;
-        i++;
-    }
-    free_tab(path_dirs);
-    if (to_execute[0] == '\0')
-        return (ft_strdup(cmd));
-    return (ft_strdup(to_execute));
+	if (access(cmd, X_OK) == 0)
+	{
+		ft_strcpy(to_execute, cmd);
+		return ;
+	}
+	data->path_dirs = get_path_directories(data->m_envp);
+	i = 0;
+	while (data->path_dirs && data->path_dirs[i])
+	{
+		ft_strcpy(to_execute, data->path_dirs[i]);
+		ft_strcat(to_execute, "/");
+		ft_strcat(to_execute, cmd);
+		if (access(to_execute, X_OK) == 0)
+			break ;
+		i++;
+	}
+	if (data->path_dirs)
+		free_tab(data->path_dirs);
+	if (to_execute[0] == '\0')
+	{
+		ft_strcpy(to_execute, cmd);
+	}
 }
 
 void	ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 {
-    char	**arg;
-	char	*dup;
-    char	to_execute[BUFFER];
+	char	to_execute[BUFFER];
+	char	**arg;
 
-    data->path_dirs = get_path_directories(data->m_envp);
-    if (cmd_lst->cmd_node->argument)
-    {
-        arg = cmd_lst->cmd_node->argument;
-        expand_envp(data, cmd_lst->cmd_node);
-		dup = absolute_path_to_cmd(arg[0], data->path_dirs);
-        ft_strcpy(to_execute, dup);
-		free(dup);
-        data->exit_code = execve(to_execute, cmd_lst->cmd_node->argument, data->m_envp);
-        print_error_cmd(data, cmd_lst);
-    }
-    else if (cmd_lst->cmd_node->redir)
-    {
-        print_error_dir(data, cmd_lst);
-    }
+	ft_bzero(to_execute, BUFFER);
+	if (cmd_lst->cmd_node->argument)
+	{
+		arg = cmd_lst->cmd_node->argument;
+		expand_envp(data, cmd_lst->cmd_node);
+		absolute_path_to_cmd(data, arg[0], to_execute);
+		data->exit_code = execve(to_execute, arg, data->m_envp);
+		print_error_cmd(data, cmd_lst);
+	}
+	else if (cmd_lst->cmd_node->redir)
+	{
+		print_error_dir(data, cmd_lst);
+	}
 }

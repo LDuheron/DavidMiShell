@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:08:46 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 17:28:33 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/17 13:21:31 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 		}
 	}
 	rl_clear_history();
+	list_destroy(data->cmd_lst);
+	free_tab(data->m_envp);
 	ft_putstr_fd("exit\n", 1);
 	exit(data->exit_code);
 }
