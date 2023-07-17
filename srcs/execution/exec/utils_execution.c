@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/17 13:31:19 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/17 20:01:54 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,83 @@ void	ft_wait(t_data *data)
 /* The folowing code expands the ENV variable, raw version,
 seems to be working fine
 */
+void replace_value(char *str, int k_len, char *value, char *new_str)
+{
+	int i = 0;
+	int j = 0;
+
+	ft_bzero(new_str, BUFFER);
+	while (str[i] && str[i] != '$')
+	{
+		new_str[j++] = str[i++];
+	}
+	i = 0;
+	while (value[i])
+	{
+		new_str[j++] = value[i++];
+	}
+	i = k_len;
+	while (str[i])
+	{
+		new_str[j++] = str[i++];
+	}
+	new_str[j] = '\0';
+}
+
+void	look_up_env(char *str, int k_len, char **env, char *value)
+{
+	char*	key;
+	int		i;
+
+	ft_bzero(value, BUFFER);
+	key = str + 1;
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(key, env[i], k_len) && env[i][k_len] == '=') {
+			ft_strcpy(value, env[i] + k_len + 1);
+			return ;
+		}
+		i++;
+	}
+}
+
+void	expand_envp(t_data *data, t_cmd_node *cmd_node)
+{
+	char	new_str[BUFFER];
+	char	value[BUFFER];
+	char	*tmp;
+	int		k_len;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (cmd_node->argument && cmd_node->argument[i])
+	{
+		j = 0;
+		while (cmd_node->arg_subst[i][j] > 0)
+		{
+			k_len = cmd_node->arg_subst[i][j];
+			if (k_len == 1 && cmd_node->argument[i][1] == '?')
+			{
+				tmp = ft_itoa(data->exit_code);
+			}
+			else
+			{
+				look_up_env(cmd_node->argument[i], k_len, data->m_envp, value);
+				replace_value(cmd_node->argument[i], k_len, value, new_str);
+				tmp = ft_strdup(new_str);
+			}
+			free(cmd_node->argument[i]);
+			cmd_node->argument[i] = ft_strdup(tmp);
+			free(tmp);
+			j++;
+		}
+		i++;
+	}
+}
+
+/*
 char	*replace_value(char *str, char *key, char *value)
 {
 	char	*new_str;
@@ -59,7 +136,7 @@ char	*replace_value(char *str, char *key, char *value)
 	int		j;
 
 	v_len = ft_strlen(value);
-	k_len = ft_strlen(key);
+	k_len = ft_strlen(key) + 1;
 	new_str = malloc(ft_strlen(str) - k_len + v_len + 1);
 	i = -1;
 	while (str[++i] && str[i] != '$')
@@ -89,18 +166,18 @@ char	*look_up_key_value(char *str, int k_len, char **env)
 	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
-	key = ft_substr(str, i, k_len + 1);
+	key = ft_substr(str, i + 1, k_len);
 	i = -1;
 	while (env[++i])
 	{
-		if (ft_strncmp(key + 1, env[i], k_len - 1) == 0 && env[i][k_len] == '=')
+		if (!ft_strncmp(key, env[i], k_len) && env[i][k_len] == '=')
 		{
 			free(value);
 			value = ft_strdup(env[i] + k_len + 1);
 			break ;
 		}
 	}
-	if (ft_strcmp(str, key) == 0)
+	if (ft_strcmp(str + 1, key) == 0)
 		new_str = value;
 	else
 		new_str = replace_value(str, key, value);
@@ -133,3 +210,4 @@ void	expand_envp(t_data *data, t_cmd_node *cmd_node)
 		i++;
 	}
 }
+*/
