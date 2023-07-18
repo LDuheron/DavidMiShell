@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 13:09:13 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:07:01 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,8 @@ int			is_substitutable(char *str, int i_dollar);
 int			free_data_lexing(t_data_lexing *data_lexing);
 int			error_malloc(t_data_lexing *data_lexing);
 int			error_in_line(t_data_lexing *data_lexing);
-int			error_syntax(t_tokens **tokens, int type);
+// int			error_syntax(t_tokens **tokens, int type);
+int			error_syntax(t_tokens **tokens, t_tokens *tmp);
 void		free_token_structure(t_tokens **tokens);
 
 //////////////////////////////////////////////////////////////////

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 17:26:09 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:12:34 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,35 @@ int	free_data_lexing(t_data_lexing *data_lexing)
 	return (ERROR);
 }
 
-int	error_syntax(t_tokens **tokens, int type)
+char	*convert_type_to_char(int type)
 {
-	if (type == PIPE)
-		printf("minishell: syntax error near unexpected token '|'\n");
-	else if (type == SIMPLE_IN)
-		printf("minishell: syntax error near unexpected token '<'\n");
+	if (type == SIMPLE_IN)
+		return ("<");
 	else if (type == SIMPLE_OUT)
-		printf("minishell: syntax error near unexpected token '>'\n");
+		return (">");
 	else if (type == DOUBLE_IN)
-		printf("minishell: syntax error near unexpected token '<<'\n");
+		return ("<<");
 	else if (type == DOUBLE_OUT)
-		printf("minishell: syntax error near unexpected token '>>'\n");
+		return (">>");
+	else if (type == PIPE)
+		return ("|");
+	return (ERROR);
+}
+
+int	error_syntax(t_tokens **tokens, t_tokens *tmp)
+{
+	printf("tmp->content %s\n", tmp->content);
+	
+	if (tmp->type != WORD)
+		printf("minishell: syntax error near unexpected token '%s'\n", convert_type_to_char(tmp->type));
+	else if (tmp->content == NULL)
+		printf("minishell: syntax error near unexpected token `newline'\n");
+	else
+		printf("minishell: syntax error near unexpected token '%s'\n", tmp->content);
 	if (tokens)
 		free_token_structure(tokens);
 	return (ERROR_SYNTAX);
 }
+
+// else if (tmp->content == NULL)
+// 	printf("minishell: syntax error near unexpected token `newline'\n");
