@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:53 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/18 09:34:47 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:42:43 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		if (g_status == 0)
+		if (g_status != 1 && g_status != 2)
 		{
 			write(1, "\n", 1);
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
+			g_status = 3;
 		}
 		if (g_status == 1)
 		{

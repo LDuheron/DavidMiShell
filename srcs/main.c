@@ -6,13 +6,22 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 09:34:11 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:40:54 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_status = 0;
+
+void	g_status_update(t_data *data)
+{
+	if (g_status)
+	{
+		g_status = 0;
+		data->exit_code = 130;
+	}
+}
 
 void	prompt(t_data *data)
 {
@@ -37,6 +46,7 @@ void	prompt(t_data *data)
 		}
 		free(buffer);
 		buffer = readline("DavidMishell: ");
+		g_status_update(data);
 	}
 }
 
