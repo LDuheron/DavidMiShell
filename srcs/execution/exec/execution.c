@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:23:03 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/18 15:33:49 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 00:11:46 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,19 @@ void	print_error_cmd(t_data *data, t_cmd_lst *cmd_lst)
 	{
 		ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		data->exit_code = 127;
 	}
 	else
 	{
 		ft_putstr_fd("DavidMishell: ", 2);
 		ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		data->exit_code = errno;
 	}
-	data->exit_code = errno;
 	list_destroy(cmd_lst);
 	if (data->m_envp)
 		free_tab(data->m_envp);
-	exit(data->exit_code);
+	//exit(data->exit_code);
 }
 
 void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
@@ -70,7 +71,7 @@ void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
 		i++;
 	}
 	data->exit_code = errno;
-	exit(data->exit_code);
+	//exit(data->exit_code);
 }
 
 void	absolute_path_to_cmd(t_data *data, char *cmd, char to_execute[BUFFER])

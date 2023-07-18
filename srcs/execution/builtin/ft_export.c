@@ -6,24 +6,60 @@
 /*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/17 01:05:58 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/19 00:05:45 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	put_envp(char **m_envp)
+static void	put_envp(char *str)
 {
 	int	i;
 
+	ft_putstr_fd("declare -x ", 1);
 	i = 0;
-	while (m_envp[i])
+	while (str[i] && str[i] != '=')
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(m_envp[i], 1);
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd(str[i], 1);
 		i++;
 	}
+	if (str[i])
+	{
+		ft_putstr_fd("=\"", 1);
+		while (str[++i])
+			ft_putchar_fd(str[i], 1);
+		ft_putchar_fd('"', 1);
+	}
+	ft_putstr_fd("\n", 1);
+}
+
+static void	sort_envp(char **m_envp)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+	int		n;
+
+	n = 0;
+	while (m_envp[n])
+		n++;
+	i = -1;
+	while (++i < n - 1)
+	{
+		j = -1;
+		while (++j < n - i - 1)
+		{
+			if (ft_strcmp(m_envp[j], m_envp[j + 1]) > 0)
+			{
+				tmp = m_envp[j];
+				m_envp[j] = m_envp[j + 1];
+				m_envp[j + 1] = tmp;
+			}
+		}
+	}
+	n = -1;
+	while (m_envp[++n])
+		put_envp(m_envp[n]);
 }
 
 void	search_and_extract_key(t_data *data, char **argument, int index)
@@ -48,6 +84,8 @@ void	search_and_extract_key(t_data *data, char **argument, int index)
 			add_envp_variable(data, key, argument[index] + i, false);
 		free(key);
 	}
+	else
+		add_envp_variable(data, argument[index], "", false);
 }
 
 bool	ft_valid_key(char *str)
@@ -64,7 +102,9 @@ bool	ft_valid_key(char *str)
 	}
 	while (str[i] && str[i] != '=')
 	{
-		if (!(is_alpha(str[i]) || is_number(str[i])) && str[i] != '_')
+		if (!(is_alpha(str[i]) || is_number(str[i])
+			|| (str[i] == '+' && str[i + 1] == '='))
+			&& str[i] != '_')
 		{
 			ft_putstr_fd("DavidMishell: export: `", 2);
 			ft_putstr_fd(str, 2);
@@ -82,7 +122,7 @@ int	ft_export(t_data *data, t_cmd_lst *cmd_lst)
 	int		i;
 
 	if (cmd_lst->cmd_node->argument[1] == NULL)
-		put_envp(data->m_envp);
+		sort_envp(data->m_envp);
 	else
 	{
 		i = 1;

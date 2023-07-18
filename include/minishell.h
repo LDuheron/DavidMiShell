@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 17:18:33 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:14:32 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,8 @@ int			check_line(char *str);
 int			check_open_d_quote(char *str, int i);
 int			check_open_s_quote(char *str, int i);
 int			check_redirection_content(t_tokens **token);
-int			check_syntax(t_tokens **tokens);
+int			check_syntax(t_data *data, t_tokens **tokens);
+//int			check_syntax(t_tokens **tokens);
 
 // Trimming_utils.c
 int			single_dollar_trimming_utils(char *buffer, int i);
@@ -271,7 +272,8 @@ int			free_data_lexing(t_data_lexing *data_lexing);
 int			error_malloc(t_data_lexing *data_lexing);
 int			error_in_line(t_data_lexing *data_lexing);
 // int			error_syntax(t_tokens **tokens, int type);
-int			error_syntax(t_tokens **tokens, t_tokens *tmp);
+//int			error_syntax(t_tokens **tokens, t_tokens *tmp);
+int			error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp);
 void		free_token_structure(t_tokens **tokens);
 
 //////////////////////////////////////////////////////////////////

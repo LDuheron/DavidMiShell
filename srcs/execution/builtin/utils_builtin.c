@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:20 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/18 17:05:09 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:46:12 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	add_envp_variable(t_data *data, char *key, char *value, bool append)
 	char	*new_var;
 
 	new_var = ft_strjoin(key, value);
+	printf("\t..add_envp..\tnew_var: [%s]\n", new_var);
 	if (!new_var)
 		return ;
 	i = -1;

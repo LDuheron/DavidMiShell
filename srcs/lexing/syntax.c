@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 15:22:41 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:26:18 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	tok_is_op(t_tokens *tok)
 // to the pipe command such as "|", "||", "cat |" and "| cat". It
 // also checks syntax error related to redirections.
 
-int	check_syntax(t_tokens **token)
+int	check_syntax(t_data *data, t_tokens **token)
 {
 	t_tokens	*tmp;
 
@@ -32,16 +32,17 @@ int	check_syntax(t_tokens **token)
 	if (tmp && tmp->type && tmp->type == PIPE)
 	{
 		if (tmp->next && tmp->next->content)
-			return (error_syntax(token, tmp));
+			return (error_syntax(data, token, tmp));
+		data->exit_code = 2;
 		return (printf("minishell: syntax error near unexpected token '%s'\n", tmp->content));
 	}
 	while (tmp)
 	{
 		if (!tmp->next && tok_is_op(tmp) && tmp->content == NULL)
-			return (error_syntax(token, tmp));
+			return (error_syntax(data, token, tmp));
 		else if (tok_is_op(tmp) && tmp->content == NULL
 			&& tmp->next && tok_is_op(tmp->next))
-			return (error_syntax(token, tmp->next));
+			return (error_syntax(data, token, tmp->next));
 		tmp = tmp->next;
 	}
 	return (SUCCESS);
