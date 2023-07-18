@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 20:32:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:12:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 {
 	data_lexing->line = NULL;
-	data_lexing->line = ft_strdup(argv);
+	data_lexing->line = ft_strjoin_content(data_lexing->line, argv);
 	data_lexing->len = ft_strlen(data_lexing->line);
 	data_lexing->d_tab_tmp = NULL;
 	data_lexing->pos = 0;

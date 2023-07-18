@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 12:12:34 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:05:19 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ char	*convert_type_to_char(int type)
 
 int	error_syntax(t_tokens **tokens, t_tokens *tmp)
 {
-	printf("tmp->content %s\n", tmp->content);
-	
 	if (tmp->type != WORD)
 		printf("minishell: syntax error near unexpected token '%s'\n", convert_type_to_char(tmp->type));
 	else if (tmp->content == NULL)

@@ -6,11 +6,20 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 15:22:41 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:06:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_pipe_before_redir(int type_current, int type_next)
+{
+	if (type_next == PIPE)
+		if (type_current == SIMPLE_IN || type_current == SIMPLE_OUT
+			|| type_current == DOUBLE_IN || type_current == DOUBLE_OUT)
+			return (1);
+	return (0);
+}
 
 int	tok_is_op(t_tokens *tok)
 {
@@ -28,20 +37,16 @@ int	check_syntax(t_tokens **token)
 	t_tokens	*tmp;
 
 	tmp = *token;
-	// ft_print_lst_token(*token);
 	if (tmp && tmp->type && tmp->type == PIPE)
-	{
-		if (tmp->next && tmp->next->content)
-			return (error_syntax(token, tmp));
-		return (printf("minishell: syntax error near unexpected token '%s'\n", tmp->content));
-	}
+		return (error_syntax(token, tmp));
 	while (tmp)
 	{
 		if (!tmp->next && tok_is_op(tmp) && tmp->content == NULL)
 			return (error_syntax(token, tmp));
 		else if (tok_is_op(tmp) && tmp->content == NULL
 			&& tmp->next && tok_is_op(tmp->next))
-			return (error_syntax(token, tmp->next));
+			if (is_pipe_before_redir(tmp->type, tmp->next->type) == 1)
+				return (error_syntax(token, tmp->next));
 		tmp = tmp->next;
 	}
 	return (SUCCESS);
