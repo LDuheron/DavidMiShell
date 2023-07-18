@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:23:03 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/17 13:28:45 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:33:49 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ void	print_error_cmd(t_data *data, t_cmd_lst *cmd_lst)
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 	data->exit_code = errno;
+	list_destroy(cmd_lst);
+	if (data->m_envp)
+		free_tab(data->m_envp);
 	exit(data->exit_code);
 }
 
@@ -109,7 +112,7 @@ void	ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 		arg = cmd_lst->cmd_node->argument;
 		expand_envp(data, cmd_lst->cmd_node);
 		absolute_path_to_cmd(data, arg[0], to_execute);
-		data->exit_code = execve(to_execute, arg, data->m_envp);
+		data->exit_code = execve(to_execute, arg, data->m_envp); /// CHECK
 		print_error_cmd(data, cmd_lst);
 	}
 	else if (cmd_lst->cmd_node->redir)

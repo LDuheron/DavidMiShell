@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 14:52:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:22:41 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_syntax(t_tokens **token)
 	t_tokens	*tmp;
 
 	tmp = *token;
-	ft_print_lst_token(*token);
+	// ft_print_lst_token(*token);
 	if (tmp && tmp->type && tmp->type == PIPE)
 	{
 		if (tmp->next && tmp->next->content)
