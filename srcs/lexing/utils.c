@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/16 23:30:19 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/18 17:18:58 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,22 @@ the args are NULL
 
 void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 {
-	data_lexing->line = NULL;
-	data_lexing->line = ft_strjoin(data_lexing->line, argv);
+	data_lexing->line = ft_strdup_content(argv);
 	data_lexing->len = ft_strlen(data_lexing->line);
 	data_lexing->d_tab_tmp = NULL;
 	data_lexing->pos = 0;
 }
 */
-
 /* Modified to adopt ft_strjoin() from libft */
 void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 {
-	data_lexing->line = ft_strdup(argv);
+	data_lexing->line = NULL;
+	data_lexing->line = ft_strjoin_content(data_lexing->line, argv);
 	data_lexing->len = ft_strlen(data_lexing->line);
 	data_lexing->d_tab_tmp = NULL;
 	data_lexing->pos = 0;
 }
+
 
 // IS_REDIRECTION: This function returns the corresponding enum_type_token
 // code if the given string is a redirection, which can be <, <<, >>, or >>.

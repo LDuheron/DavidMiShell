@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 14:52:51 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:18:33 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ void		free_token_structure(t_tokens **tokens);
 //////////////////////////////////////////////////////////////////
 
 // Ft_strjoin.c
-//char		*ft_strjoin(char *s1, char *s2);
+char		*ft_strjoin_content(char *s1, char *s2);
 
 // Is_something.c
 int			is_alpha(int c);

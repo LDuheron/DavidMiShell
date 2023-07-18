@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:20 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/18 14:20:23 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:05:09 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 	int	in;
 	int	out;
 
+	in = -1;
+	out = -1;
 	builtin_redirect_in_out(cmd_lst, &in, &out);
 	expand_envp(data, cmd_lst->cmd_node);
 	if (builtin == CD)

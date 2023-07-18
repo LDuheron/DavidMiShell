@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 10:58:42 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:29:18 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type)
 	if (content != NULL)
 	{
 		new_elem->len = ft_strlen(content);
-		new_elem->content = ft_strdup(content);
+		new_elem->content = ft_strdup_content(content);
 		new_elem->dollars_tab = data_lexing->d_tab_tmp;
-		free(content);
 	}
 	else
 	{

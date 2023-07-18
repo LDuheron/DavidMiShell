@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:19:42 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 15:12:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:15:46 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	node_destroy(t_cmd_lst *list)
 		if (list->cmd_node->argument)
 			free_char_tab(list->cmd_node->argument);
 		if (list->cmd_node->redir)
+		{
 			free_char_tab(list->cmd_node->redir);
+		}
 		if (list->cmd_node->arg_subst)
 			free_int_tab(list->cmd_node->arg_subst);
 		if (list->cmd_node->redir_sub)

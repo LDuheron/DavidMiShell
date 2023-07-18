@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/18 09:38:28 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:04:55 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ void	builtin_redirect_in_out(t_cmd_lst *cmd_lst, int *in, int *out)
 
 void	builtin_close_in_out_files(t_cmd_lst *cmd_lst, int *in, int *out)
 {
+	dup2(*in, STDIN_FILENO);
+	close(*in);
+	dup2(*out, STDOUT_FILENO);
+	close(*out);
 	if (cmd_lst->in_file >= 0)
 	{
 		close(cmd_lst->in_file);
-		dup2(*in, STDIN_FILENO);
-		close(*in);
 	}
 	if (cmd_lst->out_file >= 0)
 	{
 		close(cmd_lst->out_file);
-		dup2(*out, STDOUT_FILENO);
-		close(*out);
 	}
 }

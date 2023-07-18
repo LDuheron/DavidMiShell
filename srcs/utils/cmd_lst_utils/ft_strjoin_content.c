@@ -6,14 +6,15 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:02:45 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/06 17:51:53 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:18:16 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-char	*ft_strjoin(char *s1, char *s2)
+*/
+char	*ft_strjoin_content(char *s1, char *s2)
 {
 	char	*join;
 	int		i;
@@ -41,5 +42,3 @@ char	*ft_strjoin(char *s1, char *s2)
 	free (s1);
 	return (join);
 }
-*/
-// join pas protege
