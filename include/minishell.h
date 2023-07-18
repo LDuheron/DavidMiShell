@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 00:23:34 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/18 08:50:21 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,8 +353,8 @@ void		ft_here_doc(char *delimiter);
 
 /* utils_execution.c */
 void		ft_wait(t_data *data);
-void		builtin_redirect_in_out(t_cmd_lst *cmd_lst);
-void		close_in_out_files(t_cmd_lst *cmd_lst);
+void		builtin_redirect_in_out(t_cmd_lst *cmd_lst, int *in, int *out);
+void		builtin_close_in_out_files(t_cmd_lst *cmd_lst, int *in, int *out);
 
 //////////////////////////////////////////////////////////////////
 //																//

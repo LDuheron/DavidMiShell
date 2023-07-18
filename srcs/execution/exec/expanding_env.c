@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/18 00:14:17 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/18 09:40:51 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ typedef struct s_buffer
 	int		k_len;
 }	t_buffer;
 
-static void replace_value(char *str, int k_len, char *value, char *new_str)
+static void	replace_value(char *str, int k_len, char *value, char *new_str)
 {
-	int i = 0;
-	int j = 0;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
 	while (*str && *str != '$')
 	{
 		new_str[j++] = *(str++);
@@ -45,7 +47,7 @@ static void replace_value(char *str, int k_len, char *value, char *new_str)
 
 static void	look_up_env(char *str, int k_len, char **env, char *value)
 {
-	char*	key;
+	char	*key;
 	int		i;
 
 	ft_bzero(value, BUFFER);

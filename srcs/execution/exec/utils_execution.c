@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/18 00:27:17 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/18 09:38:28 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,32 @@ void	ft_wait(t_data *data)
 	unlink(HD_FILE);
 }
 
-void	builtin_redirect_in_out(t_cmd_lst *cmd_lst)
+void	builtin_redirect_in_out(t_cmd_lst *cmd_lst, int *in, int *out)
 {
+	*in = dup(STDIN_FILENO);
+	*out = dup(STDOUT_FILENO);
 	if (cmd_lst->in_file >= 0)
 	{
 		dup2(cmd_lst->in_file, STDIN_FILENO);
-		//close(cmd_lst->in_file);
 	}
 	if (cmd_lst->out_file >= 0)
 	{
 		dup2(cmd_lst->out_file, STDOUT_FILENO);
-		//close(cmd_lst->out_file);
 	}
 }
 
-void	close_in_out_files(t_cmd_lst *cmd_lst)
+void	builtin_close_in_out_files(t_cmd_lst *cmd_lst, int *in, int *out)
 {
 	if (cmd_lst->in_file >= 0)
 	{
 		close(cmd_lst->in_file);
+		dup2(*in, STDIN_FILENO);
+		close(*in);
 	}
 	if (cmd_lst->out_file >= 0)
 	{
 		close(cmd_lst->out_file);
+		dup2(*out, STDOUT_FILENO);
+		close(*out);
 	}
 }
