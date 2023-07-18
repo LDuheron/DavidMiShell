@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 12:07:01 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:52:51 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,8 +327,6 @@ void		free_tab(char **str);
 
 /* initialization.c */
 void		init_data(t_data *data, char **env);
-//void		init_data(t_data *data, t_cmd_lst *cmd_lst, char **env);
-//void		init_data(t_data *data, t_tokens *token, t_cmd_lst *s_cmd_lst, char **env);
 
 /* utils_init.c */
 bool		empty_buffer(char *str);
@@ -344,19 +342,20 @@ char		**get_path_directories(char **m_envp);
 void		execution(t_data *data);
 void		ft_execve(t_data *data, t_cmd_lst *cmd_lst);
 
+/* expending_env.c */
+void		expand_envp(t_data *data, t_cmd_node *cmd_node);
+
 /* ft_exec.c */
-//void		ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst, int *fd);
 void		ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst);
 
 /* redirection.c */
 bool		set_redirection(t_data *data, t_cmd_lst *cmd_lst);
-//void		set_redirection(t_data *data, t_cmd_lst *cmd_lst);
 void		ft_here_doc(char *delimiter);
 
 /* utils_execution.c */
 void		ft_wait(t_data *data);
-void		expand_envp(t_data *data, t_cmd_node *cmd_node);
-char		*look_up_key_and_replace(char *str, int key_len, char **m_envp);
+void		builtin_redirect_in_out(t_cmd_lst *cmd_lst, int *in, int *out);
+void		builtin_close_in_out_files(t_cmd_lst *cmd_lst, int *in, int *out);
 
 //////////////////////////////////////////////////////////////////
 //																//

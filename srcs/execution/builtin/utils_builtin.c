@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:20 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/17 00:48:50 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/18 14:20:23 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 
 void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 {
+	int	in;
+	int	out;
+
+	builtin_redirect_in_out(cmd_lst, &in, &out);
 	expand_envp(data, cmd_lst->cmd_node);
 	if (builtin == CD)
 		ft_cd(data, cmd_lst);
@@ -56,6 +60,7 @@ void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 		ft_pwd(data, cmd_lst);
 	else if (builtin == UNSET)
 		ft_unset(data, cmd_lst);
+	builtin_close_in_out_files(cmd_lst, &in, &out);
 }
 
 /* this adds new key=value pair to the data->m_envp. 

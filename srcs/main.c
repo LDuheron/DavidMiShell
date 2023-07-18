@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 16:49:49 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:40:54 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_status = 0;
+
+void	g_status_update(t_data *data)
+{
+	if (g_status)
+	{
+		g_status = 0;
+		data->exit_code = 130;
+	}
+}
 
 void	prompt(t_data *data)
 {
@@ -29,7 +38,7 @@ void	prompt(t_data *data)
 					parsing(&data->cmd_lst, &data->token);
 			if (data->cmd_lst)
 			{
-				// print_cmd_lst(&data->cmd_lst);
+				//print_cmd_lst(&data->cmd_lst);
 				execution(data);
 			}
 			list_destroy(data->cmd_lst);
@@ -37,6 +46,7 @@ void	prompt(t_data *data)
 		}
 		free(buffer);
 		buffer = readline("DavidMishell: ");
+		g_status_update(data);
 	}
 }
 
