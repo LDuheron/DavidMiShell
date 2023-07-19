@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 14:43:05 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:51:18 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ int	prepare_substitution(char *content, t_data_lexing **data_lexing)
 	pos = 0;
 	nb_subst = nb_dollar(content);
 	if (nb_subst == 0)
-	{
-		free((*data_lexing)->d_tab_tmp);
 		return (SUCCESS);
-	}
 	(*data_lexing)->d_tab_tmp[nb_subst] = -2;
 	while (j < nb_subst && content[pos])
 	{

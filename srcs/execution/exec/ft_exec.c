@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 16:52:02 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:48:20 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,8 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 		else
 			parent_process(cmd_lst, fd);
 	}
+	list_destroy(cmd_lst);
+	if (data->m_envp)
+		free_tab(data->m_envp);
+	exit(data->exit_code);
 }
