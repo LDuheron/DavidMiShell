@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:23:03 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 11:50:15 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:38:03 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	ft_execve(t_data *data, t_cmd_lst *cmd_lst)
 		arg = cmd_lst->cmd_node->argument;
 		expand_envp(data, cmd_lst->cmd_node);
 		absolute_path_to_cmd(data, arg[0], to_execute);
-		data->exit_code = execve(to_execute, arg, data->m_envp); /// CHECK
+		data->exit_code = execve(to_execute, arg, data->m_envp);
 		print_error_cmd(data, cmd_lst);
 	}
 	else if (cmd_lst->cmd_node->redir)

@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 11:58:25 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:42:11 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,12 @@ typedef struct s_data
 void		prompt(t_data *data);
 int			main(int argc, char **argv, char **env);
 
-// Print_cmd_lst.c
+/* Print_cmd_lst.c
 void		ft_print_lst_token(t_tokens *token);
 void		print_cmd_node(t_cmd_node *cmd);
 void		print_cmd_lst(t_cmd_lst **cmd_lst);
 char		*ft_put_enum(int type);
+*/
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -202,8 +203,8 @@ int			double_quote_management(char *line, int start);
 int			single_quote_management(char *line, int start);
 
 /* Syntax_utils.c */
-int	is_pipe_before_redir(int type_current, int type_next);
-int	tok_is_op(t_tokens *tok);
+int			is_pipe_before_redir(int type_current, int type_next);
+int			tok_is_op(t_tokens *tok);
 
 /* Syntax.c */
 int			check_syntax(t_data *data, t_tokens **tokens);
@@ -274,14 +275,14 @@ void		ft_signal_child(int signal);
 //////////////////////////////////////////////////////////////////
 
 /* Error_management_in_parsing.c */
-void	free_token_structure(t_tokens **tokens);
-int		error_malloc(t_data_lexing *data_lexing);
-int		error_in_line(t_data_lexing *data_lexing);
-int		free_data_lexing(t_data_lexing *data_lexing);
-int		error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp);
+void		free_token_structure(t_tokens **tokens);
+int			error_malloc(t_data_lexing *data_lexing);
+int			error_in_line(t_data_lexing *data_lexing);
+int			free_data_lexing(t_data_lexing *data_lexing);
+int			error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp);
 
 /* Ft_strdup_content.c */
-char	*ft_strdup_content(char *src);
+char		*ft_strdup_content(char *src);
 
 /* Ft_strjoin_content.c */
 char		*ft_strjoin_content(char *s1, char *s2);

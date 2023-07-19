@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:45:33 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 09:58:05 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:39:15 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ bool	ft_valid_key(char *str)
 	while (str[i] && str[i] != '=')
 	{
 		if (!(is_alpha(str[i]) || is_number(str[i])
-			|| (str[i] == '+' && str[i + 1] == '='))
+				|| (str[i] == '+' && str[i + 1] == '='))
 			&& str[i] != '_')
 		{
 			ft_putstr_fd("DavidMishell: export: `", 2);

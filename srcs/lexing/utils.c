@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 10:03:04 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:28:00 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 	data_lexing->d_tab_tmp = NULL;
 	data_lexing->pos = 0;
 }
-
 
 /* IS_REDIRECTION: This function returns the corresponding enum_type_token
 ** code if the given string is a redirection, which can be <, <<, >>, or >>.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management_in_parsing.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:20:24 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:37:09 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,32 @@ int	free_data_lexing(t_data_lexing *data_lexing)
 ** added data structure here to save the exit_code */
 int	error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp)
 {
+	ft_putstr_fd("DavidMishell: syntax error near unexpected token ", 2);
 	if (tmp == NULL)
-		printf("minishell: syntax error near unexpected token `newline'\n");
+		ft_putendl_fd("`newline'", 2);
 	else if (tmp->type == PIPE)
-		printf("minishell: syntax error near unexpected token '%s'\n", convert_type_to_char(tmp->type)); 
+		ft_putendl_fd(convert_type_to_char(tmp->type), 2);
 	else
-		printf("minishell: syntax error near unexpected token '%s'\n", tmp->content);
+		ft_putendl_fd(tmp->content, 2);
 	if (tokens)
 		free_token_structure(tokens);
 	data->exit_code = 2;
 	return (ERROR_SYNTAX);
 }
+/*
+int	error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp)
+{
+	if (tmp == NULL)
+		printf("minishell: syntax error near unexpected token `newline'\n");
+	else if (tmp->type == PIPE)
+		printf("minishell: syntax error near unexpected token '%s'\n",
+			convert_type_to_char(tmp->type)); 
+	else
+		printf("minishell: syntax error near unexpected token '%s'\n",
+			tmp->content);
+	if (tokens)
+		free_token_structure(tokens);
+	data->exit_code = 2;
+	return (ERROR_SYNTAX);
+}
+*/
