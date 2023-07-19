@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 17:18:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:06:54 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// WHICH NEW TOKEN : This function redirects the given input to the appropriate
-// lexing function to create a token. It returns 0 in case of an error.
-
+/* WHICH NEW TOKEN : This function redirects the given input to the appropriate
+** lexing function to create a token. It returns 0 in case of an error.
+*/
 t_tokens	*which_new_token(t_data_lexing *data_lexing)
 {
 	int			type;
@@ -42,9 +42,9 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 	return (0);
 }
 
-// FIND TYPE : This function identifies and returns the type of the given input.
-// In case of an error, it returns N_DEF.
-
+/* FIND TYPE : This function identifies and returns the type of the given input.
+** In case of an error, it returns N_DEF.
+*/
 int	find_type(t_data_lexing **data_lexing)
 {
 	int	type;
@@ -65,10 +65,10 @@ int	find_type(t_data_lexing **data_lexing)
 	return (type);
 }
 
-// LEXING FUNCTION : This function takes a string as input and efficiently
-// breaks it down into tokens. These tokens are then stored in a specialized
-// linked list for further processing.
-
+/* LEXING FUNCTION : This function takes a string as input and efficiently
+** breaks it down into tokens. These tokens are then stored in a specialized
+** linked list for further processing.
+*/
 int	lexing(t_tokens **token, char *buffer)
 {
 	int				len;

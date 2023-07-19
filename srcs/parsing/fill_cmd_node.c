@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:24:21 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 18:14:31 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:55:49 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i)
 	nb_subst = nb_dollar((*token)->content);
 	if ((*token)->content)
 	{
-		cmd_node->argument[i] = ft_strdup_content((*token)->content);
+		cmd_node->argument[i] = ft_strdup((*token)->content);
 		cmd_node->arg_subst[i] = malloc(sizeof (int) * (nb_subst + 1));
 		if (!cmd_node->arg_subst[i])
 			return (ERROR_MALLOC);
@@ -36,7 +36,7 @@ int	fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i)
 		cmd_node->arg_subst[i][j] = (*token)->dollars_tab[j];
 		j++;
 	}
-	// free((*token)->content);
+	free((*token)->content);
 	free((*token)->dollars_tab);
 	return (SUCCESS);
 }
@@ -50,7 +50,7 @@ int	fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i)
 	nb_subst = nb_dollar((*token)->content);
 	cmd_node->redir[i] = ft_strdup_content((*token)->content);
 	cmd_node->redir_type[i] = (*token)->type;
-	cmd_node->redir_sub[i] = malloc(sizeof (int) * (nb_subst + 1));
+	cmd_node->redir_sub[i] = malloc(sizeof(int) * (nb_subst + 1));
 	if (!cmd_node->redir_sub[i])
 		return (ERROR_MALLOC);
 	cmd_node->redir_sub[i][nb_subst] = -2;

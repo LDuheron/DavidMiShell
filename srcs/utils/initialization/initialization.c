@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:15:20 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/17 00:43:38 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/19 11:40:11 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* Protection from unsetting env 
+**
+*/
 void	init_envp(t_data *data)
 {
 	int		count;

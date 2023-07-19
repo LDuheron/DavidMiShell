@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:23:03 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 00:11:46 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/19 11:50:15 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_error_cmd(t_data *data, t_cmd_lst *cmd_lst)
 	list_destroy(cmd_lst);
 	if (data->m_envp)
 		free_tab(data->m_envp);
-	//exit(data->exit_code);
+	exit(data->exit_code);
 }
 
 void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
@@ -71,7 +71,10 @@ void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
 		i++;
 	}
 	data->exit_code = errno;
-	//exit(data->exit_code);
+	list_destroy(cmd_lst);
+	if (data->m_envp)
+		free_tab(data->m_envp);
+	exit(data->exit_code);
 }
 
 void	absolute_path_to_cmd(t_data *data, char *cmd, char to_execute[BUFFER])

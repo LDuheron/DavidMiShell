@@ -6,15 +6,15 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 17:18:58 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:03:04 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// GET_CONTENT : This function copies "size" characters from the source "src"
-// to the destination "dst", starting from the position indicated by "start".
-
+/* GET_CONTENT : This function copies "size" characters from the source "src"
+** to the destination "dst", starting from the position indicated by "start".
+*/
 int	get_content(char *dst, char *src, unsigned int size, unsigned int start)
 {
 	unsigned int	i;
@@ -35,22 +35,6 @@ int	get_content(char *dst, char *src, unsigned int size, unsigned int start)
 	return (0);
 }
 
-/* ..virsion of ft_strjoin() used here is a bit different
-from the one in libft
-** it mallocs an empty str if s1 (first argument) is NULL.. 
-** original ft_strjoin() doesn't do it, it just returns NULL if any of
-the args are NULL 
-** slightly modified init_data_lexing_structure() is a bit lower
-
-void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
-{
-	data_lexing->line = ft_strdup_content(argv);
-	data_lexing->len = ft_strlen(data_lexing->line);
-	data_lexing->d_tab_tmp = NULL;
-	data_lexing->pos = 0;
-}
-*/
-/* Modified to adopt ft_strjoin() from libft */
 void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 {
 	data_lexing->line = NULL;
@@ -61,9 +45,10 @@ void	init_data_lexing_structure(t_data_lexing *data_lexing, char *argv)
 }
 
 
-// IS_REDIRECTION: This function returns the corresponding enum_type_token
-// code if the given string is a redirection, which can be <, <<, >>, or >>.
-// If the string is not a redirection, it returns 0.
+/* IS_REDIRECTION: This function returns the corresponding enum_type_token
+** code if the given string is a redirection, which can be <, <<, >>, or >>.
+** If the string is not a redirection, it returns 0.
+*/
 int	is_redirection(t_data_lexing *data_lexing)
 {
 	int	type;
@@ -90,10 +75,10 @@ int	is_redirection(t_data_lexing *data_lexing)
 	return (type);
 }
 
-// IS_NOT_INTERPRETED_DOLLAR: This function searches if the given dollar
-// sign ($) is between single quotes, indicating that it is not to be
-// interpreted.
-
+/* IS_NOT_INTERPRETED_DOLLAR: This function searches if the given dollar
+** sign ($) is between single quotes, indicating that it is not to be
+** interpreted.
+*/
 int	is_not_interpreted_dollar(char *str, int pos_dollar)
 {
 	int	i;

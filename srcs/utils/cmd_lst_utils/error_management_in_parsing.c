@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management_in_parsing.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 22:24:37 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/19 10:40:38 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,10 @@ int	free_data_lexing(t_data_lexing *data_lexing)
 	return (ERROR);
 }
 
-char	*convert_type_to_char(int type)
-{
-	if (type == SIMPLE_IN)
-		return ("<");
-	else if (type == SIMPLE_OUT)
-		return (">");
-	else if (type == DOUBLE_IN)
-		return ("<<");
-	else if (type == DOUBLE_OUT)
-		return (">>");
-	else if (type == PIPE)
-		return ("|");
-	return (ERROR);
-}
-
 /* exit code shall be 2 for such error 
 ** added data structure here to save the exit_code */
 int	error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp)
 {
-	printf("tmp->content %s\n", tmp->content);
-	
 	if (tmp->type != WORD)
 		printf("minishell: syntax error near unexpected token '%s'\n", convert_type_to_char(tmp->type));
 	else if (tmp->content == NULL)
@@ -78,21 +61,3 @@ int	error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp)
 	data->exit_code = 2;
 	return (ERROR_SYNTAX);
 }
-/*
-int	error_syntax(t_tokens **tokens, t_tokens *tmp)
-{
-	printf("tmp->content %s\n", tmp->content);
-	
-	if (tmp->type != WORD)
-		printf("minishell: syntax error near unexpected token '%s'\n", convert_type_to_char(tmp->type));
-	else if (tmp->content == NULL)
-		printf("minishell: syntax error near unexpected token `newline'\n");
-	else
-		printf("minishell: syntax error near unexpected token '%s'\n", tmp->content);
-	if (tokens)
-		free_token_structure(tokens);
-	return (ERROR_SYNTAX);
-}
-*/
-// else if (tmp->content == NULL)
-// 	printf("minishell: syntax error near unexpected token `newline'\n");

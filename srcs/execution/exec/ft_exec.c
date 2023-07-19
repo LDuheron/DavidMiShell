@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/18 14:20:12 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:51:34 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	exit_process(t_data *data, int *fd)
 	}
 	close(fd[0]);
 	close(fd[1]);
+	list_destroy(cmd_lst);
+	if (data->m_envp)
+		free_tab(data->m_envp);
 	exit(data->exit_code);
 }
 

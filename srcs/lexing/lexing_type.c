@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 12:47:25 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:07:19 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// LEXING_*.c : These functions each find the appropriate
-// size of the content and return the corresponding tokens.
-
+/* LEXING_*.c : These functions each find the appropriate
+** size of the content and return the corresponding tokens.
+*/
 t_tokens	*lexing_double_quote(t_data_lexing *data_lexing)
 {
 	int		size;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:20 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/18 23:46:12 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/19 11:46:40 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 	return (builtin);
 }
 
+/* Need to change the execcution of this function 
+** should be diffrent for child case
+*/
 void	exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin)
 {
 	int	in;
@@ -74,7 +77,6 @@ void	add_envp_variable(t_data *data, char *key, char *value, bool append)
 	char	*new_var;
 
 	new_var = ft_strjoin(key, value);
-	printf("\t..add_envp..\tnew_var: [%s]\n", new_var);
 	if (!new_var)
 		return ;
 	i = -1;

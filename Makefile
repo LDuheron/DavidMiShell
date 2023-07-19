@@ -30,12 +30,13 @@ SRCS        := 											\
 	utils/cmd_lst_utils/error_management_in_parsing.c	\
 	utils/cmd_lst_utils/is_something.c					\
 	utils/cmd_lst_utils/is_something_2.c				\
-	utils/cmd_lst_utils/libft_utils.c					\
 	utils/cmd_lst_utils/ft_strjoin_content.c			\
+	utils/cmd_lst_utils/ft_strdup_content.c			\
 	utils/free/ft_free.c								\
 	utils/initialization/initialization.c				\
 	utils/initialization/utils_init.c					\
 	lexing/syntax.c										\
+	lexing/syntax_utils.c										\
 	lexing/lexing_type.c     							\
 	lexing/lexing.c    									\
 	lexing/new_token_quote.c    						\
