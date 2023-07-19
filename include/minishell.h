@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 12:52:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:52:42 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:55:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-// In or out quote.
-
 extern int	g_status;
+
+// In or out quote.
 
 # define OUT 0
 # define IN 1
