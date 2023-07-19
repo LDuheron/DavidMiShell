@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:20:24 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:45:28 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	error_malloc(t_data_lexing *data_lexing)
 
 int	error_in_line(t_data_lexing *data_lexing)
 {
-	(void)data_lexing;
+	if (data_lexing->line)
+		free(data_lexing->line);
 	return (ERROR_MALLOC);
 }
 
