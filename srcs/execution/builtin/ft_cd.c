@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:34:30 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 16:42:46 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/20 00:21:40 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	settings_cd(t_cmd_lst *cmd_lst)
-{
-	if (cmd_lst->cmd_node->argument[1] == NULL)
-		return (0);
-	return (1);
-}
-
-char	*ft_getenv(char **m_envp, const char *name)
+static char	*ft_getenv(char **m_envp, const char *name)
 {
 	int	i;
 	int	len;
@@ -37,7 +30,7 @@ char	*ft_getenv(char **m_envp, const char *name)
 	return (NULL);
 }
 
-void	change_pwd(char **m_envp, char *key)
+static void	change_pwd(char **m_envp, char *key)
 {	
 	char	*get_cwd;
 	int		i;
@@ -63,8 +56,14 @@ void	change_pwd(char **m_envp, char *key)
 	}
 }
 
-void	ft_update_pwds(t_data *data)
+static void	ft_update_pwds(t_data *data, char *path)
 {
+	if (chdir(path) == -1)
+	{
+		ft_putstr_fd("cd: ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+		data->exit_code = 1;
+	}
 	if (data->exit_code != 1)
 	{
 		data->exit_code = 0;
@@ -78,9 +77,11 @@ void	ft_cd(t_data *data, t_cmd_lst *cmd_lst)
 	char	*tmp;
 	char	*path;
 
+	if (too_many_arguments(data, cmd_lst))
+		return ;
 	if (settings_cd(cmd_lst) == 0)
 		path = ft_getenv(data->m_envp, "HOME");
-	else if (strcmp(cmd_lst->cmd_node->argument[1], "-") == 0)
+	else if (ft_strcmp(cmd_lst->cmd_node->argument[1], "-") == 0)
 	{
 		path = ft_getenv(data->m_envp, "OLDPWD");
 		ft_putendl_fd(path, 1);
@@ -93,11 +94,5 @@ void	ft_cd(t_data *data, t_cmd_lst *cmd_lst)
 	}
 	else
 		path = cmd_lst->cmd_node->argument[1];
-	if (chdir(path) == -1)
-	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putendl_fd(strerror(errno), 2);
-		data->exit_code = 1;
-	}
-	ft_update_pwds(data);
+	ft_update_pwds(data, path);
 }

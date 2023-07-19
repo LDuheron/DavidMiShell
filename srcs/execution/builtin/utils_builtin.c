@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:20 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/19 11:46:40 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/20 00:26:12 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,25 @@ int	check_builtin(t_cmd_lst *cmd_lst)
 			builtin = UNSET;
 	}
 	return (builtin);
+}
+
+void	exec_builtin_child(t_data *data, t_cmd_lst *cmd_lst, int builtin)
+{
+	expand_envp(data, cmd_lst->cmd_node);
+	if (builtin == CD)
+		ft_cd(data, cmd_lst);
+	else if (builtin == ECHO)
+		ft_echo(data, cmd_lst);
+	else if (builtin == ENV)
+		ft_env(data);
+	else if (builtin == EXIT)
+		ft_exit(data, cmd_lst);
+	else if (builtin == EXPORT)
+		ft_export(data, cmd_lst);
+	else if (builtin == PWD)
+		ft_pwd(data, cmd_lst);
+	else if (builtin == UNSET)
+		ft_unset(data, cmd_lst);
 }
 
 /* Need to change the execcution of this function 

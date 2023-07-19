@@ -57,6 +57,7 @@ SRCS        := 											\
 	execution/exec/redirection.c						\
 	execution/exec/utils_execution.c					\
 	execution/builtin/ft_cd.c							\
+	execution/builtin/ft_cd_utils.c						\
 	execution/builtin/ft_echo.c							\
 	execution/builtin/ft_env.c							\
 	execution/builtin/ft_exit.c							\

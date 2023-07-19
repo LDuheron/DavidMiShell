@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:32:22 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 16:46:37 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:19:13 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
+
+# define LONG_MIN_STR "9223372036854775808"
+# define LONG_MAX_STR "9223372036854775807"
 
 void	ft_bzero(void *s, size_t n);
 int		ft_atoi(const char *str);

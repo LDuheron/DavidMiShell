@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atolong.c                                       :+:      :+:    :+:   */
+/*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:29:45 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 21:07:51 by svoi             ###   ########.fr       */
+/*   Created: 2023/07/05 13:34:30 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/20 00:21:20 by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "minishell.h"
 
-int64_t	ft_atolong(const char *str)
+int	settings_cd(t_cmd_lst *cmd_lst)
 {
-	int64_t	res;
-	int		sign;
+	if (cmd_lst->cmd_node->argument[1] == NULL)
+		return (0);
+	return (1);
+}
 
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	sign = 1;
-	res = 0;
-	if (*str == '-')
+bool	too_many_arguments(t_data *data, t_cmd_lst *cmd_lst)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_lst->cmd_node->argument[i])
+		i++;
+	if (i > 2)
 	{
-		sign *= -1;
-		str++;
+		data->exit_code = 1;
+		ft_putendl_fd("DavidMishell: cd: too many arguments", 2);
+		return (true);
 	}
-	else if (*str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
-	{
-		res *= 10;
-		res += (*str - '0');
-		str++;
-	}
-	return (res * sign);
+	return (false);
 }
