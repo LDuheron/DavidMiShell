@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 13:30:11 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:43:05 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int	prepare_substitution(char *content, t_data_lexing **data_lexing)
 	j = 0;
 	pos = 0;
 	nb_subst = nb_dollar(content);
+	if (nb_subst == 0)
+	{
+		free((*data_lexing)->d_tab_tmp);
+		return (SUCCESS);
+	}
 	(*data_lexing)->d_tab_tmp[nb_subst] = -2;
 	while (j < nb_subst && content[pos])
 	{
