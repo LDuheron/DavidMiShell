@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management_in_parsing.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:51:27 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:33:30 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_token_structure(t_tokens **tokens)
 
 int	error_malloc(t_data_lexing *data_lexing)
 {
-	printf("minishell: error malloc\n");
+	ft_putendl_fd("DavidMishell: error malloc", 2);
 	free(data_lexing->line);
 	return (ERROR_MALLOC);
 }
@@ -63,20 +63,3 @@ int	error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp)
 	data->exit_code = 2;
 	return (ERROR_SYNTAX);
 }
-/*
-int	error_syntax(t_data *data, t_tokens **tokens, t_tokens *tmp)
-{
-	if (tmp == NULL)
-		printf("minishell: syntax error near unexpected token `newline'\n");
-	else if (tmp->type == PIPE)
-		printf("minishell: syntax error near unexpected token '%s'\n",
-			convert_type_to_char(tmp->type)); 
-	else
-		printf("minishell: syntax error near unexpected token '%s'\n",
-			tmp->content);
-	if (tokens)
-		free_token_structure(tokens);
-	data->exit_code = 2;
-	return (ERROR_SYNTAX);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:44:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 10:06:03 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:30:11 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*adjust_content(t_data_lexing *data_lexing, char *content, int size)
 	data_lexing->d_tab_tmp = malloc(sizeof (int) * (nb_subst + 1));
 	if (!data_lexing->d_tab_tmp)
 	{
-		printf("minishell: error malloc\n");
+		ft_putendl_fd("DavidMishell: error malloc", 2);
 		free(content);
 		return (NULL);
 	}

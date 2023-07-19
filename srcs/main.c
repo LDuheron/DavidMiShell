@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:21:56 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:27:10 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	main(int argc, char **argv, char **env)
 	prompt(&data);
 	if (data.m_envp)
 		free_tab(data.m_envp);
-	printf("exit\n");
+	ft_putendl_fd("exit", 1);
 	return (data.exit_code);
 }

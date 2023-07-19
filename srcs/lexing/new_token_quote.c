@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_token_quote.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/17 12:08:21 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:28:27 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size)
 		content = malloc(sizeof(char *) * (size + 1));
 		if (content == NULL)
 		{
-			printf("minishell: error malloc\n");
+			ft_putendl_fd("DavidMishell: error malloc", 2);
 			free(content);
 			return (NULL);
 		}
@@ -85,7 +85,7 @@ t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size)
 		content = malloc(sizeof(char *) * (size + 1));
 		if (content == NULL)
 		{
-			printf("minishell: error malloc\n");
+			ft_putendl_fd("DavidMishell: error malloc", 2);
 			free(content);
 			return (NULL);
 		}

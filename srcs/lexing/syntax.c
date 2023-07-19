@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 12:52:55 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:52:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:31:34 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	check_open_s_quote(char *str, int i)
 		i++;
 	if (str[i] == '\0')
 	{
-		printf("minishell: syntax error single quote\n");
+		ft_putendl_fd("DavidMishell: syntax error single quote", 2);
 		return (ERROR_SYNTAX);
 	}
 	if (is_single_quote(str[i]) == 1)
@@ -66,7 +66,7 @@ int	check_open_d_quote(char *str, int i)
 		i++;
 	if (str[i] == '\0')
 	{
-		printf("minishell: syntax error double quote\n");
+		ft_putendl_fd("DavidMishell: syntax error double quote", 2);
 		return (ERROR_SYNTAX);
 	}
 	if (is_double_quote(str[i]) == 1)

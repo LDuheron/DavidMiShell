@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:08:46 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/18 09:45:59 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:04:14 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 				return (1);
 			}
 			data->exit_code = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1])
-					% 256);
+				% 256);
 		}
 		else
 		{

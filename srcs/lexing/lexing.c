@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:44:00 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:56:38 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 		return (new_token_pipe());
 	else if (is_forbidden(data_lexing->line[data_lexing->pos]) == 1)
 	{
-		printf("minishell: syntax error near unexpected token '%c'\n",
-			data_lexing->line[data_lexing->pos + 1]);
+		ft_putstr_fd("DavidMishell: syntax error near unexpected token ", 2);
+		ft_putendl_fd(&data_lexing->line[data_lexing->pos + 1], 2);
 		return (0);
 	}
-	printf("minishell: error malloc\n");
+	ft_putendl_fd("DavidMishell: error malloc", 2);
 	return (0);
 }
 
