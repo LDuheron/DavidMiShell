@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/19 12:24:51 by lduheron         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/19 12:43:54 by sbocanci         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +37,7 @@ int	check_syntax(t_data *data, t_tokens **token)
 				return (error_syntax(data, token, tmp->next));
 		tmp = tmp->next;
 	}
-	return (SUCCESS);// && tmp->content == NULL
+	return (SUCCESS);
 }
 
 /* CHECK OPEN S QUOTE : This function ensures that the single quotes
