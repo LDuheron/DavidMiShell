@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:34:30 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/16 17:10:18 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:42:46 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	ft_cd(t_data *data, t_cmd_lst *cmd_lst)
 		path = cmd_lst->cmd_node->argument[1];
 	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("cd: no such file or directory: ", 2);
-		ft_putendl_fd(path, 2);
+		ft_putstr_fd("cd: ", 2);
+		ft_putendl_fd(strerror(errno), 2);
 		data->exit_code = 1;
 	}
 	ft_update_pwds(data);
