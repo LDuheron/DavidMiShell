@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:08:46 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 16:45:56 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:20:37by svoi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,48 @@ int	ft_abs(int num)
 	return (num);
 }
 
+/*
 bool	valid_exit_number(const char *str)
 {
 	size_t	len;
+	int		i;
 
+	i = 0;
 	if (*str == '-' || *str == '+')
 		str++;
 	if (!ft_isnum(str))
 		return (false);
 	len = ft_strlen(str);
-	if (len >= 19)
+	if (len > 19)
 		return (false);
+	else if (len == 19)
+	{
+		if ()
+	}
+	return (true);
+}
+*/
+bool	valid_exit_number(char *str)
+{
+	size_t	len;
+	int		neg;
+
+	neg = 0;
+	if (*str == '-')
+		neg = 1;
+	if (*str == '-' || *str == '+')
+		str++;
+	if (!ft_isnum(str))
+		return (false);
+	len = ft_strlen(str);
+	if (len > 19)
+		return (false);
+	else if (len == 19)
+	{
+		if ((neg && ft_strcmp(LONG_MIN_STR, str) < 0)
+			|| (!neg && ft_strcmp(LONG_MAX_STR, str) < 0))
+			return (false);
+	}
 	return (true);
 }
 
@@ -52,7 +83,8 @@ int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 		{
 			if (cmd_lst->cmd_node->argument[2])
 			{
-				ft_putstr_fd("minishell: exit: too many args\n", STDERR_FILENO);
+				ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+				data->exit_code = 1;
 				return (1);
 			}
 			//data->exit_code = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1])

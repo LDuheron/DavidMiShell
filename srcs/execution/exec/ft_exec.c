@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
 /*   Updated: 2023/07/19 17:48:20 by lduheron         ###   ########.fr       */
+=======
+/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/20 00:27:19 by svoi             ###   ########.fr       */
+>>>>>>> Serge
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +66,7 @@ void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 	builtin = check_builtin(cmd_lst);
 	if (builtin)
 	{
-		exec_builtin(data, cmd_lst, builtin);
+		exec_builtin_child(data, cmd_lst, builtin);
 		list_destroy(cmd_lst);
 		if (data->m_envp)
 			free_tab(data->m_envp);
