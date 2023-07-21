@@ -1,0 +1,88 @@
+		// if (!tmp->next && tok_is_op(tmp))
+		// 	return (error_syntax(data, token, NULL));
+	// else if (is_empty_redir(tmp) == 1)
+	// 		return (error_syntax(data, token, NULL));	
+	// if (tok_is_redir(tmp)
+		// 	&& tmp->next && tok_is_redir(tmp->next))
+		// 		return (error_syntax(data, token, tmp->next));
+/* CHECK SYNTAX : This function searches for syntax error related
+** to the pipe command such as "|", "||", "cat |" and "| cat". It
+** also checks syntax error related to redirections.
+*/
+
+
+
+
+int	check_syntax(t_data *data, t_tokens **token)
+{
+	t_tokens	*tmp;
+
+	tmp = *token;
+	if (tmp && tmp->type && tmp->type == PIPE)
+		return (error_syntax(data, token, tmp));
+	while (tmp)
+	{
+		if (is_empty_redir(tmp) == 1)
+			return (error_syntax(data, token, NULL));	
+		tmp = tmp->next;
+	}
+	return (SUCCESS);
+}
+// if (is_pipe_before_redir(tmp->type, tmp->next->type) == 1)
+// int	check_syntaxsave(t_data *data, t_tokens **token)
+// {
+// 	t_tokens	*tmp;
+
+// 	tmp = *token;
+// 	if (tmp && tmp->type && tmp->type == PIPE)
+// 		return (error_syntax(data, token, tmp));
+// 	while (tmp)
+// 	{
+// 		if (!tmp->next && tok_is_op(tmp))
+// 			return (error_syntax(data, token, NULL));
+// 		else if (is_empty_redir(tmp) == 1)
+// 			return (error_syntax(data, token, NULL));
+// 		else if (tok_is_op(tmp)
+// 			&& tmp->next && tok_is_op(tmp->next))
+// 			if (is_pipe_before_redir(tmp->type, tmp->next->type) == 1)
+// 				return (error_syntax(data, token, tmp->next));
+// 		tmp = tmp->next;
+// 	}
+// 	return (SUCCESS);
+// }
+
+
+// if (is_pipe_before_redir(tmp->type, tmp->next->type) == 1)
+// int	check_syntaxsave(t_data *data, t_tokens **token)
+// {
+// 	t_tokens	*tmp;
+
+// 	tmp = *token;
+// 	if (tmp && tmp->type && tmp->type == PIPE)
+// 		return (error_syntax(data, token, tmp));
+// 	while (tmp)
+// 	{
+// 		if (!tmp->next && tok_is_op(tmp))
+// 			return (error_syntax(data, token, NULL));
+// 		else if (is_empty_redir(tmp) == 1)
+// 			return (error_syntax(data, token, NULL));
+// 		else if (tok_is_op(tmp)
+// 			&& tmp->next && tok_is_op(tmp->next))
+// 			if (is_pipe_before_redir(tmp->type, tmp->next->type) == 1)
+// 				return (error_syntax(data, token, tmp->next));
+// 		tmp = tmp->next;
+// 	}
+// 	return (SUCCESS);
+// }
+
+		// if (!tmp->next && tok_is_op(tmp))
+		// 	return (error_syntax(data, token, NULL));
+	// else if (is_empty_redir(tmp) == 1)
+	// 		return (error_syntax(data, token, NULL));	
+	// if (tok_is_redir(tmp)
+		// 	&& tmp->next && tok_is_redir(tmp->next))
+		// 		return (error_syntax(data, token, tmp->next));
+/* CHECK SYNTAX : This function searches for syntax error related
+** to the pipe command such as "|", "||", "cat |" and "| cat". It
+** also checks syntax error related to redirections.
+*/

@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 12:52:55 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 13:31:34 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/21 18:24:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* CHECK SYNTAX : This function searches for syntax error related
-** to the pipe command such as "|", "||", "cat |" and "| cat". It
-** also checks syntax error related to redirections.
-*/
+int	is_empty_redir(t_tokens *token)
+{
+	if (tok_is_redir(token) == 1
+		&& (token->content == NULL || token->content[0] == '\0'))
+		return (1);
+	return (0);
+}
+
 int	check_syntax(t_data *data, t_tokens **token)
 {
 	t_tokens	*tmp;
@@ -25,12 +29,11 @@ int	check_syntax(t_data *data, t_tokens **token)
 		return (error_syntax(data, token, tmp));
 	while (tmp)
 	{
-		if (!tmp->next && tok_is_op(tmp))
+		if (is_empty_redir(tmp) == 1)
 			return (error_syntax(data, token, NULL));
-		else if (tok_is_op(tmp)
-			&& tmp->next && tok_is_op(tmp->next))
-			if (is_pipe_before_redir(tmp->type, tmp->next->type) == 1)
-				return (error_syntax(data, token, tmp->next));
+		if (tmp->type == PIPE && (!tmp->next
+				|| (tmp->next && tmp->next->type == PIPE)))
+			return (error_syntax(data, token, NULL));
 		tmp = tmp->next;
 	}
 	return (SUCCESS);

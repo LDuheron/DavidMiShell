@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 12:52:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/21 15:41:23 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:36:54 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ int			single_quote_management(char *line, int start);
 /* Syntax_utils.c */
 int			is_pipe_before_redir(int type_current, int type_next);
 int			tok_is_op(t_tokens *tok);
+int			tok_is_redir(t_tokens *tok);
 
 /* Syntax.c */
 int			check_syntax(t_data *data, t_tokens **tokens);
