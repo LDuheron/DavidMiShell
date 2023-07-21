@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 13:56:38 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:02:32 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,50 @@ int	find_type(t_data_lexing **data_lexing)
 ** breaks it down into tokens. These tokens are then stored in a specialized
 ** linked list for further processing.
 */
+
+int	lexing_helper(t_data_lexing *data_lexing, t_tokens **token,
+	t_tokens *tmp_token)
+{
+	int	len;
+
+	len = 0;
+	while (data_lexing->pos < data_lexing->len)
+	{
+		len = 0;
+		while (is_space(data_lexing->line[data_lexing->pos]) == 1)
+			data_lexing->pos++;
+		tmp_token = which_new_token(data_lexing);
+		if (tmp_token == 0)
+		{
+			free(data_lexing->line);
+			return (ERROR);
+		}
+		len = tmp_token->len;
+		ft_lstadd_back_tokens(token, tmp_token);
+		data_lexing->pos += len;
+		while ((data_lexing->pos < data_lexing->len)
+			&& is_space(data_lexing->line[data_lexing->pos]) == 1)
+			data_lexing->pos++;
+	}
+	return (SUCCESS);
+}
+
+int	lexing(t_tokens **token, char *buffer)
+{
+	t_data_lexing	data_lexing;
+	t_tokens		*tmp_token;
+
+	tmp_token = NULL;
+	if (check_line(buffer) == ERROR_SYNTAX)
+		return (error_in_line(&data_lexing));
+	init_data_lexing_structure(&data_lexing, buffer);
+	if (!lexing_helper(&data_lexing, token, tmp_token))
+		return (ERROR);
+	free(data_lexing.line);
+	return (SUCCESS);
+}
+
+/*
 int	lexing(t_tokens **token, char *buffer)
 {
 	int				len;
@@ -99,3 +143,4 @@ int	lexing(t_tokens **token, char *buffer)
 	free(data_lexing.line);
 	return (SUCCESS);
 }
+*/

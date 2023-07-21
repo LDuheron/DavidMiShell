@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 18:08:46 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 21:20:37by svoi             ###   ########.fr       */
+/*   Created: 2023/07/21 15:45:35 by sbocanci          #+#    #+#             */
+/*   Updated: 2023/07/21 15:46:29 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,6 @@ int	ft_abs(int num)
 	return (num);
 }
 
-/*
-bool	valid_exit_number(const char *str)
-{
-	size_t	len;
-	int		i;
-
-	i = 0;
-	if (*str == '-' || *str == '+')
-		str++;
-	if (!ft_isnum(str))
-		return (false);
-	len = ft_strlen(str);
-	if (len > 19)
-		return (false);
-	else if (len == 19)
-	{
-		if ()
-	}
-	return (true);
-}
-*/
 bool	valid_exit_number(char *str)
 {
 	size_t	len;
@@ -87,7 +66,6 @@ int	ft_exit(t_data *data, t_cmd_lst *cmd_lst)
 				data->exit_code = 1;
 				return (1);
 			}
-			//data->exit_code = ft_abs(ft_atoi(cmd_lst->cmd_node->argument[1])
 			data->exit_code = ft_atolong(cmd_lst->cmd_node->argument[1]) % 256;
 		}
 		else
