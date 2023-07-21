@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/21 16:02:32 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:24:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	lexing(t_tokens **token, char *buffer)
 
 	tmp_token = NULL;
 	if (check_line(buffer) == ERROR_SYNTAX)
-		return (error_in_line(&data_lexing));
+		return (ERROR_SYNTAX);
 	init_data_lexing_structure(&data_lexing, buffer);
 	if (!lexing_helper(&data_lexing, token, tmp_token))
 		return (ERROR);
