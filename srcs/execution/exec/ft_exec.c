@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/21 14:35:11 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:28:21 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,4 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 		else
 			parent_process(cmd_lst, fd);
 	}
-	list_destroy(cmd_lst);
-	if (data->m_envp)
-		free_tab(data->m_envp);
-	exit(data->exit_code);
 }

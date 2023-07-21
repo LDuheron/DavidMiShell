@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:23:03 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/19 12:38:03 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:25:40 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,16 @@ void	print_error_cmd(t_data *data, t_cmd_lst *cmd_lst)
 	{
 		ft_putstr_fd("DavidMishell: ", 2);
 		ft_putstr_fd(cmd_lst->cmd_node->argument[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		data->exit_code = errno;
+		if (!access(cmd_lst->cmd_node->argument[0], F_OK))
+		{
+			ft_putstr_fd(": Is a directory\n", 2);
+			data->exit_code = 126;
+		}
+		else
+		{
+			ft_putstr_fd(": No such file or directory\n", 2);
+			data->exit_code = errno;
+		}
 	}
 	list_destroy(cmd_lst);
 	if (data->m_envp)
