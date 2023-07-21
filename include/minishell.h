@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 12:52:39 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 12:55:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:36:23 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,6 +353,8 @@ void		builtin_close_in_out_files(t_cmd_lst *cmd_lst, int *in, int *out);
 //////////////////////////////////////////////////////////////////
 
 void		ft_cd(t_data *data, t_cmd_lst *cmd_lst);
+int			settings_cd(t_cmd_lst *cmd_lst);
+bool		too_many_arguments(t_data *data, t_cmd_lst *cmd_lst);
 int			ft_echo(t_data *data, t_cmd_lst *cmd_lst);
 int			ft_export(t_data *data, t_cmd_lst *cmd_lst);
 int			ft_env(t_data *data);
@@ -362,8 +364,8 @@ int			ft_unset(t_data *data, t_cmd_lst *cmd_lst);
 
 /* utils_builtin.c */
 int			check_builtin(t_cmd_lst *cmd_lst);
+void		exec_builtin_child(t_data *data, t_cmd_lst *cmd_lst, int builtin);
 void		exec_builtin(t_data *data, t_cmd_lst *cmd_lst, int builtin);
-void		change_pwd(char **m_envp, char *key);
 void		add_envp_variable(t_data *data, char *key, char *value,
 				bool append);
 int			ft_strchr_i(char *str, int c);
