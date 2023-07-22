@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:23:03 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/21 15:25:40 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/22 11:21:37 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_error_cmd(t_data *data, t_cmd_lst *cmd_lst)
 		else
 		{
 			ft_putstr_fd(": No such file or directory\n", 2);
-			data->exit_code = errno;
+			data->exit_code = 127;
 		}
 	}
 	list_destroy(cmd_lst);
@@ -78,7 +78,7 @@ void	print_error_dir(t_data *data, t_cmd_lst *cmd_lst)
 		}
 		i++;
 	}
-	data->exit_code = errno;
+	data->exit_code = 127;
 	list_destroy(cmd_lst);
 	if (data->m_envp)
 		free_tab(data->m_envp);

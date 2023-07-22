@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:30:11 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/16 23:38:37 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/22 12:01:44 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_pwd(t_data *data, t_cmd_lst *cmd_lst)
 		ft_putstr_fd("\tExit Status:\n", 1);
 		ft_putstr_fd("\tReturns 0 unless an invalid option is given or\n", 1);
 		ft_putstr_fd("\tthe current directory cannot be read.\n", 1);
-		data->exit_code = 0;
+		data->exit_code = 2;
 		return (0);
 	}
 	else
