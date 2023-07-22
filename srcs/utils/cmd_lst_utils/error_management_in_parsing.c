@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management_in_parsing.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/07/19 13:33:30 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:15:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	free_token_structure(t_tokens **tokens)
 	{
 		tmp = (*tokens)->next;
 		free((*tokens)->content);
+		if ((*tokens)->dollars_tab != NULL)
+			free((*tokens)->dollars_tab);
 		free(*tokens);
 		*tokens = tmp;
 	}
