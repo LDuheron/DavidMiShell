@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/22 12:23:02 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:37:16 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 		{
 			signal(SIGINT, &ft_signal_child);
 			signal(SIGQUIT, &ft_signal_child);
+			signal(SIGPIPE, SIG_IGN);
 			child_process(data, cmd_lst, fd);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:18:37 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/22 13:20:02 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:45:32 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,52 +65,14 @@ void	builtin_close_in_out_files(t_cmd_lst *cmd_lst, int *in, int *out)
 {
 	if (cmd_lst->in_file >= 0)
 	{
-	/* DEBUG */
-	printf("\t..in:[%d]\n", *in);
-	/* ***** */
 		dup2(*in, STDIN_FILENO);
 		close(*in);
 		close(cmd_lst->in_file);
 	}
 	if (cmd_lst->out_file >= 0)
 	{
-	/* DEBUG */
-	printf("\t..out:[%d]\n", *out);
-	/* ***** */
 		dup2(*out, STDOUT_FILENO);
 		close(*out);
 		close(cmd_lst->out_file);
 	}
 }
-
-/*
-void	builtin_redirect_in_out(t_cmd_lst *cmd_lst, int *in, int *out)
-{
-	*in = dup(STDIN_FILENO);
-	*out = dup(STDOUT_FILENO);
-	if (cmd_lst->in_file >= 0)
-	{
-		dup2(cmd_lst->in_file, STDIN_FILENO);
-	}
-	if (cmd_lst->out_file >= 0)
-	{
-		dup2(cmd_lst->out_file, STDOUT_FILENO);
-	}
-}
-
-void	builtin_close_in_out_files(t_cmd_lst *cmd_lst, int *in, int *out)
-{
-	dup2(*in, STDIN_FILENO);
-	close(*in);
-	dup2(*out, STDOUT_FILENO);
-	close(*out);
-	if (cmd_lst->in_file >= 0)
-	{
-		close(cmd_lst->in_file);
-	}
-	if (cmd_lst->out_file >= 0)
-	{
-		close(cmd_lst->out_file);
-	}
-}
-*/
