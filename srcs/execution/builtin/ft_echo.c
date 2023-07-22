@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svoi <svoi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 23:29:47 by svoi              #+#    #+#             */
-/*   Updated: 2023/07/15 21:25:46 by svoi             ###   ########.fr       */
+/*   Updated: 2023/07/22 13:10:03 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int	ft_echo(t_data *data, t_cmd_lst *cmd_lst)
 		i = 1;
 	while (cmd_lst->cmd_node->argument[i])
 	{
-		ft_putstr_fd(cmd_lst->cmd_node->argument[i], 1);
+		ft_putstr_fd(cmd_lst->cmd_node->argument[i], STDOUT_FILENO);
 		if (cmd_lst->cmd_node->argument[i + 1])
-			write(1, " ", 1);
+			write(STDOUT_FILENO, " ", 1);
 		i++;
 	}
 	if (!n_option)
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 	data->exit_code = 0;
 	return (0);
 }
