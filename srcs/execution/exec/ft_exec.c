@@ -6,7 +6,7 @@
 /*   By: sbocanci <sbocanci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:36:46 by sbocanci          #+#    #+#             */
-/*   Updated: 2023/07/22 13:37:16 by sbocanci         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:07:41 by sbocanci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	child_process(t_data *data, t_cmd_lst *cmd_lst, int *fd)
 	builtin = check_builtin(cmd_lst);
 	if (builtin)
 	{
+		signal(SIGPIPE, SIG_IGN);
 		exec_builtin_child(data, cmd_lst, builtin);
 		list_destroy(cmd_lst);
 		if (data->m_envp)
@@ -109,7 +110,6 @@ void	ft_launch_cmd(t_data *data, t_cmd_lst *cmd_lst)
 		{
 			signal(SIGINT, &ft_signal_child);
 			signal(SIGQUIT, &ft_signal_child);
-			signal(SIGPIPE, SIG_IGN);
 			child_process(data, cmd_lst, fd);
 		}
 		else
