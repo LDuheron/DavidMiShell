@@ -1,6 +1,14 @@
 #############################################
 
 NAME := minishell
+_NC=`tput sgr0`
+_RED=\033[0;31m
+_GREEN=\033[0;32m
+_YELLOW=\033[0;33m
+_BLUE=\033[0;34m
+_PURPLE=\033[0;95m
+_CYAN=\033[0;36m
+_WHITE=\033[0;37m
 
 #############################################
 
@@ -85,18 +93,21 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) -L/usr/local/lib -I/usr/local/include -lreadline 
-	$(info CREATED $(NAME))
+#	$(info CREATED $(NAME))
+	@printf "\e[92;5;118m\n>>> DavidMishell ready\n\e[0m"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
-#  $(info CREATED $@)
+	@printf "$(_CYAN)Generating $(NAME) objects...$(_BLUE)%-33.33s\r$(_NC)" $@
 
 clean:
 	$(RM) $(OBJS)
+	@printf "\033[00;31m>>> objects removed.\n\033[00m"
 
 fclean: clean
 	$(RM) $(NAME)
+	@printf "\033[00;31m>>> executable removed.\n\033[00m"
 
 re:
 	$(MAKE) fclean
